@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>register</ion-title>
+    <ion-title>Register</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,4 +10,24 @@
       <ion-title size="large">register</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <app-input
+      type="email"
+      label="Email"
+      placeholder="Enter Email"
+      [control]="email"
+      [errorMessages]="errorMessages.email"
+    ></app-input>
+    <app-input
+      type="password"
+      label="Password"
+      placeholder="Enter Password"
+      [control]="password"
+      [errorMessages]="errorMessages.password"
+    ></app-input>
+    <ion-button expand="block" color="primary" type="submit">
+      Register
+    </ion-button>
+  </form>
 </ion-content>
