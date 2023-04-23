@@ -9,6 +9,8 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { UserCredential } from '@angular/fire/auth';
+import { DataService } from '../services/data.service';
+import { UserAuth } from '../interfaces/user.model';
 
 @Component({
   selector: 'app-register',
@@ -45,7 +47,8 @@ export class RegisterPage {
     private authService: AuthService,
     public router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private dataService: DataService
   ) {
     this.formGroup = this.createFormGroup();
   }
@@ -69,9 +72,17 @@ export class RegisterPage {
       .register(values.email, values.password)
       .then(async (user: UserCredential) => {
         // Success register
-        // TODO: create user on firestore
-        const uid = user.user.uid;
         console.log(user);
+        const uid = user.user.uid;
+        // TODO: create user on firestore
+        const newUser: UserAuth = {
+          uid,
+          email: values.email,
+          password: values.password,
+        };
+        await this.dataService.addUser(newUser);
+        loading.dismiss();
+        this.router.navigate(['home']);
       })
       .catch(async (err) => {
         await loading.dismiss();
