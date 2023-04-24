@@ -1,0 +1,122 @@
+ion-toolbar {
+  --background: #fff; /* Set background color to avoid transparency */
+  --box-shadow: none !important; /* Remove box-shadow */
+}
+
+ion-content {
+  h3 {
+    font-weight: 800;
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #0057ff;
+  }
+
+  h3,
+  h5 {
+    margin: 0;
+  }
+
+  .card {
+    height: 190px;
+    width: 100%;
+    background-color: #0057ff;
+    position: relative;
+    border-radius: 10px;
+  }
+
+  .card {
+    color: #ffffff;
+    padding-left: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 0.5rem 0 0 0;
+    }
+
+    p {
+      z-index: 1;
+    }
+  }
+
+  .img {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 220px;
+    width: 220px;
+    z-index: 0;
+  }
+
+  .mini_card {
+    height: 150px;
+    width: 100%;
+    background-color: #e091c9;
+    position: relative;
+    border-radius: 10px;
+    color: #ffffff;
+    padding-left: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: end;
+
+    .img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100px;
+      width: 100px;
+      z-index: 0;
+    }
+
+    h4 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 !important;
+      padding: 0 !important;
+      z-index: 1;
+    }
+    p {
+      z-index: 1;
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      font-size: 0.9rem;
+    }
+  }
+
+  .chi_card {
+    height: 180px;
+    width: 100%;
+    background-color: #e091c9;
+    position: relative;
+    border-radius: 10px;
+    color: #ffffff;
+    padding-left: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: start;
+    z-index: -1;
+
+    .img {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      height: 150px;
+      width: 100%;
+      z-index: 0;
+    }
+
+    h4 {
+      position: absolute;
+      font-size: 1.5rem;
+      font-weight: 600;
+      z-index: 1;
+      //   margin: 0 !important;
+      //   padding: 0 !important;
+    }
+  }
+}

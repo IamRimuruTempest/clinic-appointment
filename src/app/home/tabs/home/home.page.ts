@@ -10,5 +10,12 @@ import { Component, OnInit } from '@angular/core';
 export class HomePage implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log('Hello Dos!');
+    this.doSomething();
+  }
+
+  doSomething() {
+    console.log('Hello World!');
+  }
 }
