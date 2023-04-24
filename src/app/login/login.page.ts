@@ -63,12 +63,17 @@ export class LoginPage {
     }
     const loading = await this.loadingCtrl.create();
     await loading.present();
-
+    console.log(values);
     this.authService
       .login(values.email, values.password)
-      .then(async () => {
-        // Success login
-        this.router.navigate(['home']);
+      .then(async (user) => {
+        if (user) {
+          // Success login
+          loading.dismiss();
+          this.router.navigate(['home']);
+        } else {
+          console.log('Error');
+        }
       })
       .catch(async (err) => {
         await loading.dismiss();

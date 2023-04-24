@@ -2,16 +2,34 @@ import { Injectable } from '@angular/core';
 import {
   Auth,
   UserCredential,
+  authState,
   createUserWithEmailAndPassword,
+  getAuth,
   signInWithEmailAndPassword,
   signOut,
 } from '@angular/fire/auth';
-
+import { User } from '@angular/fire/auth';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private auth: Auth) {}
+  private user: User | null = null;
+  private userAuth = new BehaviorSubject<User | null>(null);
+
+  constructor(private auth: Auth) {
+    console.log('Auth Service: initializing service...');
+    this.auth = getAuth();
+
+    authState(this.auth).subscribe((auth) => {
+      this.userAuth.next(auth);
+      this.user = auth;
+    });
+  }
+
+  async isLoggedIn() {
+    return !!this.user;
+  }
 
   async register(email: string, password: string): Promise<UserCredential> {
     const user = await createUserWithEmailAndPassword(

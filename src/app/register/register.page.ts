@@ -11,6 +11,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { UserCredential } from '@angular/fire/auth';
 import { DataService } from '../services/data.service';
 import { UserAuth } from '../interfaces/user.model';
+import { UserAccount } from '../interfaces/user-account.model';
 
 @Component({
   selector: 'app-register',
@@ -74,11 +75,12 @@ export class RegisterPage {
         // Success register
         console.log(user);
         const uid = user.user.uid;
-        // TODO: create user on firestore
-        const newUser: UserAuth = {
+        // create user on firestore
+        const newUser: UserAccount = {
           uid,
           email: values.email,
-          password: values.password,
+          firstName: 'John',
+          lastName: 'Smith',
         };
         await this.dataService.addUser(newUser);
         loading.dismiss();
