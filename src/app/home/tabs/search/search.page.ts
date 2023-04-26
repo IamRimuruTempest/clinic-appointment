@@ -18,3 +18,4 @@ export class SearchPage implements OnInit {
     this.router.navigate(['login']);
   }
 }
+ 

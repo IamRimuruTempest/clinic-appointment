@@ -34,6 +34,20 @@ const routes: Routes = [
         loadChildren: () =>
           import('./tabs/search/search.module').then((m) => m.SearchPageModule),
       },
+      {
+        path: 'appointment',
+        loadChildren: () =>
+          import('./tabs/appointment/appointment.module').then(
+            (m) => m.AppointmentPageModule
+          ),
+      },
+      {
+        path: 'medicine',
+        loadChildren: () =>
+          import('./tabs/medicine/medicine.module').then(
+            (m) => m.MedicinePageModule
+          ),
+      },
     ],
   },
 ];
