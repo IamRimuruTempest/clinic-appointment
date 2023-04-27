@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Firestore, doc, docData, setDoc } from '@angular/fire/firestore';
+import {
+  Firestore,
+  doc,
+  docData,
+  setDoc,
+  collectionData,
+} from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
 import { Observable } from 'rxjs';
+import { collection } from '@firebase/firestore';
+import { Appointment } from '../interfaces/appointment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +28,17 @@ export class DataService {
     return docData(accountDocRef, {
       idField: 'uid',
     }) as Observable<UserAccount>;
+  }
+
+  getAppointments() {
+    const appointmentsRef = collection(this.firestore, 'appointments');
+    return collectionData(appointmentsRef);
+  }
+
+  getAppointmentsById(uid: string): Observable<Appointment> {
+    const appointmentDocRef = doc(this.firestore, `appointments/${uid}`);
+    return docData(appointmentDocRef, {
+      idField: 'uid',
+    }) as Observable<Appointment>;
   }
 }

@@ -1,9 +1,11 @@
 <ion-item>
-  <ion-label position="floating">{{ label }}</ion-label>
+  <!-- <ion-label position="floating">{{ label }}</ion-label> -->
   <ion-input
+    [label]="label"
     [formControl]="control"
     [placeholder]="placeholder"
     [type]="type"
+  
   ></ion-input>
 </ion-item>
 <div class="validation-errors">
