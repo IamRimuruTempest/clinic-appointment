@@ -9,15 +9,19 @@ import {
   signOut,
 } from '@angular/fire/auth';
 import { User } from '@angular/fire/auth';
-import { BehaviorSubject } from 'rxjs';
+import { docData, Firestore } from '@angular/fire/firestore';
+import { doc } from '@firebase/firestore';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { UserAccount } from '../interfaces/user-account.model';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  public user: User | null = null;
+  private user: User | null = null;
   private userAuth = new BehaviorSubject<User | null>(null);
+  public userAccount$ = new Observable<UserAccount | null>;
 
-  constructor(private auth: Auth) {
+  constructor(private auth: Auth, private firestore: Firestore) {
     console.log('Auth Service: initializing service...');
     this.auth = getAuth();
 
@@ -25,6 +29,16 @@ export class AuthService {
       this.userAuth.next(auth);
       this.user = auth;
     });
+
+    // Get details of logged in user from firerstore
+    this.userAccount$ = this.userAuth.pipe(
+      switchMap(user => this.getUser(user?.uid))
+      )
+  }
+
+  private getUser(uid: string | undefined) {
+    const userAccountRef = doc(this.firestore, `users/${uid}`);
+    return docData(userAccountRef, {idField: 'uid'}) as Observable<UserAccount>;
   }
 
   async isLoggedIn() {
