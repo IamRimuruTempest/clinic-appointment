@@ -1,10 +1,9 @@
 export interface Appointment {
   uid?: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   age: number;
   gender: string;
   time: string;
-  date: string;
-  problem: string;
+  schedule: string;
+  condition: string;
 }

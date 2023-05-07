@@ -47,6 +47,7 @@ export class LoginPage {
     private alertCtrl: AlertController
   ) {
     this.formGroup = this.createFormGroup();
+
   }
 
   createFormGroup() {
@@ -68,7 +69,7 @@ export class LoginPage {
       .login(values.email, values.password)
       .then(async (user) => {
         if (user) {
-          // Success login
+          // Success login 
           loading.dismiss();
           this.router.navigate(['home']);
         } else {

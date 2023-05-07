@@ -12,6 +12,8 @@ export class InputComponent implements OnInit {
   @Input() type = 'text';
   @Input() errorMessages: Record<string, string> = {};
   @Input() placeholder: string = '';
+  @Input() labelPlacement: string = '';
+
   constructor() {}
 
   ngOnInit() {}

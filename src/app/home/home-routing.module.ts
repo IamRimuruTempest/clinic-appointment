@@ -22,18 +22,18 @@ const routes: Routes = [
         loadChildren: () =>
           import('./tabs/radio/radio.module').then((m) => m.RadioPageModule),
       },
-      {
-        path: 'library',
-        loadChildren: () =>
-          import('./tabs/library/library.module').then(
-            (m) => m.LibraryPageModule
-          ),
-      },
-      {
-        path: 'search',
-        loadChildren: () =>
-          import('./tabs/search/search.module').then((m) => m.SearchPageModule),
-      },
+      // {
+      //   path: 'library',
+      //   loadChildren: () =>
+      //     import('./tabs/library/library.module').then(
+      //       (m) => m.LibraryPageModule
+      //     ),
+      // },
+      // {
+      //   path: 'search',
+      //   loadChildren: () =>
+      //     import('./tabs/search/search.module').then((m) => m.SearchPageModule),
+      // },
       {
         path: 'appointment',
         loadChildren: () =>
