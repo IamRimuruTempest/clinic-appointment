@@ -10,6 +10,7 @@ export class InputComponent implements OnInit {
   @Input() control = new FormControl();
   @Input() label = '';
   @Input() type = 'text';
+  @Input() title: string = '';
   @Input() errorMessages: Record<string, string> = {};
   @Input() placeholder: string = '';
   @Input() labelPlacement: string = '';

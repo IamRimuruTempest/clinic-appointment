@@ -10,11 +10,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { ComponentsModule } from 'src/app/components/components.module';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import { Auth } from '@angular/fire/auth';
 import { Appointment } from 'src/app/interfaces/appointment.model';
-import { title } from 'process';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -33,10 +32,13 @@ export class InsertAppointmentComponent implements OnInit {
   name!: string;
 
   title: any;
+  page: any;
   appointment: any;
 
   uid: string = '';
   errorMessage: string = '';
+
+  readread: string = 'Hello readonly';
 
   errorMessages = {
     fullname: {
@@ -69,6 +71,7 @@ export class InsertAppointmentComponent implements OnInit {
   constructor(
     private modalCtrl: ModalController,
     private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
     private formBuilder: FormBuilder,
     private dataService: DataService,
     private auth: Auth
@@ -89,8 +92,9 @@ export class InsertAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.uid = this.auth.currentUser?.uid!;
+    console.log(this.title, 'title');
 
-    if (this.title == 'Update') {
+    if (this.title == 'Update' || this.title == 'View') {
       this.fullname.setValue(this.appointment['fullName']);
       this.age.setValue(this.appointment['age']);
       this.gender.setValue(this.appointment['gender']);
@@ -135,6 +139,16 @@ export class InsertAppointmentComponent implements OnInit {
 
     this.modalCtrl.dismiss();
     loading.dismiss();
+  }
+
+  async cancelUserAppointment(appointment: any) {
+    // const alert = await this.alertCtrl.create({
+    //   header: 'Cancel Appoinment',
+    //   message: 'Do you want to cancel your appointment?',
+    //   buttons: ['OK', 'Cancel'],
+    // });
+    // await alert.present();
+    console.log(appointment);
   }
 
   cancel() {

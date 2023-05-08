@@ -40,14 +40,16 @@
       </ion-item>
 
       <ion-item-options>
-        <ion-item-option color="tertiary">View</ion-item-option>
-        <ion-item-option (click)="updateUserAppointment(appointment);">
-          Update</ion-item-option
+        <ion-item-option
+          color="success"
+          (click)="viewUserAppointment(appointment)"
+          >View</ion-item-option
         >
         <ion-item-option
-          (click)="deleteUserAppointment(appointment)"
-          color="danger"
-          >Cancel</ion-item-option
+          color="tertiary"
+          (click)="updateUserAppointment(appointment);"
+        >
+          Update</ion-item-option
         >
       </ion-item-options>
     </ion-item-sliding>

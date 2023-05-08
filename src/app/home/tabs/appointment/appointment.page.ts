@@ -136,6 +136,7 @@ export class AppointmentPage implements OnInit {
       component: InsertAppointmentComponent,
       componentProps: {
         title: 'Insert',
+        page: 'Set Appointment',
       },
     });
     modal.present();
@@ -146,19 +147,24 @@ export class AppointmentPage implements OnInit {
       component: InsertAppointmentComponent,
       componentProps: {
         title: 'Update',
+        page: 'Update Appointment',
         appointment: appointment,
       },
     });
     return await modal.present();
   }
 
-  async deleteUserAppointment(appointment: []) {
-    const alert = await this.alertCtrl.create({
-      header: 'Cancel Appoinment',
-      message: 'Do you want to cancel your appointment?',
-      buttons: ['OK', 'Cancel'],
+  async viewUserAppointment(appointment: []) {
+    const modal = await this.modalCtrl.create({
+      component: InsertAppointmentComponent,
+      componentProps: {
+        title: 'View',
+        page: 'Appointment Information',
+        appointment: appointment,
+      },
     });
-
-    await alert.present();
+    return await modal.present();
   }
+
+ 
 }
