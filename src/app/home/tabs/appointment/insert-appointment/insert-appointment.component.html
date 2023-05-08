@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header >
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
@@ -63,11 +63,6 @@
       [title]="title"
     ></app-input>
 
-    <!-- <ion-button type="submit" [strong]="true" expand="block">Submit</ion-button> -->
-  </form>
-</ion-content>
-<ion-footer class="ion-padding">
-  <ion-toolbar>
     <ion-button
       *ngIf="title === 'View'; else btnInsertUpdate"
       [strong]="true"
@@ -84,5 +79,7 @@
         >Submit</ion-button
       >
     </ng-template>
-  </ion-toolbar>
-</ion-footer>
+
+    <!-- <ion-button type="submit" [strong]="true" expand="block">Submit</ion-button> -->
+  </form>
+</ion-content>

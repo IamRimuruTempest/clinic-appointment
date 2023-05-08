@@ -142,13 +142,27 @@ export class InsertAppointmentComponent implements OnInit {
   }
 
   async cancelUserAppointment(appointment: any) {
-    // const alert = await this.alertCtrl.create({
-    //   header: 'Cancel Appoinment',
-    //   message: 'Do you want to cancel your appointment?',
-    //   buttons: ['OK', 'Cancel'],
-    // });
-    // await alert.present();
-    console.log(appointment);
+    const loading = await this.loadingCtrl.create({ duration: 2000 });
+    const alert = await this.alertCtrl.create({
+      header: 'Cancel Appoinment',
+      message: 'Do you want to cancel your appointment?',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            loading.present();
+            this.dataService.addCanceledAppointment(appointment);
+            this.dataService.deleteAppointment(appointment.id);
+            loading.dismiss();
+            this.modalCtrl.dismiss();
+          },
+        },
+        {
+          text: 'Cancel',
+        },
+      ],
+    });
+    await alert.present();
   }
 
   cancel() {

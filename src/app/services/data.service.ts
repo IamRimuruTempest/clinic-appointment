@@ -7,6 +7,7 @@ import {
   addDoc,
   collectionData,
   updateDoc,
+  deleteDoc,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -32,6 +33,13 @@ export class DataService {
     }) as Observable<UserAccount>;
   }
 
+  getAppointments(): Observable<Appointment[]> {
+    const appointmentsRef = collection(this.firestore, 'appointments');
+    return collectionData(appointmentsRef, {
+      idField: 'id',
+    }) as Observable<Appointment[]>;
+  }
+
   async addAppontment(appointment: Appointment) {
     const appointmentDocRef = collection(this.firestore, 'appointments/');
     return addDoc(appointmentDocRef, appointment);
@@ -42,29 +50,30 @@ export class DataService {
     return updateDoc(appointmentDocRef, { ...appointment });
   }
 
-  // updateNote(note: Note) {
-  //   const noteDocRef = doc(this.firestore, `notes/${note.id}`);
-  //   return updateDoc(noteDocRef, { title: note.title, text: note.text });
+  async deleteAppointment(id: string) {
+    const appointmentDocRef = doc(this.firestore, `appointments/${id}`);
+    return deleteDoc(appointmentDocRef);
+  }
+
+  // getUserAppointments(uid: string): Observable<Appointment> {
+  //   const userAppointmentsDocRef = doc(this.firestore, `appointments/${uid}`);
+  //   return docData(userAppointmentsDocRef, {
+  //     idField: 'id',
+  //   }) as Observable<Appointment>;
   // }
 
-  getAppointments(): Observable<Appointment[]> {
-    const appointmentsRef = collection(this.firestore, 'appointments');
-    return collectionData(appointmentsRef, {
-      idField: 'id',
-    }) as Observable<Appointment[]>;
-  }
+  // getAppointmentsById(uid: string): Observable<Appointment> {
+  //   const appointmentDocRef = doc(this.firestore, `appointments/${uid}`);
+  //   return docData(appointmentDocRef, {
+  //     idField: 'uid',
+  //   }) as Observable<Appointment>;
+  // }
 
-  getUserAppointments(uid: string): Observable<Appointment> {
-    const userAppointmentsDocRef = doc(this.firestore, `appointments/${uid}`);
-    return docData(userAppointmentsDocRef, {
-      idField: 'id',
-    }) as Observable<Appointment>;
-  }
-
-  getAppointmentsById(uid: string): Observable<Appointment> {
-    const appointmentDocRef = doc(this.firestore, `appointments/${uid}`);
-    return docData(appointmentDocRef, {
-      idField: 'uid',
-    }) as Observable<Appointment>;
+  async addCanceledAppointment(appointment: Appointment) {
+    const canceledAppointmentDocRef = collection(
+      this.firestore,
+      'canceled-appointments/'
+    );
+    return addDoc(canceledAppointmentDocRef, appointment);
   }
 }

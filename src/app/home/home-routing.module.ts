@@ -48,6 +48,14 @@ const routes: Routes = [
             (m) => m.MedicinePageModule
           ),
       },
+
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./tabs/account/account.module').then(
+            (m) => m.AccountPageModule
+          ),
+      },
     ],
   },
 ];
