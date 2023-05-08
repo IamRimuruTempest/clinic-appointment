@@ -8,7 +8,7 @@ import { AppointmentPageRoutingModule } from './appointment-routing.module';
 
 import { AppointmentPage } from './appointment.page';
 import { ComponentsModule } from 'src/app/components/components.module';
-
+import { InsertAppointmentComponent } from './insert-appointment/insert-appointment.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -17,6 +17,7 @@ import { ComponentsModule } from 'src/app/components/components.module';
     IonicModule,
     AppointmentPageRoutingModule,
     ComponentsModule,
+    InsertAppointmentComponent,
   ],
   declarations: [AppointmentPage],
 })

@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { Appointment } from 'src/app/interfaces/appointment.model';
 import { Auth } from '@angular/fire/auth';
+import { InsertAppointmentComponent } from './insert-appointment/insert-appointment.component';
 
 @Component({
   selector: 'app-appointment',
@@ -23,8 +24,8 @@ import { Auth } from '@angular/fire/auth';
   styleUrls: ['./appointment.page.scss'],
 })
 export class AppointmentPage implements OnInit {
-  @ViewChild(IonModal)
-  modal!: IonModal;
+  // @ViewChild(IonModal)
+  // modal!: IonModal;
 
   name: string = '';
 
@@ -100,71 +101,58 @@ export class AppointmentPage implements OnInit {
     });
   }
 
-  async onSubmit(values: {
-    fullname: string;
-    age: number;
-    gender: string;
-    time: string;
-    schedule: string;
-    condition: string;
-    uid: string;
-  }) {
-    values.uid = this.uid;
+  // async onSubmit(values: {
+  //   fullname: string;
+  //   age: number;
+  //   gender: string;
+  //   time: string;
+  //   schedule: string;
+  //   condition: string;
+  //   uid: string;
+  // }) {
+  //   values.uid = this.uid;
 
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
+  //   const loading = await this.loadingCtrl.create();
+  //   await loading.present();
 
-    const newAppointment: Appointment = {
-      fullName: values.fullname,
-      age: values.age,
-      gender: values.gender,
-      time: values.time,
-      schedule: values.schedule,
-      condition: values.condition,
-      uid: values.uid,
-    };
+  //   const newAppointment: Appointment = {
+  //     fullName: values.fullname,
+  //     age: values.age,
+  //     gender: values.gender,
+  //     time: values.time,
+  //     schedule: values.schedule,
+  //     condition: values.condition,
+  //     uid: values.uid,
+  //   };
 
-    this.dataService.addAppontment(newAppointment);
-    this.appointments = [];
-    this.modal.dismiss();
-    loading.dismiss();
-  }
+  //   this.dataService.addAppontment(newAppointment);
 
-  async updateUserAppointment(appointment: any) {
-    console.log(appointment, 'test appointment');
-  }
+  //   this.modal.dismiss();
+  //   loading.dismiss();
+  // }
 
-  doSomething() {
-    console.log('Hello World Appointment Page!');
-  }
-
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
-  }
-
-  confirm() {
-    this.modal.dismiss(this.name, 'confirm');
-  }
-
-  onWillDismiss(event: Event) {
-    const ev = event as CustomEvent<OverlayEventDetail<string>>;
-    if (ev.detail.role === 'confirm') {
-      // this.message = `Hello, ${ev.detail.data}!`;
-    }
-  }
-
-  async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      cssClass: 'my-custom-class',
-      message: 'Please wait...',
-      duration: 2000,
+  async insertUserAppointment() {
+    const modal = await this.modalCtrl.create({
+      component: InsertAppointmentComponent,
+      componentProps: {
+        title: 'Insert',
+      },
     });
-    await loading.present();
-    await loading.onDidDismiss();
-    this.modal.dismiss();
+    modal.present();
   }
 
-  async cancelAppointment() {
+  async updateUserAppointment(appointment: []) {
+    const modal = await this.modalCtrl.create({
+      component: InsertAppointmentComponent,
+      componentProps: {
+        title: 'Update',
+        appointment: appointment,
+      },
+    });
+    return await modal.present();
+  }
+
+  async deleteUserAppointment(appointment: []) {
     const alert = await this.alertCtrl.create({
       header: 'Cancel Appoinment',
       message: 'Do you want to cancel your appointment?',

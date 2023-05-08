@@ -6,6 +6,7 @@ import {
   setDoc,
   addDoc,
   collectionData,
+  updateDoc,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -36,9 +37,21 @@ export class DataService {
     return addDoc(appointmentDocRef, appointment);
   }
 
-  getAppointments() {
+  async updateAppointment(appointment: Appointment, id: string) {
+    const appointmentDocRef = doc(this.firestore, `appointments/${id}`);
+    return updateDoc(appointmentDocRef, { ...appointment });
+  }
+
+  // updateNote(note: Note) {
+  //   const noteDocRef = doc(this.firestore, `notes/${note.id}`);
+  //   return updateDoc(noteDocRef, { title: note.title, text: note.text });
+  // }
+
+  getAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
-    return collectionData(appointmentsRef);
+    return collectionData(appointmentsRef, {
+      idField: 'id',
+    }) as Observable<Appointment[]>;
   }
 
   getUserAppointments(uid: string): Observable<Appointment> {

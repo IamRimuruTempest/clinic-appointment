@@ -41,10 +41,12 @@
 
       <ion-item-options>
         <ion-item-option color="tertiary">View</ion-item-option>
-        <ion-item-option (click)="updateUserAppointment(appointment)"
-          >Update</ion-item-option
+        <ion-item-option (click)="updateUserAppointment(appointment);">
+          Update</ion-item-option
         >
-        <ion-item-option (click)="cancelAppointment()" color="danger"
+        <ion-item-option
+          (click)="deleteUserAppointment(appointment)"
+          color="danger"
           >Cancel</ion-item-option
         >
       </ion-item-options>
@@ -52,12 +54,18 @@
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button id=`${modal}`>
+    <ion-fab-button (click)="insertUserAppointment()">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
 
-  <ion-modal
+  <!-- <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button id="open-modal">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab> -->
+
+  <!-- <ion-modal
     trigger="open-modal"
     (willDismiss)="onWillDismiss($event)"
     scrollable="false"
@@ -126,5 +134,5 @@
         </form>
       </ion-content>
     </ng-template>
-  </ion-modal>
+  </ion-modal> -->
 </ion-content>

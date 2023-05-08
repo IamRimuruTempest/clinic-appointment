@@ -1,0 +1,70 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Welcome</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <ion-item>
+      <ion-input
+        labelPlacement="stacked"
+        label="Enter your name"
+        placeholder="Your name"
+      ></ion-input>
+    </ion-item>
+
+    <app-input
+      label="Full Name"
+      labelPlacement="stacked"
+      placeholder="Juan Dela Cruz"
+      [control]="fullname"
+      [errorMessages]="errorMessages.fullname"
+    ></app-input>
+
+    <app-input
+      label="Age"
+      labelPlacement="stacked"
+      placeholder="23"
+      [control]="age"
+      [errorMessages]="errorMessages.age"
+    ></app-input>
+
+    <app-input
+      label="Gender"
+      labelPlacement="stacked"
+      placeholder="23"
+      [control]="gender"
+      [errorMessages]="errorMessages.gender"
+    ></app-input>
+
+    <app-input
+      label="Working Hours"
+      labelPlacement="stacked"
+      placeholder="10:30 AM"
+      [control]="time"
+      [errorMessages]="errorMessages.time"
+    ></app-input>
+
+    <app-input
+      label="Schedule"
+      labelPlacement="stacked"
+      placeholder="Your Schedule"
+      [control]="schedule"
+      [errorMessages]="errorMessages.schedule"
+    ></app-input>
+
+    <app-input
+      label="Condition"
+      labelPlacement="stacked"
+      [control]="condition"
+      [errorMessages]="errorMessages.condition"
+    ></app-input>
+    <ion-button type="submit" [strong]="true" expand="block">Submit</ion-button>
+  </form>
+</ion-content>
