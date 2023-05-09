@@ -48,7 +48,7 @@ export class DataService {
   async updateAppointment(appointment: Appointment, id: string) {
     const appointmentDocRef = doc(this.firestore, `appointments/${id}`);
     return updateDoc(appointmentDocRef, { ...appointment });
-  }
+  } 
 
   async deleteAppointment(id: string) {
     const appointmentDocRef = doc(this.firestore, `appointments/${id}`);

@@ -15,6 +15,8 @@ import { DataService } from 'src/app/services/data.service';
 import { Auth } from '@angular/fire/auth';
 import { Appointment } from 'src/app/interfaces/appointment.model';
 
+import { ThankYouComponent } from './thank-you/thank-you.component';
+
 @Component({
   selector: 'app-insert-appointment',
   standalone: true,
@@ -67,6 +69,7 @@ export class InsertAppointmentComponent implements OnInit {
   time = new FormControl('', [Validators.required]);
   schedule = new FormControl('', [Validators.required]);
   condition = new FormControl('', [Validators.required]);
+  status: string = '';
 
   constructor(
     private modalCtrl: ModalController,
@@ -101,6 +104,7 @@ export class InsertAppointmentComponent implements OnInit {
       this.time.setValue(this.appointment['time']);
       this.schedule.setValue(this.appointment['schedule']);
       this.condition.setValue(this.appointment['condition']);
+      this.status = this.appointment['status'];
     }
   }
 
@@ -115,8 +119,8 @@ export class InsertAppointmentComponent implements OnInit {
   }) {
     values.uid = this.uid;
 
-    const loading = await this.loadingCtrl.create();
-    await loading.present();
+    // const loading = await this.loadingCtrl.create();
+    // await loading.present();
 
     const newAppointment: Appointment = {
       fullName: values.fullname,
@@ -126,10 +130,13 @@ export class InsertAppointmentComponent implements OnInit {
       schedule: values.schedule,
       condition: values.condition,
       uid: values.uid,
+      status: this.status,
     };
 
     if (this.title == 'Insert') {
       this.dataService.addAppontment(newAppointment);
+      await this.modalCtrl.dismiss();
+      this.openThankYouComponent();
     } else {
       this.dataService.updateAppointment(
         newAppointment,
@@ -137,11 +144,11 @@ export class InsertAppointmentComponent implements OnInit {
       );
     }
 
-    this.modalCtrl.dismiss();
-    loading.dismiss();
+    // loading.dismiss();
   }
 
   async cancelUserAppointment(appointment: any) {
+    appointment.status = 'Canceled';
     const loading = await this.loadingCtrl.create({ duration: 2000 });
     const alert = await this.alertCtrl.create({
       header: 'Cancel Appoinment',
@@ -151,8 +158,9 @@ export class InsertAppointmentComponent implements OnInit {
           text: 'OK',
           handler: () => {
             loading.present();
-            this.dataService.addCanceledAppointment(appointment);
-            this.dataService.deleteAppointment(appointment.id);
+
+            this.dataService.updateAppointment(appointment, appointment.id);
+
             loading.dismiss();
             this.modalCtrl.dismiss();
           },
@@ -163,6 +171,13 @@ export class InsertAppointmentComponent implements OnInit {
       ],
     });
     await alert.present();
+  }
+
+  async openThankYouComponent() {
+    const modal = await this.modalCtrl.create({
+      component: ThankYouComponent,
+    });
+    return await modal.present();
   }
 
   cancel() {

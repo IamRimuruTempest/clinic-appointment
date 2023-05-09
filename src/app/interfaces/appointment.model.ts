@@ -6,4 +6,5 @@ export interface Appointment {
   time: string;
   schedule: string;
   condition: string;
+  status: string;
 }

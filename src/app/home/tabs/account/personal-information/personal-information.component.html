@@ -1,0 +1,85 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="padding-left: 0 !important"
+      >Personal Inforamtion</ion-title
+    >
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item lines="full" style="--padding-start: 0px !important">
+    <ion-avatar
+      slot="start"
+      style="width: 80px !important; height: 80px !important"
+    >
+      <img
+        sizes="100"
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-label>
+      <h1>Paulo Maningo</h1>
+      <p>subscribe2paulol@cancer.com</p>
+    </ion-label>
+  </ion-item>
+  <br />
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Age</h3>
+      <p>23 years old</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Gender</h3>
+      <p>Male</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Phone Number</h3>
+      <p>09852359535</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>School ID</h3>
+      <p>401424</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Address</h3>
+      <p>Calantac, Alcala, Cagayan</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Year</h3>
+      <p>Fourth Year</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>Course</h3>
+      <p>Bachelor of Science in Computer Science</p>
+    </ion-label>
+  </ion-item>
+  <ion-item style="--padding-start: 0px !important">
+    <ion-label style="margin: 0px !important">
+      <h3>College</h3>
+      <p>College of Information and Computing Sciences</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openUpdateInformationComponent()">
+      <ion-icon name="build"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

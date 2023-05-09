@@ -5,6 +5,7 @@ import { ModalController } from '@ionic/angular';
 import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { HistoryComponent } from './history/history.component';
+import { PersonalInformationComponent } from './personal-information/personal-information.component';
 
 @Component({
   selector: 'app-account',
@@ -20,8 +21,9 @@ export class AccountPage implements OnInit {
 
   ngOnInit() {}
 
-  logoutAccount() {
-    this.authService.logout();
+  async logoutAccount() {
+    console.log('log out');
+    await this.authService.logout();
     this.router.navigate(['login']);
   }
 
@@ -44,6 +46,14 @@ export class AccountPage implements OnInit {
   async openHistoryComponent() {
     const modal = await this.modalCtrl.create({
       component: HistoryComponent,
+    });
+
+    return await modal.present();
+  }
+
+  async openPersonalInformationComponent() {
+    const modal = await this.modalCtrl.create({
+      component: PersonalInformationComponent,
     });
 
     return await modal.present();
