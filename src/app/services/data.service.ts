@@ -14,6 +14,7 @@ import { UserAccount } from '../interfaces/user-account.model';
 import { Appointment } from '../interfaces/appointment.model';
 import { Observable } from 'rxjs';
 import { collection } from '@firebase/firestore';
+import { Inventory } from '../interfaces/inventory.model';
 
 @Injectable({
   providedIn: 'root',
@@ -48,11 +49,33 @@ export class DataService {
   async updateAppointment(appointment: Appointment, id: string) {
     const appointmentDocRef = doc(this.firestore, `appointments/${id}`);
     return updateDoc(appointmentDocRef, { ...appointment });
-  } 
+  }
 
   async deleteAppointment(id: string) {
     const appointmentDocRef = doc(this.firestore, `appointments/${id}`);
     return deleteDoc(appointmentDocRef);
+  }
+
+  getInventories(): Observable<Inventory[]> {
+    const inventoryRef = collection(this.firestore, 'inventory');
+    return collectionData(inventoryRef, {
+      idField: 'id',
+    }) as Observable<Inventory[]>;
+  }
+
+  async addInventory(inventory: Inventory) {
+    const inventoryDocRef = collection(this.firestore, 'inventory/');
+    return addDoc(inventoryDocRef, inventory);
+  }
+
+  async updateInventory(inventory: Inventory, id: string) {
+    const inventoryDocRef = doc(this.firestore, `inventory/${id}`);
+    return updateDoc(inventoryDocRef, { ...inventory });
+  }
+
+  async deleteInventoryt(id: string) {
+    const inventoryDocRef = doc(this.firestore, `inventory/${id}`);
+    return deleteDoc(inventoryDocRef);
   }
 
   // getUserAppointments(uid: string): Observable<Appointment> {

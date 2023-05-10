@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { AddInventoryComponent } from './add-inventory/add-inventory.component';
 
 @Component({
   selector: 'app-inventory',
@@ -6,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inventory.page.scss'],
 })
 export class InventoryPage implements OnInit {
+  constructor(private modalCtrl: ModalController) {}
 
-  constructor() { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  async openAddModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddInventoryComponent,
+      componentProps: {},
+    });
+    modal.present();
   }
-
 }

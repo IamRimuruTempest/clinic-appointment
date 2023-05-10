@@ -1,3 +1,4 @@
+import { AddInventoryComponent } from './add-inventory/add-inventory.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,8 +14,9 @@ import { InventoryPage } from './inventory.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    InventoryPageRoutingModule
+    InventoryPageRoutingModule,
+    AddInventoryComponent,
   ],
-  declarations: [InventoryPage]
+  declarations: [InventoryPage],
 })
 export class InventoryPageModule {}
