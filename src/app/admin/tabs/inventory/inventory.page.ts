@@ -36,7 +36,16 @@ export class InventoryPage implements OnInit, OnDestroy {
     modal.present();
   }
 
-  updateInventory(item: Inventory) {}
+  async updateInventory(item: Inventory) {
+    const modal = await this.modalCtrl.create({
+      component: AddInventoryComponent,
+      componentProps: {
+        action: 'Update',
+        inventory: item,
+      },
+    });
+    modal.present();
+  }
 
   viewInventory(item: Inventory) {}
 }

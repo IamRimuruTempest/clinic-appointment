@@ -44,13 +44,12 @@ export class AddInventoryComponent implements OnInit {
       required: 'Quantity is required.',
     },
   };
-  formGroup!: FormGroup;
+  formGroup: FormGroup;
   name = new FormControl('', [Validators.required]);
   description = new FormControl('', [Validators.required]);
-  quantity = new FormControl('', [
-    Validators.required,
-    Validators.maxLength(4),
-  ]);
+  quantity = new FormControl(0, [Validators.required, Validators.maxLength(4)]);
+  public action: string = 'Add';
+  inventory: Inventory | null = null;
 
   constructor(
     public modalCtrl: ModalController,
@@ -71,20 +70,38 @@ export class AddInventoryComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.action === 'Update') {
+      this.name.setValue(this.inventory!.name);
+      this.description.setValue(this.inventory!.description);
+      this.quantity.setValue(this.inventory!.quantity);
+    }
+  }
 
   async onSubmit(values: Inventory) {
     console.log(values);
+
+    let successMsg: string = 'Successfully added inventory.';
+    let errorMsg: string = 'Add failed.';
 
     const loading = await this.loadingCtrl.create();
     await loading.present();
 
     try {
-      await this.dataService.addInventory({ ...values });
+      if (this.action === 'Update') {
+        await this.dataService.updateInventory(
+          { ...values },
+          this.inventory!.id!
+        );
+        successMsg = 'Successfully updated inventory.';
+        errorMsg = 'Update failed.';
+      } else {
+        await this.dataService.addInventory({ ...values });
+      }
       loading.dismiss();
 
       const toast = await this.toastCtrl.create({
-        message: 'Successfully added inventory.',
+        message: successMsg,
         duration: 3000,
       });
       await toast.present();
@@ -93,7 +110,7 @@ export class AddInventoryComponent implements OnInit {
       loading.dismiss();
 
       const alert = await this.alertCtrl.create({
-        header: 'Add failed',
+        header: errorMsg,
         message: ex.message,
         buttons: ['OK'],
       });

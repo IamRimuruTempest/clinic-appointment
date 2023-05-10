@@ -1,5 +1,5 @@
 export interface Inventory {
-  uid?: string;
+  id?: string;
   name: string;
   description: string;
   quantity: number;
