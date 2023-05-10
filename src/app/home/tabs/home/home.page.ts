@@ -8,11 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {
+    this.authService.userAccount$.subscribe(console.log);
+  }
 
   ngOnInit() {
     console.log('Hello Dos!');
-    this.authService.userAccount$.subscribe(console.log);
+
     this.doSomething();
   }
 

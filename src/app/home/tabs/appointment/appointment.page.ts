@@ -87,17 +87,21 @@ export class AppointmentPage implements OnInit {
   }
 
   ngOnInit() {
-    // this.getUserAppointment();
     this.uid = this.auth.currentUser?.uid!;
-    this.dataService.getAppointments().subscribe((res) => {
+    this.getUserAppointments();
+  }
+
+  async getUserAppointments() {
+    await this.dataService.getAppointments().subscribe((res) => {
       let tmpAppointment: any[] = [];
       res.forEach((element) => {
-        if (element['uid'] == this.uid) {
+        if (element['uid'] == this.uid && element['status'] == '') {
           tmpAppointment.push(element);
         }
       });
 
       this.appointments = tmpAppointment;
+      console.log(this.appointments, 'test 1 appointments');
     });
   }
 
@@ -165,6 +169,4 @@ export class AppointmentPage implements OnInit {
     });
     return await modal.present();
   }
-
- 
 }

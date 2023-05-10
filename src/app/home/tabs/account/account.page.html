@@ -5,18 +5,38 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  
+  <ion-item lines="full" style="--padding-start: 0px !important">
+    <ion-avatar
+      slot="start"
+      style="width: 80px !important; height: 80px !important"
+    >
+      <img
+        sizes="100"
+        alt="Silhouette of a person's head"
+        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      />
+    </ion-avatar>
+    <ion-label>
+      <h1>Paulo Maningo</h1>
+      <p>subscribe2paolul@cancer.com</p>
+    </ion-label>
+  </ion-item>
+  <br />
+  <ion-label>
+    <h2>Secure your account!</h2>
+    <p>
+      Lorem ipsum dolor sit amet. Non quos nemo est illum iusto ea numquam
+      aspernatur qui odio cupiditate.
+    </p>
+  </ion-label>
 
-  <h1>Hello wrold</h1>
   <ion-list>
-    <ion-item detail="true" style="--padding-start: 0px !important">
-      <ion-label>
-        <h3>Text Item</h3>
-        <p>Detail set to true - detail arrow displays on both modes</p>
-      </ion-label>
-    </ion-item>
-
-    <ion-item button lines="full" style="--padding-start: 0px !important">
+    <ion-item
+      button
+      (click)="openPersonalInformationComponent()"
+      lines="full"
+      style="--padding-start: 0px !important"
+    >
       <ion-icon name="person-circle-sharp" slot="start"></ion-icon>
       <ion-label>Personal Details</ion-label>
       <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
