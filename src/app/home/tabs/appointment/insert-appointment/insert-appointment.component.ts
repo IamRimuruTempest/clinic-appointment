@@ -129,9 +129,9 @@ export class InsertAppointmentComponent implements OnInit {
     };
 
     if (this.title == 'Insert') {
-      this.dataService.addAppontment(newAppointment);
+      await this.dataService.addAppontment(newAppointment);
     } else {
-      this.dataService.updateAppointment(
+      await this.dataService.updateAppointment(
         newAppointment,
         this.appointment['id']
       );
