@@ -19,9 +19,34 @@ import { UserAccount } from '../interfaces/user-account.model';
   styleUrls: ['./register.page.scss'],
 })
 export class RegisterPage {
+  type: string = 'personal';
   errorMessage: string = '';
 
   errorMessages = {
+    fullname: {
+      required: 'Full Name is required.',
+    },
+    age: {
+      required: 'Age is required.',
+    },
+    gender: {
+      required: 'Gender is required.',
+    },
+    schoolID: {
+      required: 'School ID is required.',
+    },
+    phoneNumber: {
+      required: 'Phone Number is required.',
+    },
+    address: {
+      required: 'Address is required.',
+    },
+    course: {
+      required: 'Course is required.',
+    },
+    college: {
+      required: 'College is required.',
+    },
     email: {
       required: 'Email is required.',
       pattern: 'Please enter a valid email.',
@@ -33,11 +58,18 @@ export class RegisterPage {
   };
 
   formGroup: FormGroup;
+  fullname = new FormControl('', [Validators.required]);
+  age = new FormControl('', [Validators.required]);
+  gender = new FormControl('', [Validators.required]);
+  schoolID = new FormControl('', [Validators.required]);
+  phoneNumber = new FormControl('', [Validators.required]);
+  address = new FormControl('', [Validators.required]);
+  course = new FormControl('', [Validators.required]);
+  college = new FormControl('', [Validators.required]);
   email = new FormControl('test@gmail.com', [
     Validators.required,
     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
   ]);
-
   password = new FormControl('Pass123@', [
     Validators.minLength(8),
     Validators.required,
@@ -56,12 +88,31 @@ export class RegisterPage {
 
   createFormGroup() {
     return this.formBuilder.group({
+      fullname: this.fullname,
+      age: this.age,
+      gender: this.gender,
+      schoolID: this.schoolID,
+      phoneNumber: this.phoneNumber,
+      address: this.address,
+      course: this.course,
+      college: this.college,
       email: this.email,
       password: this.password,
     });
   }
 
-  async onSubmit(values: { email: string; password: string }) {
+  async onSubmit(values: {
+    fullname: string;
+    schooldID: string;
+    phoneNumber: string;
+    address: string;
+    course: string;
+    college: string;
+    age: string;
+    gender: string;
+    email: string;
+    password: string;
+  }) {
     if (this.formGroup.invalid) {
       console.log('Invalid form');
       return;
@@ -79,8 +130,14 @@ export class RegisterPage {
         const newUser: UserAccount = {
           uid,
           email: values.email,
-          firstName: 'John',
-          lastName: 'Smith',
+          fullname: values.fullname,
+          age: values.age,
+          gender: values.gender,
+          schoolID: values.schooldID,
+          phoneNumber: values.phoneNumber,
+          address: values.address,
+          course: values.course,
+          college: values.college,
         };
         await this.dataService.addUser(newUser);
         loading.dismiss();

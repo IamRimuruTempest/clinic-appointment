@@ -4,25 +4,90 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+<ion-content [fullscreen]="true" class="ion-padding">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <app-input
+      type="text"
+      label="Full Name"
+      labelPlacement="stacked"
+      [control]="fullname"
+      [errorMessages]="errorMessages.fullname"
+    ></app-input>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <app-input
+            type="text"
+            label="Age"
+            labelPlacement="stacked"
+            [control]="age"
+            [errorMessages]="errorMessages.age"
+          ></app-input
+        ></ion-col>
+        <ion-col>
+          <app-input
+            type="text"
+            label="Gender"
+            labelPlacement="stacked"
+            [control]="gender"
+            [errorMessages]="errorMessages.gender"
+          ></app-input
+        ></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <app-input
+            type="text"
+            label="Scholl ID"
+            labelPlacement="stacked"
+            [control]="schoolID"
+            [errorMessages]="errorMessages.schoolID"
+          ></app-input
+        ></ion-col>
+        <ion-col>
+          <app-input
+            type="text"
+            label="Phone Number"
+            labelPlacement="stacked"
+            [control]="phoneNumber"
+            [errorMessages]="errorMessages.phoneNumber"
+          ></app-input
+        ></ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <app-input
+      type="text"
+      label="Address"
+      labelPlacement="stacked"
+      [control]="address"
+      [errorMessages]="errorMessages.address"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Course"
+      labelPlacement="stacked"
+      [control]="course"
+      [errorMessages]="errorMessages.course"
+    ></app-input>
+    <app-input
+      type="text"
+      label="College"
+      labelPlacement="stacked"
+      [control]="college"
+      [errorMessages]="errorMessages.college"
+    ></app-input>
     <app-input
       type="email"
       label="Email"
-      placeholder="Enter Email"
+      labelPlacement="stacked"
       [control]="email"
       [errorMessages]="errorMessages.email"
     ></app-input>
     <app-input
       type="password"
       label="Password"
-      placeholder="Enter Password"
+      labelPlacement="stacked"
       [control]="password"
       [errorMessages]="errorMessages.password"
     ></app-input>

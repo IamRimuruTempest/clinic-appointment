@@ -6,6 +6,8 @@ import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { HistoryComponent } from './history/history.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { Subscription, filter } from 'rxjs';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
 
 @Component({
   selector: 'app-account',
@@ -13,11 +15,18 @@ import { PersonalInformationComponent } from './personal-information/personal-in
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
+  account!: UserAccount;
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
     private modalCtrl: ModalController
-  ) {}
+  ) {
+    this.authService.userAccount$
+      .pipe(filter((use) => use !== null))
+      .subscribe((user) => {
+        this.account = user!;
+      });
+  }
 
   ngOnInit() {}
 
@@ -54,6 +63,9 @@ export class AccountPage implements OnInit {
   async openPersonalInformationComponent() {
     const modal = await this.modalCtrl.create({
       component: PersonalInformationComponent,
+      componentProps: {
+        account: this.account,
+      },
     });
 
     return await modal.present();

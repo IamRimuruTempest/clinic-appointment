@@ -11,9 +11,13 @@ import { UpdateInformationComponent } from './update-information/update-informat
   styleUrls: ['./personal-information.component.scss'],
 })
 export class PersonalInformationComponent implements OnInit {
+  account: any;
+
   constructor(private modalCtrl: ModalController) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.account, 'test');
+  }
 
   async openUpdateInformationComponent() {
     const modal = await this.modalCtrl.create({
