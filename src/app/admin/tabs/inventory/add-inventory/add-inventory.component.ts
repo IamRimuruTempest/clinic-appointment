@@ -23,14 +23,6 @@ import { DataService } from 'src/app/services/data.service';
   selector: 'app-add-inventory',
   templateUrl: './add-inventory.component.html',
   styleUrls: ['./add-inventory.component.scss'],
-  standalone: true,
-  imports: [
-    CommonModule,
-    IonicModule,
-    FormsModule,
-    ReactiveFormsModule,
-    ComponentsModule,
-  ],
 })
 export class AddInventoryComponent implements OnInit {
   errorMessages = {
