@@ -8,3 +8,66 @@
     <ion-title style="padding-left: 0 !important">Update Information</ion-title>
   </ion-toolbar>
 </ion-header>
+<ion-content class="ion-padding">
+  <form [formGroup]="formGroup">
+    <app-input
+      type="text"
+      label="Full Name"
+      labelPlacement="stacked"
+      [control]="fullname"
+      [errorMessages]="errorMessages.fullname"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Age"
+      labelPlacement="stacked"
+      [control]="age"
+      [errorMessages]="errorMessages.age"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Gender"
+      labelPlacement="stacked"
+      [control]="gender"
+      [errorMessages]="errorMessages.gender"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Phone Number"
+      labelPlacement="stacked"
+      [control]="phoneNumber"
+      [errorMessages]="errorMessages.phoneNumber"
+    ></app-input>
+    <app-input
+      type="text"
+      label="School ID"
+      labelPlacement="stacked"
+      [control]="schoolID"
+      [errorMessages]="errorMessages.schoolID"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Address"
+      labelPlacement="stacked"
+      [control]="address"
+      [errorMessages]="errorMessages.address"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Course"
+      labelPlacement="stacked"
+      [control]="course"
+      [errorMessages]="errorMessages.course"
+    ></app-input>
+    <app-input
+      type="text"
+      label="College"
+      labelPlacement="stacked"
+      [control]="college"
+      [errorMessages]="errorMessages.college"
+    ></app-input>
+    <ion-button type="submit" [strong]="true" expand="full" size="default"
+      >Submit</ion-button
+    >
+  </form>
+</ion-content>

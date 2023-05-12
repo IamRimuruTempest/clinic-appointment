@@ -33,6 +33,13 @@ const routes: Routes = [
             (m) => m.InventoryPageModule
           ),
       },
+      {
+        path: 'medicine',
+        loadChildren: () =>
+          import('./tabs/medicine/medicine.module').then(
+            (m) => m.MedicinePageModule
+          ),
+      },
     ],
   },
 ];

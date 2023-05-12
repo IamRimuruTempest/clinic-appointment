@@ -6,7 +6,7 @@ import { ModalController } from '@ionic/angular';
 @Component({
   standalone: true,
   imports: [CommonModule, IonicModule],
-  selector: 'app-help',
+  selector: 'app-help', 
   templateUrl: './help.component.html',
   styleUrls: ['./help.component.scss'],
 })

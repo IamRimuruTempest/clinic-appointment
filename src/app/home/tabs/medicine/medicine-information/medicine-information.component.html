@@ -1,0 +1,43 @@
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-label>
+    <h1>{{ medicine.name }}</h1>
+
+    <br />
+    <p><b>Description:</b></p>
+    <p>
+      Lorem ipsum dolor sit amet. Est facere maiores ea voluptatem aperiam sed
+      soluta facere qui obcaecati quia id voluptas quas ut quos rerum.
+    </p>
+    <br />
+    <p><b>Usage:</b></p>
+    <p>
+      The recommended dose of Biogesic® 500mg for minor aches and pains such as
+      headache is 1 to 2 tablets every 4 to 6 hours, as needed. Do not take more
+      than 8 tablets (or 4 grams of paracetamol) in any 24-hour period.
+    </p>
+  </ion-label>
+  <br />
+  <div
+    style="display: flex; align-items: center; justify-content: space-between"
+  >
+    <p><b>Quantity:</b> {{ medicine.quantity }}</p>
+    <div style="display: flex; align-items: center">
+      <ion-button fill="clear" icon (click)="minusQuantity()">
+        <!-- <ion-icon slot="icon-only" name="chevron-back-outline"></ion-icon> -->
+        <ion-icon
+          name="caret-back-circle-outline"
+          size="large"
+          aria-hidden="true"
+        ></ion-icon>
+      </ion-button>
+
+      <ion-label>
+        <p>{{ this.quantity }}</p>
+      </ion-label>
+      <ion-button fill="clear" icon (click)="addQuantity()">
+        <ion-icon name="caret-forward-circle-outline" size="large"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+  <ion-button expand="full" (click)="addToCart()">Request Medicine</ion-button>
+</ion-content>

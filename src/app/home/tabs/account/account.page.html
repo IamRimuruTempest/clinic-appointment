@@ -53,6 +53,16 @@
     </ion-item>
     <ion-item
       button
+      (click)="openUserOrdersInformation()"
+      lines="full"
+      style="--padding-start: 0px !important"
+    >
+      <ion-icon name="medkit" slot="start"></ion-icon>
+      <ion-label>Requested Medicines</ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item
+      button
       (click)="openAboutComponent()"
       lines="full"
       style="--padding-start: 0px !important"
@@ -69,6 +79,16 @@
     >
       <ion-icon name="help-circle-sharp" slot="start"></ion-icon>
       <ion-label>Help</ion-label>
+      <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-item>
+    <ion-item
+      button
+      (click)="openHelpComponent()"
+      lines="full"
+      style="--padding-start: 0px !important"
+    >
+      <ion-icon name="help-circle-sharp" slot="start"></ion-icon>
+      <ion-label>Update Password</ion-label>
       <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
     </ion-item>
     <ion-item

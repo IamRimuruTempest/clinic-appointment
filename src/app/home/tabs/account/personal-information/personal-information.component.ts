@@ -22,6 +22,10 @@ export class PersonalInformationComponent implements OnInit {
   async openUpdateInformationComponent() {
     const modal = await this.modalCtrl.create({
       component: UpdateInformationComponent,
+      componentProps: {
+        title: 'Update',
+        account: this.account,
+      },
     });
 
     return await modal.present();

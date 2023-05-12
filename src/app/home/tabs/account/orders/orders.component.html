@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title style="padding-left: 0 !important">Requested Medicine</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let order of orders" button>
+      <ion-label>
+        <h3>{{ order.name }}</h3>
+        <p>Available</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-button expand="full">Cancell All</ion-button>
+</ion-content>

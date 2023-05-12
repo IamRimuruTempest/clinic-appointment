@@ -12,7 +12,7 @@ import {
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ModalController, AlertController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
-import { Auth } from '@angular/fire/auth';
+import { Auth } from '@angular/fire/auth'; 
 import { Appointment } from 'src/app/interfaces/appointment.model';
 
 import { ThankYouComponent } from './thank-you/thank-you.component';

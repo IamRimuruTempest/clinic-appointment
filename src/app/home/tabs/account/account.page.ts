@@ -6,6 +6,7 @@ import { HelpComponent } from './help/help.component';
 import { AboutComponent } from './about/about.component';
 import { HistoryComponent } from './history/history.component';
 import { PersonalInformationComponent } from './personal-information/personal-information.component';
+import { OrdersComponent } from './orders/orders.component';
 import { Subscription, filter } from 'rxjs';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
 
@@ -66,6 +67,15 @@ export class AccountPage implements OnInit {
       componentProps: {
         account: this.account,
       },
+    });
+
+    return await modal.present();
+  }
+
+  async openUserOrdersInformation() {
+    const modal = await this.modalCtrl.create({
+      component: OrdersComponent,
+      componentProps: {},
     });
 
     return await modal.present();

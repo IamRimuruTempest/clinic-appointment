@@ -34,6 +34,13 @@ export class DataService {
     }) as Observable<UserAccount>;
   }
 
+  getAllUser(): Observable<UserAccount[]> {
+    const accountRef = collection(this.firestore, `users`);
+    return collectionData(accountRef, {
+      idField: 'uid',
+    }) as Observable<UserAccount[]>;
+  }
+
   getAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
     return collectionData(appointmentsRef, {
@@ -76,6 +83,35 @@ export class DataService {
   async deleteInventoryt(id: string) {
     const inventoryDocRef = doc(this.firestore, `inventory/${id}`);
     return deleteDoc(inventoryDocRef);
+  }
+
+  async addToCart(inventory: Inventory, uid: string) {
+    const cartDocRef = collection(this.firestore, `users/${uid}/carts`);
+    return addDoc(cartDocRef, inventory);
+  }
+
+  getUserCart(uid: string) {
+    const userCartRef = collection(this.firestore, `users/${uid}/carts`);
+    return collectionData(userCartRef, {
+      idField: 'id',
+    }) as Observable<Inventory[]>;
+  }
+
+  deleteUserCart(uid: string, id: string) {
+    const userCartDocRef = doc(this.firestore, `users/${uid}/carts/${id}`);
+    return deleteDoc(userCartDocRef);
+  }
+
+  getUserOrder(uid: string): Observable<Inventory[]> {
+    const inventoryRef = collection(this.firestore, `users/${uid}/orders`);
+    return collectionData(inventoryRef, {
+      idField: 'id',
+    }) as Observable<Inventory[]>;
+  }
+
+  addToOrder(inventory: Inventory, uid: string) {
+    const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
+    return addDoc(orderDocRef, inventory);
   }
 
   // getUserAppointments(uid: string): Observable<Appointment> {
