@@ -105,36 +105,6 @@ export class AppointmentPage implements OnInit {
     });
   }
 
-  // async onSubmit(values: {
-  //   fullname: string;
-  //   age: number;
-  //   gender: string;
-  //   time: string;
-  //   schedule: string;
-  //   condition: string;
-  //   uid: string;
-  // }) {
-  //   values.uid = this.uid;
-
-  //   const loading = await this.loadingCtrl.create();
-  //   await loading.present();
-
-  //   const newAppointment: Appointment = {
-  //     fullName: values.fullname,
-  //     age: values.age,
-  //     gender: values.gender,
-  //     time: values.time,
-  //     schedule: values.schedule,
-  //     condition: values.condition,
-  //     uid: values.uid,
-  //   };
-
-  //   this.dataService.addAppontment(newAppointment);
-
-  //   this.modal.dismiss();
-  //   loading.dismiss();
-  // }
-
   async insertUserAppointment() {
     const modal = await this.modalCtrl.create({
       component: InsertAppointmentComponent,

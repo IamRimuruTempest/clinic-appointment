@@ -8,6 +8,8 @@ import {
   collectionData,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -46,6 +48,12 @@ export class DataService {
     return collectionData(appointmentsRef, {
       idField: 'id',
     }) as Observable<Appointment[]>;
+  }
+
+  getPendingAppointments(): Observable<Appointment[]> {
+    const appointmentsRef = collection(this.firestore, 'appointments');
+    const qry = query(appointmentsRef, where('status', '==', ''));
+    return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
   }
 
   async addAppontment(appointment: Appointment) {
