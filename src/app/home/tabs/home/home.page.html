@@ -8,10 +8,15 @@
           src="https://ionicframework.com/docs/img/demos/avatar.svg"
         />
       </ion-avatar>
-      <ion-label
-        >Paulo Maningo <br />
-        <span>subscribe2paolul@gmail.com</span>
+      <ion-label style="display: flex; flex-direction: column"
+        ><span>Paulo Maningo</span>
+        <span style="font-size: 0.8rem">subscribe2paolul@gmail.com</span>
       </ion-label>
+      <ion-icon
+        style="color: #000"
+        slot="end"
+        name="notifications-outline"
+      ></ion-icon>
     </ion-item>
   </ion-toolbar>
 </ion-header>
@@ -23,72 +28,238 @@
     </ion-toolbar>
   </ion-header>
 
-  <h3>Good Morning,</h3>
-  <h5 style="margin-bottom: 0.8rem !important">
+  <h3 style="font-weight: 800; color: #0057ff; margin: 0 !important">
+    Good Morning,
+  </h3>
+  <h6 style="margin: 0 0 0.8rem 0 !important">
     Selfcare is the new healthcare.
-  </h5>
+  </h6>
 
-  <div class="card">
-    <div class="card__content">
-      <h2>
-        Consult <br />
-        Doctors
-      </h2>
-      <p style="margin-top: 0 !important">
-        Get Expert Advice From <br />
-        Specialist Doctor.
-      </p>
-    </div>
-    <img class="img" src="../../assets/img/doctors.png" alt="" />
-  </div>
+  <ion-card
+    style="
+      background-image: url(../../assets/img/smile.jpg);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      margin: 10px 0 10px 0 !important;
+      padding: 16px;
+      height: 170px !important;
+      border-radius: 10px;
+      color: #fff;
+      text-align: right;
+      align-items: center;
+    "
+  >
+    <h2 style="font-weight: bold">
+      SMILE, IT LETS <br />
+      YOUR TEETH BREATHE
+    </h2>
+    <p style="margin: 0 !important">Your smile begins here</p>
+  </ion-card>
 
   <ion-grid style="padding-left: 0 !important; padding-right: 0 !important">
     <ion-row>
       <ion-col style="padding-left: 0 !important">
-        <div class="mini_card" style="background-color: #e091c9 !important">
-          <div class="mini_card_content">
-            <h4>Diagnostics</h4>
-            <p>Book Tests & Checkups</p>
-          </div>
-          <img class="img" src="../../assets/img/diagnostics.png" alt="" />
-        </div>
+        <ion-card
+          style="
+            background-image: url(../../assets/img/services1.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 !important;
+            padding: 16px;
+            height: 140px !important;
+            border-radius: 10px;
+            color: #fff;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            box-shadow: none;
+          "
+        >
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+            "
+          >
+            FREE CONSULTATION
+            <ion-icon
+              style="margin: 0 !important; padding: 0 !important"
+              name="chevron-forward-outline"
+            ></ion-icon>
+          </h6>
+        </ion-card>
       </ion-col>
       <ion-col style="padding-right: 0 !important">
-        <div class="mini_card" style="background-color: #fdab5a !important">
-          <div class="mini_card_content">
-            <h4>Pharma</h4>
-            <p>Medicines & Heath</p>
-          </div>
-          <img class="img" src="../../assets/img/medicine.png" alt="" />
-        </div>
+        <ion-card
+          style="
+            background-image: url(../../assets/img/services2.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 !important;
+            padding: 16px;
+            height: 140px !important;
+            border-radius: 10px;
+            color: #fff;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            box-shadow: none;
+          "
+        >
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+            "
+          >
+            FREE MEDICATION
+            <ion-icon
+              style="margin: 0 !important; padding: 0 !important"
+              name="chevron-forward-outline"
+            ></ion-icon>
+          </h6>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>
 
-  <h4>Common Health Issues</h4>
+  <h5>Common Dental Problems</h5>
 
   <ion-grid style="padding-left: 0 !important; padding-right: 0 !important">
     <ion-row>
       <ion-col style="padding-left: 0 !important">
-        <div class="chi_card" style="background-color: #e091c9 !important">
-          <div class="chi_card_content">
-            <h4>Cold & Cough</h4>
-          </div>
-          <img class="img" src="../../assets/img/cold.png" alt="" />
-        </div>
+        <ion-card
+          (click)="openToothDecay()"
+          style="
+            background-image: url(../../assets/img/services33.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 0 16px 0 !important;
+            padding: 16px;
+            height: 180px !important;
+            border-radius: 10px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            border: 1px solid #b4b4b4;
+            box-shadow: none;
+          "
+        >
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+              color: #424242;
+            "
+          >
+            TOOTH DECAY
+          </h6>
+        </ion-card>
+        <ion-card
+          style="
+            background-image: url(../../assets/img/services5.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 0 16px 0 !important;
+            padding: 16px;
+            height: 130px !important;
+            border-radius: 10px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            border: 1px solid #b4b4b4;
+            box-shadow: none;
+          "
+        >
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+              color: #424242;
+            "
+          >
+            GUM DISEASE
+          </h6>
+        </ion-card>
       </ion-col>
       <ion-col style="padding-right: 0 !important">
-        <div
-          tappable
-          class="chi_card"
-          style="background-color: #fdab5a !important"
-          (click)="doSomething()"
+        <ion-card
+          style="
+            background-image: url(../../assets/img/services4.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 0 16px 0 !important;
+            padding: 16px;
+            height: 130px !important;
+            border-radius: 10px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            border: 1px solid #b4b4b4;
+            box-shadow: none;
+          "
         >
-          <div class="chi_card_content">
-            <h4>Irregular Period</h4>
-          </div>
-          <img class="img" src="../../assets/img/period.png" alt="" />
-        </div>
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+              color: #424242;
+            "
+          >
+            BAD BREATH
+          </h6>
+        </ion-card>
+        <ion-card
+          style="
+            background-image: url(../../assets/img/services6.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            margin: 0 0 16px 0 !important;
+            padding: 16px;
+            height: 180px !important;
+            border-radius: 10px;
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            border: 1px solid #b4b4b4;
+            box-shadow: none;
+          "
+        >
+          <h6
+            style="
+              font-weight: bold;
+              align-self: flex-end;
+              display: flex;
+              align-items: center;
+              margin: 0 !important;
+              color: #424242;
+            "
+          >
+            SENSITIVE TEETH
+          </h6>
+        </ion-card>
       </ion-col>
     </ion-row>
   </ion-grid>

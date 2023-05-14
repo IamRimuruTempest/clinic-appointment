@@ -12,7 +12,7 @@ import {
 import { ComponentsModule } from 'src/app/components/components.module';
 import { ModalController, AlertController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
-import { Auth } from '@angular/fire/auth'; 
+import { Auth } from '@angular/fire/auth';
 import { Appointment } from 'src/app/interfaces/appointment.model';
 
 import { ThankYouComponent } from './thank-you/thank-you.component';
@@ -119,8 +119,8 @@ export class InsertAppointmentComponent implements OnInit {
   }) {
     values.uid = this.uid;
 
-    // const loading = await this.loadingCtrl.create();
-    // await loading.present();
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
 
     const newAppointment: Appointment = {
       fullName: values.fullname,
@@ -136,7 +136,7 @@ export class InsertAppointmentComponent implements OnInit {
     if (this.title == 'Insert') {
       this.dataService.addAppontment(newAppointment);
       await this.modalCtrl.dismiss();
-      this.openThankYouComponent();
+      // this.openThankYouComponent();
     } else {
       await this.dataService.updateAppointment(
         newAppointment,
@@ -144,7 +144,7 @@ export class InsertAppointmentComponent implements OnInit {
       );
     }
 
-    // loading.dismiss();
+    loading.dismiss();
   }
 
   async cancelUserAppointment(appointment: any) {
