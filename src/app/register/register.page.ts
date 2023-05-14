@@ -103,7 +103,7 @@ export class RegisterPage {
 
   async onSubmit(values: {
     fullname: string;
-    schooldID: string;
+    schoolID: string;
     phoneNumber: string;
     address: string;
     course: string;
@@ -119,7 +119,7 @@ export class RegisterPage {
     }
     const loading = await this.loadingCtrl.create();
     await loading.present();
-
+    console.log('REGISTER:', values);
     this.authService
       .register(values.email, values.password)
       .then(async (user: UserCredential) => {
@@ -133,12 +133,13 @@ export class RegisterPage {
           fullname: values.fullname,
           age: values.age,
           gender: values.gender,
-          schoolID: values.schooldID,
+          schoolID: values.schoolID,
           phoneNumber: values.phoneNumber,
           address: values.address,
           course: values.course,
           college: values.college,
         };
+        console.log('Adding new user:', newUser);
         await this.dataService.addUser(newUser);
         loading.dismiss();
         this.router.navigate(['home']);

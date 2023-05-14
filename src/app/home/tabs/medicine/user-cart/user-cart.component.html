@@ -5,18 +5,23 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title style="padding-left: 0 !important">Request Medicine</ion-title>
+    <ion-title style="padding-left: 0 !important">My Requests</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-list>
-    <ion-item *ngFor="let medicine of medicine" button>
-      <ion-label>
-        <h3>{{ medicine.name }}</h3>
-        <p>Available</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
-  <ion-button expand="full" (click)="addToOrder()">Request Medicine</ion-button>
+  <div *ngIf="medicine.length > 0; else noItem">
+    <ion-list>
+      <ion-item *ngFor="let medicine of medicine" button>
+        <ion-label>
+          <h3>{{ medicine.name }}</h3>
+          <p>Available</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="addToOrder()">Submit Request</ion-button>
+  </div>
+  <ng-template #noItem>
+    <p style="text-align: center">There's nothing Here</p>
+  </ng-template>
 </ion-content>
