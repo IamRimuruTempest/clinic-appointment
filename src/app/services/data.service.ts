@@ -114,6 +114,11 @@ export class DataService {
     return addDoc(orderDocRef, inventory);
   }
 
+  // addToDummyOrder(inventory: Inventory, uid: string) {
+  //   const orderDocRef = collection(this.firestore, `orders/${uid}`);
+  //   return setDoc(orderDocRef, { ...inventory });
+  // }
+
   // getUserAppointments(uid: string): Observable<Appointment> {
   //   const userAppointmentsDocRef = doc(this.firestore, `appointments/${uid}`);
   //   return docData(userAppointmentsDocRef, {
