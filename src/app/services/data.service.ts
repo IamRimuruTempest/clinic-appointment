@@ -8,6 +8,8 @@ import {
   collectionData,
   updateDoc,
   deleteDoc,
+  query,
+  where,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -25,6 +27,10 @@ export class DataService {
   async addUser(user: UserAccount) {
     const userDocRef = doc(this.firestore, `users/${user.uid}`);
     return setDoc(userDocRef, { ...user });
+  }
+
+  updateUser(user: UserAccount): Promise<any> {
+    return this.addUser(user);
   }
 
   getUser(uid: string): Observable<UserAccount> {
@@ -46,6 +52,12 @@ export class DataService {
     return collectionData(appointmentsRef, {
       idField: 'id',
     }) as Observable<Appointment[]>;
+  }
+
+  getPendingAppointments(): Observable<Appointment[]> {
+    const appointmentsRef = collection(this.firestore, 'appointments');
+    const qry = query(appointmentsRef, where('status', '==', ''));
+    return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
   }
 
   async addAppontment(appointment: Appointment) {
