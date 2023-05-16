@@ -9,6 +9,19 @@ import { PersonalInformationComponent } from './personal-information/personal-in
 import { OrdersComponent } from './orders/orders.component';
 import { Subscription, filter } from 'rxjs';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
+import { Capacitor } from '@capacitor/core';
+import {
+  Camera,
+  CameraSource,
+  CameraResultType,
+  Photo,
+} from '@capacitor/camera';
+import {
+  Storage,
+  getDownloadURL,
+  ref,
+  uploadBytes,
+} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-account',
@@ -17,10 +30,12 @@ import { UserAccount } from 'src/app/interfaces/user-account.model';
 })
 export class AccountPage implements OnInit {
   account!: UserAccount;
+  imageUrl: string = '';
   constructor(
     public authService: AuthService,
     private router: Router,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private storage: Storage
   ) {
     this.authService.userAccount$
       .pipe(filter((use) => use !== null))
@@ -79,5 +94,63 @@ export class AccountPage implements OnInit {
     });
 
     return await modal.present();
+  }
+
+  async changeImage() {
+    console.log('changeImage');
+    const image = await this.takePicture();
+    if (!image) return;
+    this.imageUrl = image.dataUrl!;
+    const blob = this.dataURLtoBlob(image.dataUrl!);
+    const url = await this.uploadImage(blob, image);
+    console.log(url);
+  }
+
+  async uploadImage(blob: Blob, imageData: Photo): Promise<string | null> {
+    try {
+      const currentDate = Date.now();
+      const filePath = `userImage/${currentDate}.${imageData.format}`;
+      const fileRef = ref(this.storage, filePath);
+      const task = await uploadBytes(fileRef, blob);
+      console.log(task);
+      const url = getDownloadURL(fileRef);
+      return url;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
+  }
+
+  async takePicture(): Promise<Photo | null> {
+    try {
+      if (Capacitor.getPlatform() !== 'web') {
+        await Camera.requestPermissions();
+      }
+      const image = await Camera.getPhoto({
+        quality: 90,
+        // allowEditing: true,
+        source: CameraSource.Prompt,
+        width: 600,
+        resultType: CameraResultType.DataUrl,
+      });
+
+      console.log('image: ', image);
+      return image;
+    } catch (e) {
+      console.log(e);
+    }
+    return null;
+  }
+
+  dataURLtoBlob(dataUrl: string) {
+    let arr = dataUrl.split(',');
+    let mime = arr[0].match(/:(.*?);/)![1],
+      bstr = atob(arr[1]),
+      n = bstr.length,
+      u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new Blob([u8arr], { type: mime });
   }
 }
