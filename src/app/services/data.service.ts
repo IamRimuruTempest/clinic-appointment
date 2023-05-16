@@ -29,6 +29,10 @@ export class DataService {
     return setDoc(userDocRef, { ...user });
   }
 
+  updateUser(user: UserAccount): Promise<any> {
+    return this.addUser(user);
+  }
+
   getUser(uid: string): Observable<UserAccount> {
     const accountDocRef = doc(this.firestore, `users/${uid}`);
     return docData(accountDocRef, {

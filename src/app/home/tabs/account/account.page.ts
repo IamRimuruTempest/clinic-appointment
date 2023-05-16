@@ -22,6 +22,7 @@ import {
   ref,
   uploadBytes,
 } from '@angular/fire/storage';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-account',
@@ -29,10 +30,20 @@ import {
   styleUrls: ['./account.page.scss'],
 })
 export class AccountPage implements OnInit {
-  account!: UserAccount;
+  account: UserAccount = {
+    fullname: '',
+    age: '',
+    address: '',
+    gender: '',
+    schoolID: '',
+    phoneNumber: '',
+    course: '',
+    college: '',
+  };
   imageUrl: string = '';
   constructor(
     public authService: AuthService,
+    private dataService: DataService,
     private router: Router,
     private modalCtrl: ModalController,
     private storage: Storage
@@ -104,12 +115,13 @@ export class AccountPage implements OnInit {
     const blob = this.dataURLtoBlob(image.dataUrl!);
     const url = await this.uploadImage(blob, image);
     console.log(url);
+    // Save URL to Firestore
+    this.dataService.updateUser({ ...this.account, imgUrl: url! });
   }
 
   async uploadImage(blob: Blob, imageData: Photo): Promise<string | null> {
     try {
-      const currentDate = Date.now();
-      const filePath = `userImage/${currentDate}.${imageData.format}`;
+      const filePath = `userImage/${this.account.uid}.${imageData.format}`;
       const fileRef = ref(this.storage, filePath);
       const task = await uploadBytes(fileRef, blob);
       console.log(task);
