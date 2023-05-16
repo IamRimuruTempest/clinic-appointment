@@ -1,0 +1,20 @@
+<ion-item>
+  <ion-select
+    [formControl]="control"
+    [placeholder]="placeholder"
+    [label]="label"
+    (ionChange)="handleChange($event)"
+  >
+    <ion-select-option *ngFor="let option of options" [value]="option.value">{{
+      option.text
+    }}</ion-select-option>
+  </ion-select>
+</ion-item>
+<div class="validation-errors">
+  <ng-container *ngIf="control.invalid && control.touched">
+    <div *ngFor="let error of control.errors | keyvalue" class="error-message">
+      <ion-icon name="information-circle-outline"></ion-icon>
+      {{ errorMessages[error.key] }}
+    </div>
+  </ng-container>
+</div>
