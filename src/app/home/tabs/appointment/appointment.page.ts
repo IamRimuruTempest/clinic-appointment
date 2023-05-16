@@ -17,7 +17,8 @@ import {
 import { Appointment } from 'src/app/interfaces/appointment.model';
 import { Auth } from '@angular/fire/auth';
 import { InsertAppointmentComponent } from './insert-appointment/insert-appointment.component';
-
+import { AuthService } from 'src/app/services/auth.service';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.page.html',
@@ -70,7 +71,8 @@ export class AppointmentPage implements OnInit {
     public modalCtrl: ModalController,
     private router: Router,
     public formBuilder: FormBuilder,
-    private auth: Auth
+    private auth: Auth,
+    private authService: AuthService
   ) {
     this.formGroup = this.createFormGroup();
   }
@@ -111,6 +113,7 @@ export class AppointmentPage implements OnInit {
       componentProps: {
         title: 'Insert',
         page: 'Set Appointment',
+        account: await firstValueFrom(this.authService.userAccount$),
       },
     });
     modal.present();

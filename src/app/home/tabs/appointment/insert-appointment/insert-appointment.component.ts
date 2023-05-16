@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, LoadingController } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,7 @@ import { Auth } from '@angular/fire/auth';
 import { Appointment } from 'src/app/interfaces/appointment.model';
 
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -31,6 +32,16 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
   styleUrls: ['./insert-appointment.component.scss'],
 })
 export class InsertAppointmentComponent implements OnInit {
+  @Input() account: UserAccount = {
+    fullname: '',
+    age: '',
+    address: '',
+    gender: '',
+    schoolID: '',
+    phoneNumber: '',
+    course: '',
+    college: '',
+  };
   name!: string;
 
   title: any;
@@ -96,6 +107,10 @@ export class InsertAppointmentComponent implements OnInit {
   ngOnInit() {
     this.uid = this.auth.currentUser?.uid!;
     console.log(this.title, 'title');
+
+    this.fullname.setValue(this.account.fullname);
+    this.age.setValue(this.account.age);
+    this.gender.setValue(this.account.gender);
 
     if (this.title == 'Update' || this.title == 'View') {
       this.fullname.setValue(this.appointment['fullName']);

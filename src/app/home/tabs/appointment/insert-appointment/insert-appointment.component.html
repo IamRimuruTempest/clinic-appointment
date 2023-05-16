@@ -1,4 +1,4 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
@@ -17,6 +17,7 @@
       [control]="fullname"
       [errorMessages]="errorMessages.fullname"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
     <app-input
@@ -26,6 +27,7 @@
       [control]="age"
       [errorMessages]="errorMessages.age"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
     <app-input
@@ -35,6 +37,7 @@
       [control]="gender"
       [errorMessages]="errorMessages.gender"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
     <app-input
@@ -54,7 +57,7 @@
       [errorMessages]="errorMessages.schedule"
       [title]="title"
     ></app-input>
- 
+
     <app-input
       label="Condition"
       labelPlacement="stacked"
