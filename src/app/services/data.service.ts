@@ -14,6 +14,7 @@ import {
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
 import { Appointment } from '../interfaces/appointment.model';
+import { Notification } from '../interfaces/notification.model';
 import { Observable } from 'rxjs';
 import { collection } from '@firebase/firestore';
 import { Inventory } from '../interfaces/inventory.model';
@@ -95,6 +96,11 @@ export class DataService {
   async deleteInventoryt(id: string) {
     const inventoryDocRef = doc(this.firestore, `inventory/${id}`);
     return deleteDoc(inventoryDocRef);
+  }
+
+  addToNotification(notification: Notification) {
+    const notificationDocRef = collection(this.firestore, 'notification/');
+    return addDoc(notificationDocRef, notification);
   }
 
   async addToCart(inventory: Inventory, uid: string) {

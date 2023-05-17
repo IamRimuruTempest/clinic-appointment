@@ -98,7 +98,7 @@ export class AppointmentPage implements OnInit {
     await this.dataService.getAppointments().subscribe((res) => {
       let tmpAppointment: any[] = [];
       res.forEach((element) => {
-        if (element['uid'] == this.uid) {
+        if (element['uid'] == this.uid && element['status'] != 'Canceled') {
           if (element['status'] == 'Pending') {
             this.pending = true;
           }
@@ -112,7 +112,6 @@ export class AppointmentPage implements OnInit {
   }
 
   async insertUserAppointment() {
-<<<<<<< HEAD
     if (this.pending != false) {
       const alert = await this.alertCtrl.create({
         header: 'Alert',
@@ -128,21 +127,11 @@ export class AppointmentPage implements OnInit {
         componentProps: {
           title: 'Insert',
           page: 'Set Appointment',
+          account: await firstValueFrom(this.authService.userAccount$),
         },
       });
       modal.present();
     }
-=======
-    const modal = await this.modalCtrl.create({
-      component: InsertAppointmentComponent,
-      componentProps: {
-        title: 'Insert',
-        page: 'Set Appointment',
-        account: await firstValueFrom(this.authService.userAccount$),
-      },
-    });
-    modal.present();
->>>>>>> 728699d22d0c71b0d38b312f667956d95c6a3d00
   }
 
   async updateUserAppointment(appointment: []) {

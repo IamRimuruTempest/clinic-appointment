@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-title>appointments</ion-title>
   </ion-toolbar>
@@ -18,7 +18,11 @@
   </ion-segment>
 
   <ion-list>
-    <ion-item *ngFor="let appointment of pendingAppointments" button>
+    <ion-item
+      *ngFor="let appointment of pendingAppointments"
+      button
+      (click)="openUpdateStatus(appointment)"
+    >
       <ion-card
         style="
           margin: 0 0 16px 0 !important;
@@ -39,7 +43,6 @@
               <ion-card-subtitle style="color: #fff !important"
                 >Patient: {{appointment.fullName}}</ion-card-subtitle
               >
-              <ion-button clear> Update </ion-button>
             </div>
             <h1><b> Tooth Extraction</b></h1>
             <p style="color: #fff !important">
