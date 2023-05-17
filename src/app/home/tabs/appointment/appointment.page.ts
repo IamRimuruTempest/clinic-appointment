@@ -28,6 +28,7 @@ export class AppointmentPage implements OnInit {
   // modal!: IonModal;
 
   name: string = '';
+  pending: boolean = false;
 
   appointments: any[] = [];
   uid: string = '';
@@ -95,7 +96,10 @@ export class AppointmentPage implements OnInit {
     await this.dataService.getAppointments().subscribe((res) => {
       let tmpAppointment: any[] = [];
       res.forEach((element) => {
-        if (element['uid'] == this.uid && element['status'] == '') {
+        if (element['uid'] == this.uid) {
+          if (element['status'] == 'Pending') {
+            this.pending = true;
+          }
           tmpAppointment.push(element);
         }
       });
@@ -106,14 +110,25 @@ export class AppointmentPage implements OnInit {
   }
 
   async insertUserAppointment() {
-    const modal = await this.modalCtrl.create({
-      component: InsertAppointmentComponent,
-      componentProps: {
-        title: 'Insert',
-        page: 'Set Appointment',
-      },
-    });
-    modal.present();
+    if (this.pending != false) {
+      const alert = await this.alertCtrl.create({
+        header: 'Alert',
+        subHeader: 'Important message',
+        message:
+          'You are unable to set an appointment because you have a pending appointment!',
+        buttons: ['OK'],
+      });
+      await alert.present();
+    } else {
+      const modal = await this.modalCtrl.create({
+        component: InsertAppointmentComponent,
+        componentProps: {
+          title: 'Insert',
+          page: 'Set Appointment',
+        },
+      });
+      modal.present();
+    }
   }
 
   async updateUserAppointment(appointment: []) {

@@ -56,7 +56,7 @@ export class DataService {
 
   getPendingAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
-    const qry = query(appointmentsRef, where('status', '==', ''));
+    const qry = query(appointmentsRef, where('status', '!=', 'Canceled'));
     return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
   }
 
@@ -121,10 +121,10 @@ export class DataService {
     }) as Observable<Inventory[]>;
   }
 
-  addToOrder(inventory: Inventory, uid: string) {
-    const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
-    return addDoc(orderDocRef, inventory);
-  }
+  // addToOrder(inventory: Inventory, uid: string) {
+  //   const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
+  //   return addDoc(orderDocRef, inventory);
+  // }
 
   // addToDummyOrder(inventory: Inventory, uid: string) {
   //   const orderDocRef = collection(this.firestore, `orders/${uid}`);

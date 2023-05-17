@@ -39,7 +39,7 @@ export class UserCartComponent implements OnInit {
     this.medicine.map((element: any) => {
       console.log(element, 'test me');
       // this.dataService.addToOrder(element, this.uid);
-      this.dataService.addToDummyOrder(element, this.uid);
+      // this.dataService.addToDummyOrder(element, this.uid);
       this.dataService.deleteUserCart(this.uid, element.id);
     });
 

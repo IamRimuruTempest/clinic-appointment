@@ -69,7 +69,7 @@ export class InsertAppointmentComponent implements OnInit {
   time = new FormControl('', [Validators.required]);
   schedule = new FormControl('', [Validators.required]);
   condition = new FormControl('', [Validators.required]);
-  status: string = '';
+  status: string = 'Pending';
 
   constructor(
     private modalCtrl: ModalController,
