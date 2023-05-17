@@ -23,6 +23,7 @@ import {
   uploadBytes,
 } from '@angular/fire/storage';
 import { DataService } from 'src/app/services/data.service';
+import { ChangePasswordModalComponent } from './change-password-modal/change-password-modal.component';
 
 @Component({
   selector: 'app-account',
@@ -66,6 +67,14 @@ export class AccountPage implements OnInit {
   async openHelpComponent() {
     const modal = await this.modalCtrl.create({
       component: HelpComponent,
+    });
+
+    return await modal.present();
+  }
+
+  async openChangePasswordModal() {
+    const modal = await this.modalCtrl.create({
+      component: ChangePasswordModalComponent,
     });
 
     return await modal.present();

@@ -63,20 +63,21 @@
       [control]="address"
       [errorMessages]="errorMessages.address"
     ></app-input>
-    <app-input
-      type="text"
-      label="Course"
-      labelPlacement="stacked"
-      [control]="course"
-      [errorMessages]="errorMessages.course"
-    ></app-input>
-    <app-input
-      type="text"
+    <app-select
+      placeholder="Select college"
       label="College"
-      labelPlacement="stacked"
+      [options]="collegeOptions"
       [control]="college"
       [errorMessages]="errorMessages.college"
-    ></app-input>
+      (selected)="selectedCollege($event)"
+    ></app-select>
+    <app-select
+      placeholder="Select course"
+      label="Course"
+      [options]="courseOptions"
+      [control]="course"
+      [errorMessages]="errorMessages.course"
+    ></app-select>
     <app-input
       type="email"
       label="Email"
@@ -91,7 +92,13 @@
       [control]="password"
       [errorMessages]="errorMessages.password"
     ></app-input>
-    <ion-button expand="block" color="primary" type="submit">
+
+    <ion-button
+      [disabled]="formGroup.invalid"
+      expand="block"
+      color="primary"
+      type="submit"
+    >
       Register
     </ion-button>
   </form>

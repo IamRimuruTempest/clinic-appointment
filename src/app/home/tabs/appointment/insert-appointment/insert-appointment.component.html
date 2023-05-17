@@ -1,4 +1,4 @@
-<ion-header >
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
@@ -17,6 +17,7 @@
       [control]="fullname"
       [errorMessages]="errorMessages.fullname"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
     <app-input
@@ -26,6 +27,7 @@
       [control]="age"
       [errorMessages]="errorMessages.age"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
     <app-input
@@ -35,26 +37,9 @@
       [control]="gender"
       [errorMessages]="errorMessages.gender"
       [title]="title"
+      [readonly]="true"
     ></app-input>
 
-    <app-input
-      label="Working Hours"
-      labelPlacement="stacked"
-      placeholder="10:30 AM"
-      [control]="time"
-      [errorMessages]="errorMessages.time"
-      [title]="title"
-    ></app-input>
-
-    <app-input
-      label="Schedule"
-      labelPlacement="stacked"
-      placeholder="Your Schedule"
-      [control]="schedule"
-      [errorMessages]="errorMessages.schedule"
-      [title]="title"
-    ></app-input>
- 
     <app-input
       label="Condition"
       labelPlacement="stacked"
@@ -62,6 +47,16 @@
       [errorMessages]="errorMessages.condition"
       [title]="title"
     ></app-input>
+
+    <ion-datetime
+      label="Schedule"
+      hourCycle="h23"
+      hourValues="8,9,10,11,12,13,14,15,16,17"
+      minuteValues="0,30"
+      [isDateEnabled]="isWeekday"
+      [formControl]="schedule"
+      [min]="today"
+    ></ion-datetime>
 
     <ion-button
       *ngIf="title === 'View'; else btnInsertUpdate"
@@ -75,7 +70,12 @@
     >
 
     <ng-template #btnInsertUpdate>
-      <ion-button type="submit" [strong]="true" expand="full" size="default"
+      <ion-button
+        type="submit"
+        [disabled]="formGroup.invalid"
+        [strong]="true"
+        expand="full"
+        size="default"
         >Submit</ion-button
       >
     </ng-template>

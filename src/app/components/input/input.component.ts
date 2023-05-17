@@ -14,6 +14,7 @@ export class InputComponent implements OnInit {
   @Input() errorMessages: Record<string, string> = {};
   @Input() placeholder: string = '';
   @Input() labelPlacement: string = '';
+  @Input() readonly: boolean = false;
 
   constructor() {}
 

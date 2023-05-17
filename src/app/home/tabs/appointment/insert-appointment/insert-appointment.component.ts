@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, LoadingController } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +16,8 @@ import { Auth } from '@angular/fire/auth';
 import { Appointment } from 'src/app/interfaces/appointment.model';
 
 import { ThankYouComponent } from './thank-you/thank-you.component';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
+import { formatISO } from 'date-fns';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -31,6 +33,18 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
   styleUrls: ['./insert-appointment.component.scss'],
 })
 export class InsertAppointmentComponent implements OnInit {
+  today = formatISO(new Date());
+
+  @Input() account: UserAccount = {
+    fullname: '',
+    age: '',
+    address: '',
+    gender: '',
+    schoolID: '',
+    phoneNumber: '',
+    course: '',
+    college: '',
+  };
   name!: string;
 
   title: any;
@@ -52,9 +66,6 @@ export class InsertAppointmentComponent implements OnInit {
     gender: {
       required: 'Gender is required.',
     },
-    time: {
-      required: 'Time is required.',
-    },
     schedule: {
       required: 'Schedule is required.',
     },
@@ -66,7 +77,6 @@ export class InsertAppointmentComponent implements OnInit {
   fullname = new FormControl('', [Validators.required]);
   age = new FormControl('', [Validators.required, Validators.maxLength(2)]);
   gender = new FormControl('', [Validators.required]);
-  time = new FormControl('', [Validators.required]);
   schedule = new FormControl('', [Validators.required]);
   condition = new FormControl('', [Validators.required]);
   status: string = 'Pending';
@@ -80,6 +90,7 @@ export class InsertAppointmentComponent implements OnInit {
     private auth: Auth
   ) {
     this.formGroup = this.createFormGroup();
+    console.log(this.today);
   }
 
   createFormGroup() {
@@ -87,7 +98,6 @@ export class InsertAppointmentComponent implements OnInit {
       fullname: this.fullname,
       age: this.age,
       gender: this.gender,
-      time: this.time,
       schedule: this.schedule,
       condition: this.condition,
     });
@@ -97,12 +107,17 @@ export class InsertAppointmentComponent implements OnInit {
     this.uid = this.auth.currentUser?.uid!;
     console.log(this.title, 'title');
 
+    this.fullname.setValue(this.account.fullname);
+    this.age.setValue(this.account.age);
+    this.gender.setValue(this.account.gender);
+
     if (this.title == 'Update' || this.title == 'View') {
+      const schedule =
+        this.appointment['schedule'] + 'T' + this.appointment['time'];
       this.fullname.setValue(this.appointment['fullName']);
       this.age.setValue(this.appointment['age']);
       this.gender.setValue(this.appointment['gender']);
-      this.time.setValue(this.appointment['time']);
-      this.schedule.setValue(this.appointment['schedule']);
+      this.schedule.setValue(schedule);
       this.condition.setValue(this.appointment['condition']);
       this.status = this.appointment['status'];
     }
@@ -122,16 +137,19 @@ export class InsertAppointmentComponent implements OnInit {
     const loading = await this.loadingCtrl.create();
     await loading.present();
 
+    const [schedule, time] = values.schedule.split('T');
+
     const newAppointment: Appointment = {
       fullName: values.fullname,
       age: values.age,
       gender: values.gender,
-      time: values.time,
-      schedule: values.schedule,
+      time,
+      schedule,
       condition: values.condition,
       uid: values.uid,
       status: this.status,
     };
+    console.log(newAppointment);
 
     if (this.title == 'Insert') {
       this.dataService.addAppontment(newAppointment);
@@ -151,7 +169,7 @@ export class InsertAppointmentComponent implements OnInit {
     appointment.status = 'Canceled';
     const loading = await this.loadingCtrl.create({ duration: 2000 });
     const alert = await this.alertCtrl.create({
-      header: 'Cancel Appoinment',
+      header: 'Cancel Appointment',
       message: 'Do you want to cancel your appointment?',
       buttons: [
         {
@@ -187,4 +205,15 @@ export class InsertAppointmentComponent implements OnInit {
   confirm() {
     return this.modalCtrl.dismiss(this.name, 'confirm');
   }
+
+  isWeekday = (dateString: string) => {
+    const date = new Date(dateString);
+    const utcDay = date.getUTCDay();
+
+    /**
+     * Date will be enabled if it is not
+     * Sunday or Saturday
+     */
+    return utcDay !== 0 && utcDay !== 6;
+  };
 }

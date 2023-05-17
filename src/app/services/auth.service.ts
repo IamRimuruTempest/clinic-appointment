@@ -7,6 +7,7 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   signOut,
+  updatePassword,
 } from '@angular/fire/auth';
 import { User } from '@angular/fire/auth';
 import { docData, Firestore } from '@angular/fire/firestore';
@@ -19,7 +20,7 @@ import { UserAccount } from '../interfaces/user-account.model';
 export class AuthService {
   private user: User | null = null;
   private userAuth = new BehaviorSubject<User | null>(null);
-  public userAccount$ = new Observable<UserAccount | null>;
+  public userAccount$ = new Observable<UserAccount | null>();
 
   constructor(private auth: Auth, private firestore: Firestore) {
     console.log('Auth Service: initializing service...');
@@ -32,13 +33,15 @@ export class AuthService {
 
     // Get details of logged in user from firerstore
     this.userAccount$ = this.userAuth.pipe(
-      switchMap(user => this.getUser(user?.uid))
-      )
+      switchMap((user) => this.getUser(user?.uid))
+    );
   }
 
   private getUser(uid: string | undefined) {
     const userAccountRef = doc(this.firestore, `users/${uid}`);
-    return docData(userAccountRef, {idField: 'uid'}) as Observable<UserAccount>;
+    return docData(userAccountRef, {
+      idField: 'uid',
+    }) as Observable<UserAccount>;
   }
 
   async isLoggedIn() {
@@ -57,6 +60,10 @@ export class AuthService {
   async login(email: string, password: string): Promise<UserCredential> {
     const user = await signInWithEmailAndPassword(this.auth, email, password);
     return user;
+  }
+
+  async changePassword(new_password: string) {
+    return updatePassword(this.user!, new_password);
   }
 
   async logout() {
