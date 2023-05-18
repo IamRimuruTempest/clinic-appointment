@@ -40,7 +40,6 @@ export class HistoryComponent implements OnInit {
           tmpRecentAppointments.push(element);
         }
       });
-
       this.recentAppointments = tmpRecentAppointments;
     });
   }
@@ -53,7 +52,6 @@ export class HistoryComponent implements OnInit {
           tmpCanceledAppointments.push(element);
         }
       });
-
       this.canceledAppointments = tmpCanceledAppointments;
     });
   }

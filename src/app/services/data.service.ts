@@ -14,6 +14,7 @@ import {
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
 import { Appointment } from '../interfaces/appointment.model';
+import { Notification } from '../interfaces/notification.model';
 import { Observable } from 'rxjs';
 import { collection } from '@firebase/firestore';
 import { Inventory } from '../interfaces/inventory.model';
@@ -56,7 +57,7 @@ export class DataService {
 
   getPendingAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
-    const qry = query(appointmentsRef, where('status', '==', ''));
+    const qry = query(appointmentsRef, where('status', '!=', 'Canceled'));
     return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
   }
 
@@ -97,6 +98,11 @@ export class DataService {
     return deleteDoc(inventoryDocRef);
   }
 
+  addToNotification(notification: Notification) {
+    const notificationDocRef = collection(this.firestore, 'notification/');
+    return addDoc(notificationDocRef, notification);
+  }
+
   async addToCart(inventory: Inventory, uid: string) {
     const cartDocRef = collection(this.firestore, `users/${uid}/carts`);
     return addDoc(cartDocRef, inventory);
@@ -121,10 +127,15 @@ export class DataService {
     }) as Observable<Inventory[]>;
   }
 
-  addToOrder(inventory: Inventory, uid: string) {
-    const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
-    return addDoc(orderDocRef, inventory);
-  }
+  // addToOrder(inventory: Inventory, uid: string) {
+  //   const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
+  //   return addDoc(orderDocRef, inventory);
+  // }
+
+  // addToDummyOrder(inventory: Inventory, uid: string) {
+  //   const orderDocRef = collection(this.firestore, `orders/${uid}`);
+  //   return setDoc(orderDocRef, { ...inventory });
+  // }
 
   // getUserAppointments(uid: string): Observable<Appointment> {
   //   const userAppointmentsDocRef = doc(this.firestore, `appointments/${uid}`);

@@ -7,10 +7,14 @@ import { FileOpener } from '@ionic-native/file-opener/ngx';
 import { HttpClient } from '@angular/common/http';
 import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
+import { UpdateStatusComponent } from './update-status/update-status.component';
+import { ModalController } from '@ionic/angular';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 (<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+
+
 @Component({
   selector: 'app-appointments',
   templateUrl: './appointments.page.html',
@@ -23,7 +27,8 @@ export class AppointmentsPage implements OnInit, OnDestroy {
     private dataService: DataService,
     private platform: Platform,
     private http: HttpClient,
-    private fileOpener: FileOpener
+    private fileOpener: FileOpener,
+    private modalCtrl: ModalController
   ) {
     this.sub = this.dataService
       .getPendingAppointments()
@@ -105,5 +110,15 @@ export class AppointmentsPage implements OnInit, OnDestroy {
         }
       });
     }
+  }
+
+  async openUpdateStatus(appointment: any) {
+    const modal = await this.modalCtrl.create({
+      component: UpdateStatusComponent,
+      componentProps: {
+        appointment: appointment,
+      },
+    });
+    return await modal.present();
   }
 }
