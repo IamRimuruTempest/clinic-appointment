@@ -55,10 +55,28 @@ export class DataService {
     }) as Observable<Appointment[]>;
   }
 
+  getApprovedAppointments(today: string): Observable<Appointment[]> {
+    const approvedAppointmentsRef = collection(this.firestore, 'appointments');
+    const qry = query(approvedAppointmentsRef, where('schedule', '!=', today));
+    const newQry = query(qry, where('status', '==', 'Approved'));
+    return collectionData(newQry, { idField: 'id' }) as Observable<
+      Appointment[]
+    >;
+  }
+
   getPendingAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
-    const qry = query(appointmentsRef, where('status', '!=', 'Canceled'));
+    const qry = query(appointmentsRef, where('status', '==', 'Pending'));
     return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
+  }
+
+  getOngoingAppointments(today: string): Observable<Appointment[]> {
+    const ongoingAppointmentsRef = collection(this.firestore, 'appointments');
+    const qry = query(ongoingAppointmentsRef, where('schedule', '==', today));
+    const newQry = query(qry, where('status', '==', 'Approved'));
+    return collectionData(newQry, { idField: 'id' }) as Observable<
+      Appointment[]
+    >;
   }
 
   async addAppontment(appointment: Appointment) {

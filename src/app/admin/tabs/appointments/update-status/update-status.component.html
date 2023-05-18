@@ -8,18 +8,61 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <!-- <ion-button (click)="alertCancelAppointmnet()">Click Me!</ion-button> -->
-  <img
-    src="https://media.newyorker.com/photos/590967612179605b11ad64e0/master/w_2560%2Cc_limit/120402_r22010_g2048.jpg"
-    alt=""
-  />
+  <img width="100%" src="../../assets/img/dental.jpg" alt="" />
   <ion-label>
-    <h2>Patient: {{ appointment.fullName }}</h2>
-    <p>Schedule: {{ appointment.schedule }}</p>
-    <p>Time: {{ appointment.time }}</p>
-    <p>Gender: {{ appointment.gender }}</p>
-    <p>Age: {{ appointment.age }}</p>
-    <p>Time: {{ appointment.time }}</p>
-    <p>Condition: {{ appointment.condition }}</p>
+    <h2 style="margin: 0 0 12px 0">Patient: {{ appointment.fullName }}</h2>
+    <h3 style="margin: 0 0 12px 0">Schedule: {{ appointment.schedule }}</h3>
+    <h3 style="margin: 0 0 12px 0">Time: {{ appointment.time }}</h3>
+    <h3 style="margin: 0 0 12px 0">Gender: {{ appointment.gender }}</h3>
+    <h3 style="margin: 0 0 12px 0">Age: {{ appointment.age }}</h3>
+    <h3 style="margin: 0 0 12px 0">Time: {{ appointment.time }}</h3>
+    <h3 style="margin: 0 0 12px 0">Condition: {{ appointment.condition }}</h3>
   </ion-label>
 </ion-content>
+
+<ion-footer lines="none" class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid>
+      <ng-container [ngSwitch]="status">
+        <ion-row *ngSwitchCase="'pending'">
+          <ion-col>
+            <ion-button expand="full" (click)="alertConfirmAppoitment()"
+              >Confirm</ion-button
+            ></ion-col
+          >
+          <ion-col>
+            <ion-button
+              color="danger"
+              expand="full"
+              (click)="alertCancelAppointmnet()"
+              >Cancel</ion-button
+            ></ion-col
+          >
+        </ion-row>
+
+        <ion-row *ngSwitchCase="'approved'">
+          <ion-col>
+            <ion-button
+              color="danger"
+              expand="full"
+              (click)="alertCancelAppointmnet()"
+              >Cancel</ion-button
+            ></ion-col
+          ></ion-row
+        >
+        <ion-row *ngSwitchCase="'ongoing'">
+          <ion-col>
+            <ion-button expand="full" (click)="alertFinishedAppointment()"
+              >Finish</ion-button
+            ></ion-col
+          >
+          <ion-col>
+            <ion-button color="danger" expand="full"
+              >Med Certificate</ion-button
+            ></ion-col
+          >
+        </ion-row>
+      </ng-container>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

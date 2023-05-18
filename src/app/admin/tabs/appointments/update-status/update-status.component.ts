@@ -7,6 +7,7 @@ import {
 } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
+import { title } from 'process';
 @Component({
   standalone: true,
   imports: [CommonModule, IonicModule],
@@ -15,8 +16,14 @@ import { DataService } from 'src/app/services/data.service';
   styleUrls: ['./update-status.component.scss'],
 })
 export class UpdateStatusComponent implements OnInit {
+  status: any;
   appointment: any;
   id: string = '';
+  notification: { title: string; description: string; uid: string } = {
+    title: '',
+    description: '',
+    uid: '',
+  };
   constructor(
     private dataService: DataService,
     private modalCtrl: ModalController,
@@ -27,6 +34,57 @@ export class UpdateStatusComponent implements OnInit {
   ngOnInit() {
     this.id = this.appointment['id'];
     console.log(this.appointment, 'test appointment');
+    console.log(this.status, 'test status');
+  }
+
+  async alertFinishedAppointment() {
+    const alert = await this.alertCtrl.create({
+      subHeader: 'Finish Appointment',
+      message: 'Are you sure you want to finish this appointment?',
+      cssClass: 'secondary',
+      buttons: [
+        { text: 'CANCEL' },
+        {
+          text: 'OK',
+          handler: () => {
+            this.notification = {
+              title: 'Appointment Confirmation',
+              description:
+                'I am pleased to inform you that your appointment has been confirmed. We look forward to meeting you on the scheduled date.',
+              uid: this.id,
+            };
+            this.dataService.addToNotification(this.notification);
+            this.CancelAppointment('Approved');
+          },
+        },
+      ],
+    });
+    await alert.present();
+  }
+
+  async alertConfirmAppoitment() {
+    const alert = await this.alertCtrl.create({
+      subHeader: 'Appointment Confirmation',
+      message: 'Are you sure you want to confirm this appointment?',
+      cssClass: 'secondary',
+      buttons: [
+        { text: 'CANCEL' },
+        {
+          text: 'OK',
+          handler: () => {
+            this.notification = {
+              title: 'Appointment Confirmation',
+              description:
+                'I am pleased to inform you that your appointment has been confirmed. We look forward to meeting you on the scheduled date.',
+              uid: this.id,
+            };
+            this.dataService.addToNotification(this.notification);
+            this.CancelAppointment('Approved');
+          },
+        },
+      ],
+    });
+    await alert.present();
   }
 
   async alertCancelAppointmnet() {
@@ -47,7 +105,8 @@ export class UpdateStatusComponent implements OnInit {
           handler: (data) => {
             data.title = 'Appointment Cancelation';
             data.uid = this.id;
-            this.dataService.addToNotification(data);
+            this.notification = data;
+            this.dataService.addToNotification(this.notification);
             this.CancelAppointment('Canceled');
           },
         },

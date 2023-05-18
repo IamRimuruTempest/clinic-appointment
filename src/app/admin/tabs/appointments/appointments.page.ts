@@ -9,6 +9,7 @@ import { Capacitor } from '@capacitor/core';
 import { Filesystem, Directory } from '@capacitor/filesystem';
 import { UpdateStatusComponent } from './update-status/update-status.component';
 import { ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
@@ -20,8 +21,12 @@ import * as pdfFonts from 'pdfmake/build/vfs_fonts';
   styleUrls: ['./appointments.page.scss'],
 })
 export class AppointmentsPage implements OnInit, OnDestroy {
+  approvedAppointments: Appointment[] = [];
   pendingAppointments: Appointment[] = [];
+  ongoingAppointmnets: Appointment[] = [];
   sub: Subscription;
+  today: Date = new Date();
+  status: string = 'ongoing';
   constructor(
     private dataService: DataService,
     private platform: Platform,
@@ -29,11 +34,35 @@ export class AppointmentsPage implements OnInit, OnDestroy {
     private fileOpener: FileOpener,
     private modalCtrl: ModalController
   ) {
+    let dateToday = moment(this.today).format('YYYY-MM-DD');
     this.sub = this.dataService
       .getPendingAppointments()
       .subscribe(
-        (data) => ((this.pendingAppointments = data), console.log(data))
+        (data) => (
+          (this.pendingAppointments = data),
+          console.log(data, 'Pending Appointments')
+        )
       );
+
+    this.dataService
+      .getApprovedAppointments(dateToday)
+      .subscribe(
+        (data) => (
+          (this.approvedAppointments = data),
+          console.log(this.approvedAppointments, 'Approved Appointments')
+        )
+      );
+
+    this.dataService
+      .getOngoingAppointments(dateToday)
+      .subscribe(
+        (data) => (
+          (this.ongoingAppointmnets = data),
+          console.log(this.ongoingAppointmnets, 'Ongoing')
+        )
+      );
+
+    // console.log(moment(this.today).format('YYYY-MM-DD'));
   }
 
   ngOnDestroy(): void {
@@ -115,6 +144,7 @@ export class AppointmentsPage implements OnInit, OnDestroy {
     const modal = await this.modalCtrl.create({
       component: UpdateStatusComponent,
       componentProps: {
+        status: this.status,
         appointment: appointment,
       },
     });
