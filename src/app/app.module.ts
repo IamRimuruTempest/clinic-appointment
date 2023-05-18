@@ -12,7 +12,8 @@ import { provideAuth, getAuth } from '@angular/fire/auth';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { ComponentsModule } from './components/components.module';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -24,8 +25,12 @@ import { ComponentsModule } from './components/components.module';
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
     ComponentsModule,
+    HttpClientModule,
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    FileOpener,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
