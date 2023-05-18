@@ -7,7 +7,7 @@ import {
 } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
-import { title } from 'process';
+import * as moment from 'moment';
 @Component({
   standalone: true,
   imports: [CommonModule, IonicModule],
@@ -18,11 +18,13 @@ import { title } from 'process';
 export class UpdateStatusComponent implements OnInit {
   status: any;
   appointment: any;
+  today: Date = new Date();
   id: string = '';
-  notification: { title: string; description: string; uid: string } = {
+  uid: string = '';
+  notification: { title: string; description: string; date: string } = {
     title: '',
     description: '',
-    uid: '',
+    date: '',
   };
   constructor(
     private dataService: DataService,
@@ -33,11 +35,13 @@ export class UpdateStatusComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.appointment['id'];
+    this.uid = this.appointment['uid'];
     console.log(this.appointment, 'test appointment');
     console.log(this.status, 'test status');
   }
 
   async alertFinishedAppointment() {
+    let newDate = moment(this.today).format('YYYY-MM-DD');
     const alert = await this.alertCtrl.create({
       subHeader: 'Finish Appointment',
       message: 'Are you sure you want to finish this appointment?',
@@ -47,14 +51,7 @@ export class UpdateStatusComponent implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.notification = {
-              title: 'Appointment Confirmation',
-              description:
-                'I am pleased to inform you that your appointment has been confirmed. We look forward to meeting you on the scheduled date.',
-              uid: this.id,
-            };
-            this.dataService.addToNotification(this.notification);
-            this.CancelAppointment('Approved');
+            this.updateAppointmentStatus('Finished');
           },
         },
       ],
@@ -63,6 +60,7 @@ export class UpdateStatusComponent implements OnInit {
   }
 
   async alertConfirmAppoitment() {
+    let newDate = moment(this.today).format('YYYY-MM-DD');
     const alert = await this.alertCtrl.create({
       subHeader: 'Appointment Confirmation',
       message: 'Are you sure you want to confirm this appointment?',
@@ -76,10 +74,10 @@ export class UpdateStatusComponent implements OnInit {
               title: 'Appointment Confirmation',
               description:
                 'I am pleased to inform you that your appointment has been confirmed. We look forward to meeting you on the scheduled date.',
-              uid: this.id,
+              date: newDate,
             };
-            this.dataService.addToNotification(this.notification);
-            this.CancelAppointment('Approved');
+            this.dataService.addToNotification(this.notification, this.uid);
+            this.updateAppointmentStatus('Approved');
           },
         },
       ],
@@ -88,6 +86,7 @@ export class UpdateStatusComponent implements OnInit {
   }
 
   async alertCancelAppointmnet() {
+    let newDate = moment(this.today).format('YYYY-MM-DD');
     const alert = await this.alertCtrl.create({
       subHeader: 'Appointment Cancelation',
       inputs: [
@@ -104,10 +103,10 @@ export class UpdateStatusComponent implements OnInit {
           text: 'OK',
           handler: (data) => {
             data.title = 'Appointment Cancelation';
-            data.uid = this.id;
+            data.date = newDate;
             this.notification = data;
-            this.dataService.addToNotification(this.notification);
-            this.CancelAppointment('Canceled');
+            this.dataService.addToNotification(this.notification, this.uid);
+            this.updateAppointmentStatus('Canceled');
           },
         },
       ],
@@ -116,7 +115,7 @@ export class UpdateStatusComponent implements OnInit {
     await alert.present();
   }
 
-  async CancelAppointment(status: string) {
+  async updateAppointmentStatus(status: string) {
     this.appointment['status'] = status;
 
     const loading = await this.loadingCtrl.create();
