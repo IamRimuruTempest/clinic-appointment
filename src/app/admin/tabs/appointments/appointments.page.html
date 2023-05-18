@@ -22,6 +22,7 @@
       *ngFor="let appointment of pendingAppointments"
       button
       (click)="openUpdateStatus(appointment)"
+      lines="none"
     >
       <ion-card
         style="
@@ -40,14 +41,10 @@
         <ion-card-header style="color: #fff !important">
           <ion-label>
             <div style="display: flex; justify-content: space-between">
-              <ion-card-subtitle style="color: #fff !important"
-                >Patient: {{appointment.fullName}}</ion-card-subtitle
-              >
+              <p style="font-size: 0.8rem">Patient: {{appointment.fullName}}</p>
+              <ion-icon name="arrow-forward-outline"></ion-icon>
             </div>
-            <h1><b> Tooth Extraction</b></h1>
-            <p style="color: #fff !important">
-              Dr. Juan Dela Cruz, dentist-surgeon
-            </p>
+            <h2><b> Tooth Extraction</b></h2>
           </ion-label>
         </ion-card-header>
         <ion-card-content
@@ -61,13 +58,30 @@
           "
         >
           <div style="display: flex; align-items: center">
-            <ion-icon size="large" name="calendar-outline"></ion-icon>
-            <p style="margin-left: 10px !important">{{appointment.schedule}}</p>
+            <ion-icon
+              style="font-size: 1.2rem"
+              name="calendar-clear-outline"
+            ></ion-icon>
+            <p
+              style="
+                margin-left: 10px !important;
+                margin-bottom: 0px !important;
+              "
+            >
+              {{appointment.schedule}}
+            </p>
           </div>
 
           <div style="display: flex; align-items: center">
-            <ion-icon size="large" name="alarm-outline"></ion-icon>
-            <p style="margin-left: 10px !important">{{appointment.time}}</p>
+            <ion-icon style="font-size: 1.3rem" name="alarm-outline"></ion-icon>
+            <p
+              style="
+                margin-left: 10px !important;
+                margin-bottom: 0px !important;
+              "
+            >
+              {{appointment.time}}
+            </p>
           </div>
         </ion-card-content>
       </ion-card>

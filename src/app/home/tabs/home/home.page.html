@@ -12,10 +12,30 @@
         ><span>Paulo Maningo</span>
         <span style="font-size: 0.8rem">subscribe2paolul@gmail.com</span>
       </ion-label>
-      <ion-button fill="clear">
-        <ion-icon color="dark" slot="icon-only" name="notifications-outline">
-          <ion-badge style="position: absolute">1</ion-badge></ion-icon
+      <ion-button
+        fill="clear"
+        style="
+          position: relative;
+          width: 42px;
+          top: 1px;
+          right: 1px;
+          overflow: visible !important;
+        "
+      >
+        <ion-badge
+          style="
+            background-color: #0057ff;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-radius: 70%;
+            font-size: 0.5rem;
+            font-weight: 400;
+          "
+          ><span style="text-align: center">1</span></ion-badge
         >
+        <ion-icon color="dark" slot="icon-only" name="notifications-outline">
+        </ion-icon>
       </ion-button>
     </ion-item>
   </ion-toolbar>
