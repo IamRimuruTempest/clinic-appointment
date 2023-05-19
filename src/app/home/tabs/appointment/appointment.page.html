@@ -1,60 +1,10 @@
-<ion-header [translucent]="true">
+<ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
     <ion-title>My Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <!-- <ion-list>
-    <ion-item-sliding *ngFor="let appointment of appointments">
-      <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col size="12">
-              <ion-label>
-                <h5>Patient: {{appointment.fullName}}</h5>
-              </ion-label>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col size="4">
-              <ion-label>
-                <h3>Sche dule</h3>
-                <p>{{appointment.schedule}}</p>
-              </ion-label>
-            </ion-col>
-            <ion-col size="4">
-              <ion-label>
-                <h3>Time</h3>
-                <p>{{appointment.time}}</p>
-              </ion-label>
-            </ion-col>
-            <ion-col size="4">
-              <ion-label>
-                <h3>Doctor</h3>
-                <p>Dr. Kwak</p>
-              </ion-label>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-item>
-
-      <ion-item-options>
-        <ion-item-option
-          color="success"
-          (click)="viewUserAppointment(appointment)"
-          >View</ion-item-option
-        >
-        <ion-item-option
-          color="tertiary"
-          (click)="updateUserAppointment(appointment);"
-        >
-          Update</ion-item-option
-        >
-      </ion-item-options>
-    </ion-item-sliding>
-  </ion-list> -->
-
   <ion-list>
     <ion-item *ngFor="let appointment of appointments" button>
       <ion-card

@@ -148,11 +148,17 @@ export class DataService {
     }) as Observable<Inventory[]>;
   }
 
-  // addToOrder(inventory: Inventory, uid: string) {
-  //   const orderDocRef = collection(this.firestore, `users/${uid}/orders`);
-  //   return addDoc(orderDocRef, inventory);
-  // }
+  addToOrder(order: any) {
+    const orderDocRef = collection(this.firestore, `/orders`);
+    return addDoc(orderDocRef, order);
+  }
 
+  getAllOrders() {
+    const ordersRef = collection(this.firestore, `orders`);
+    return collectionData(ordersRef, {
+      idField: 'uid',
+    });
+  }
   // addToDummyOrder(inventory: Inventory, uid: string) {
   //   const orderDocRef = collection(this.firestore, `orders/${uid}`);
   //   return setDoc(orderDocRef, { ...inventory });

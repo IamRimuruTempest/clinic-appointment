@@ -31,7 +31,7 @@ export class MedicinePage implements OnInit {
   async openMedicineInformation(medicine: any) {
     const modal = await this.modalCtrl.create({
       // breakpoints: [0, 0.25, 0.5, 0.75],
-      initialBreakpoint: 0.7,
+      initialBreakpoint: 0.6,
       component: MedicineInformationComponent,
       componentProps: {
         medicine: medicine,
