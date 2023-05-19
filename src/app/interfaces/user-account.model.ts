@@ -1,3 +1,5 @@
+import { UserRole } from '../enums/user-role.enum';
+
 export interface UserAccount {
   uid?: string;
   imgUrl?: string;
@@ -10,4 +12,5 @@ export interface UserAccount {
   address: string;
   course: string;
   college: string;
+  role: UserRole;
 }
