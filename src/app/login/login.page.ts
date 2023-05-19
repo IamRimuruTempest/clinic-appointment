@@ -8,6 +8,8 @@ import {
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { firstValueFrom } from 'rxjs';
+import { UserRole } from '../enums/user-role.enum';
 
 @Component({
   selector: 'app-login',
@@ -47,7 +49,6 @@ export class LoginPage {
     private alertCtrl: AlertController
   ) {
     this.formGroup = this.createFormGroup();
-
   }
 
   createFormGroup() {
@@ -65,25 +66,34 @@ export class LoginPage {
     const loading = await this.loadingCtrl.create();
     await loading.present();
     console.log(values);
-    this.authService
-      .login(values.email, values.password)
-      .then(async (user) => {
-        if (user) {
-          // Success login 
-          loading.dismiss();
+    try {
+      const user = await this.authService.login(values.email, values.password);
+      if (!user) {
+        console.log('Error');
+        return;
+      }
+      const account = await firstValueFrom(this.authService.userAccount$);
+
+      // Success login
+      switch (account?.role) {
+        case UserRole.STUDENT:
           this.router.navigate(['home']);
-        } else {
-          console.log('Error');
-        }
-      })
-      .catch(async (err) => {
-        await loading.dismiss();
-        const alert = await this.alertCtrl.create({
-          header: 'Login failed',
-          message: err.message,
-          buttons: ['OK'],
-        });
-        await alert.present();
+          break;
+        case UserRole.ADMIN:
+          this.router.navigate(['admin']);
+          break;
+        default:
+          this.router.navigate(['home']);
+      }
+      loading.dismiss();
+    } catch (ex: any) {
+      await loading.dismiss();
+      const alert = await this.alertCtrl.create({
+        header: 'Login failed',
+        message: ex.message,
+        buttons: ['OK'],
       });
+      await alert.present();
+    }
   }
 }

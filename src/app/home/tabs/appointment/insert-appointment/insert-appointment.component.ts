@@ -18,6 +18,7 @@ import { Appointment } from 'src/app/interfaces/appointment.model';
 import { ThankYouComponent } from './thank-you/thank-you.component';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
 import { formatISO } from 'date-fns';
+import { UserRole } from 'src/app/enums/user-role.enum';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -44,6 +45,7 @@ export class InsertAppointmentComponent implements OnInit {
     phoneNumber: '',
     course: '',
     college: '',
+    role: UserRole.STUDENT,
   };
   name!: string;
 

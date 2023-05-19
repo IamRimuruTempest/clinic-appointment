@@ -5,6 +5,8 @@ import {
   redirectLoggedInTo,
   canActivate,
 } from '@angular/fire/auth-guard';
+import { AuthGuard } from './guards/auth.guard';
+import { UserRole } from './enums/user-role.enum';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['']);
 const redirectLoggedInToHome = () => redirectLoggedInTo(['home']);
@@ -20,6 +22,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./home/home.module').then((m) => m.HomePageModule),
     ...canActivate(redirectUnauthorizedToLogin),
+    canActivate: [AuthGuard],
+    data: {
+      role: UserRole.STUDENT,
+    },
   },
   {
     path: 'login',
@@ -31,11 +37,16 @@ const routes: Routes = [
     path: 'register',
     loadChildren: () =>
       import('./register/register.module').then((m) => m.RegisterPageModule),
-  },  {
-    path: 'admin',
-    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
-
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('./admin/admin.module').then((m) => m.AdminPageModule),
+    canActivate: [AuthGuard],
+    data: {
+      role: UserRole.ADMIN,
+    },
+  },
 ];
 
 @NgModule({

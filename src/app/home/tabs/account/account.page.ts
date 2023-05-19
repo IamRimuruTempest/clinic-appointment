@@ -24,6 +24,7 @@ import {
 } from '@angular/fire/storage';
 import { DataService } from 'src/app/services/data.service';
 import { ChangePasswordModalComponent } from './change-password-modal/change-password-modal.component';
+import { UserRole } from 'src/app/enums/user-role.enum';
 
 @Component({
   selector: 'app-account',
@@ -40,6 +41,7 @@ export class AccountPage implements OnInit {
     phoneNumber: '',
     course: '',
     college: '',
+    role: UserRole.STUDENT,
   };
   imageUrl: string = '';
   constructor(
