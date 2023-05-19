@@ -1,12 +1,12 @@
 <ion-header [translucent]="true" class="ion-no-border">
   <ion-toolbar>
-    <ion-title>My Appointments</ion-title>
+    <ion-title>Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list *ngIf="appointmentLength !== 0; else noItem">
-    <ion-item *ngFor="let appointment of appointments" button>
+    <ion-item *ngFor="let appointment of appointments" button lines="none">
       <ion-card
         style="
           margin: 0 0 16px 0 !important;
@@ -24,9 +24,11 @@
         <ion-card-header style="color: #fff !important">
           <ion-label>
             <div style="display: flex; justify-content: space-between">
-              <ion-card-subtitle style="color: #fff !important"
-                >Patient: {{appointment.fullName}}</ion-card-subtitle
-              >
+              <ion-card-subtitle style="color: #fff !important">
+                <p style="font-size: 0.8rem">
+                  Patient: {{appointment.fullName}}
+                </p>
+              </ion-card-subtitle>
               <ion-button
                 style="font-size: 0.7rem !important"
                 fill="clear"
@@ -39,8 +41,8 @@
                 ></ion-icon>
               </ion-button>
             </div>
-            <h1><b> Tooth Extraction</b></h1>
-            <p style="color: #fff !important">
+            <h2><b> Tooth Extraction</b></h2>
+            <p style="color: #fff !important; font-size: 0.8rem">
               Dr. Juan Dela Cruz, dentist-surgeon
             </p>
           </ion-label>
@@ -57,12 +59,15 @@
           "
         >
           <div style="display: flex; align-items: center">
-            <ion-icon size="large" name="calendar-outline"></ion-icon>
+            <ion-icon
+              style="font-size: 1.2rem"
+              name="calendar-clear-outline"
+            ></ion-icon>
             <p style="margin-left: 10px !important">{{appointment.schedule}}</p>
           </div>
 
           <div style="display: flex; align-items: center">
-            <ion-icon size="large" name="alarm-outline"></ion-icon>
+            <ion-icon style="font-size: 1.3rem" name="alarm-outline"></ion-icon>
             <p style="margin-left: 10px !important">{{appointment.time}}</p>
           </div>
         </ion-card-content>
