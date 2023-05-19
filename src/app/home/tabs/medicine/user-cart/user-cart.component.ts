@@ -8,6 +8,7 @@ import { Auth } from '@angular/fire/auth';
 import { AuthService } from 'src/app/services/auth.service';
 import { Subscription, filter } from 'rxjs';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
+import { UserRole } from 'src/app/enums/user-role.enum';
 
 @Component({
   standalone: true,
@@ -19,7 +20,11 @@ import { UserAccount } from 'src/app/interfaces/user-account.model';
 export class UserCartComponent implements OnInit {
   medicine: any;
   uid: string = '';
-  orders: [account: Array<UserAccount>, order: Array<Inventory>] = [[], []];
+  orders: { account: any; order: Array<Inventory>; status: string } = {
+    account: '',
+    order: [],
+    status: 'Pending',
+  };
 
   account: UserAccount = {
     fullname: '',
@@ -30,6 +35,7 @@ export class UserCartComponent implements OnInit {
     phoneNumber: '',
     course: '',
     college: '',
+    role: UserRole.STUDENT,
   };
 
   constructor(
@@ -57,24 +63,22 @@ export class UserCartComponent implements OnInit {
   }
 
   async addToOrder() {
-    this.orders[0].push(this.account);
+    this.orders.account = this.account;
 
     this.medicine.map((data: any) => {
-      this.orders[1].push(data);
+      this.orders.order.push(data);
     });
 
-    // const loading = await this.loadingCtrl.create();
-    // await loading.present();
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
 
     this.dataService.addToOrder(this.orders);
 
     this.medicine.map((element: any) => {
-      // this.dataService.addToOrder(element, this.uid);
-      // this.dataService.addToDummyOrder(element, this.uid);
-      this.dataService.deleteUserCart(this.uid, element.id);
+      this.dataService.deleteUserCart(this.uid, element.uid);
     });
-    // this.modalCtrl.dismiss(null, 'cancel');
-    // loading.dismiss();
+    this.modalCtrl.dismiss(null, 'cancel');
+    loading.dismiss();
   }
 
   cancel() {

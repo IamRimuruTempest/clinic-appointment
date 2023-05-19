@@ -132,13 +132,18 @@ export class DataService {
   getUserCart(uid: string) {
     const userCartRef = collection(this.firestore, `users/${uid}/carts`);
     return collectionData(userCartRef, {
-      idField: 'id',
+      idField: 'uid',
     }) as Observable<Inventory[]>;
   }
 
   deleteUserCart(uid: string, id: string) {
     const userCartDocRef = doc(this.firestore, `users/${uid}/carts/${id}`);
     return deleteDoc(userCartDocRef);
+  }
+
+  addToOrder(order: any) {
+    const orderDocRef = collection(this.firestore, `/orders`);
+    return addDoc(orderDocRef, order);
   }
 
   getUserOrder(uid: string): Observable<Inventory[]> {
@@ -148,17 +153,29 @@ export class DataService {
     }) as Observable<Inventory[]>;
   }
 
-  addToOrder(order: any) {
-    const orderDocRef = collection(this.firestore, `/orders`);
-    return addDoc(orderDocRef, order);
-  }
-
   getAllOrders() {
     const ordersRef = collection(this.firestore, `orders`);
     return collectionData(ordersRef, {
       idField: 'uid',
     });
   }
+
+  getPendingOrders() {
+    const ordersRef = collection(this.firestore, 'orders');
+    const qry = query(ordersRef, where('status', '==', 'Pending'));
+    return collectionData(qry, { idField: 'uid' }) as Observable<Appointment[]>;
+  }
+
+  updateUserOrder(order: any, uid: string) {
+    const userOrderDocRef = doc(this.firestore, `orders/${uid}`);
+    return updateDoc(userOrderDocRef, { ...order });
+  }
+
+  async deleteUserOrder(id: string) {
+    const userOrderDocRef = doc(this.firestore, `orders/${id}`);
+    return deleteDoc(userOrderDocRef);
+  }
+
   // addToDummyOrder(inventory: Inventory, uid: string) {
   //   const orderDocRef = collection(this.firestore, `orders/${uid}`);
   //   return setDoc(orderDocRef, { ...inventory });

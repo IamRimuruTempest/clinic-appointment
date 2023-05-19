@@ -1,28 +1,33 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
+import { ModalController } from '@ionic/angular';
+import { UserMedicineComponent } from './user-medicine/user-medicine.component';
 @Component({
   selector: 'app-medicine',
   templateUrl: './medicine.page.html',
   styleUrls: ['./medicine.page.scss'],
 })
 export class MedicinePage implements OnInit {
-  // accounts: UserAccount[] = [];
-  // accounts: any;
-  orders: {} = {};
-  constructor(private dataService: DataService) {
-    // this.dataService.getAllOrders().subscribe((data) => {
-    //   this.orders = data;
-    //   console.log(this.orders, 'test data');
-    // });
-  }
+  orders: any;
+  constructor(
+    private dataService: DataService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
-    // this.dataService.getAllUser().subscribe((user) => {
-    //   // this.accounts.push(...user);
-    //   user.forEach((userOrders) => {
-    //     console.log(this.dataService.getUserOrder(userOrders.uid!));
-    //   });
-    // });
+    this.dataService
+      .getPendingOrders()
+      .subscribe((data) => (this.orders = data));
+  }
+
+  async openUserMedicine(orders: any) {
+    const modal = await this.modalCtrl.create({
+      component: UserMedicineComponent,
+      componentProps: {
+        orders: orders,
+      },
+    });
+    return await modal.present();
   }
 }

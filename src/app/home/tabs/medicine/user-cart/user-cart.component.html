@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div *ngIf="medicine.length > 0; else noItem">
+  <!-- <div *ngIf="medicine.length > 0; else noItem"> -->
     <ion-list>
       <ion-item *ngFor="let medicine of medicine" button>
         <ion-label>
@@ -20,8 +20,8 @@
       </ion-item>
     </ion-list>
     <ion-button expand="full" (click)="addToOrder()">Submit Request</ion-button>
-  </div>
+  <!-- </div>
   <ng-template #noItem>
     <p style="text-align: center">There's nothing Here</p>
-  </ng-template>
+  </ng-template> -->
 </ion-content>

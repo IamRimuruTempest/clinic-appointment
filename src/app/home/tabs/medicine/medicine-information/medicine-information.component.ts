@@ -26,18 +26,23 @@ export class MedicineInformationComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.uid, 'test');
+    // console.log(this.uid, 'test');
+    // this.dataService.getUserCart(this.uid).subscribe((data) =>
+    //   data.map((res) => {
+    //     if (res.id == this.medicine.id) {
+    //       console.log(res, 'Parehas sila');
+    //     }
+    //   })
+    // );
+    // console.log(this.medicine, 'test');
   }
 
   async addToCart() {
-    // this.dataService.addToCart().
-
     const loading = await this.loadingCtrl.create();
-
     if (this.quantity == 0) {
       console.log('0 quantity');
     } else {
-      this.medicine['quantity'] = this.quantity;
+      this.medicine['orderQty'] = this.quantity;
       await loading.present();
       this.dataService.addToCart(this.medicine, this.uid);
       this.modalCtrl.dismiss(null, 'cancel');
