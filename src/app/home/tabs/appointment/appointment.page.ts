@@ -28,6 +28,8 @@ export class AppointmentPage implements OnInit {
   // @ViewChild(IonModal)
   // modal!: IonModal;
 
+  appointmentLength: number = 0;
+
   name: string = '';
   pending: boolean = false;
 
@@ -107,7 +109,7 @@ export class AppointmentPage implements OnInit {
       });
 
       this.appointments = tmpAppointment;
-      console.log(this.appointments, 'test 1 appointments');
+      this.appointmentLength = this.appointments.length;
     });
   }
 

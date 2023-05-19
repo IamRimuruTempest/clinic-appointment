@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-
+import { NotificationPageModule } from './notification/notification.module';
 const routes: Routes = [
   {
     path: '',
@@ -10,10 +10,7 @@ const routes: Routes = [
     children: [
       {
         path: 'notification',
-        loadChildren: () =>
-          import('./notification/notification.module').then(
-            (m) => m.NotificationPageModule
-          ),
+        component: NotificationPageModule,
       },
     ],
   },

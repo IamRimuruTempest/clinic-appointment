@@ -1,18 +1,20 @@
 <ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar class="ion-no-border">
+  <ion-toolbar>
     <!-- <ion-title>homesss</ion-title> -->
-    <ion-item class="ion-no-border">
+    <ion-item lines="none">
       <ion-avatar slot="start">
         <img
           alt="Silhouette of a person's head"
-          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+          [src]="account.imgUrl || 'https://ionicframework.com/docs/img/demos/avatar.svg'"
         />
       </ion-avatar>
       <ion-label style="display: flex; flex-direction: column"
-        ><span>Paulo Maningo</span>
-        <span style="font-size: 0.8rem">subscribe2paolul@gmail.com</span>
+        ><span>{{account.fullname}}</span>
+        <span style="font-size: 0.8rem">{{account.email}}</span>
       </ion-label>
       <ion-button
+        slot="end"
+        routerLink="./notification"
         fill="clear"
         style="
           position: relative;
@@ -51,7 +53,7 @@
 
   <ion-card
     style="
-      background-image: url(../../assets/img/smile.jpg);
+      background-image: url(../../assets/img/7.jpg);
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
@@ -70,13 +72,13 @@
     </h2>
     <p style="margin: 0 !important">Your smile begins here</p>
   </ion-card>
-
+  <!-- background-image: url(../../assets/img/services1.jpg); -->
   <ion-grid style="padding-left: 0 !important; padding-right: 0 !important">
     <ion-row>
       <ion-col style="padding-left: 0 !important">
         <ion-card
           style="
-            background-image: url(../../assets/img/services1.jpg);
+            background-image: url(../../assets/img/6.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -108,10 +110,11 @@
           </h6>
         </ion-card>
       </ion-col>
+      <!-- background-image: url(../../assets/img/services2.jpg); -->
       <ion-col style="padding-right: 0 !important">
         <ion-card
           style="
-            background-image: url(../../assets/img/services2.jpg);
+            background-image: url(../../assets/img/5.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -147,14 +150,14 @@
   </ion-grid>
 
   <h5>Common Dental Problems</h5>
-
+  <!-- background-image: url(../../assets/img/services33.jpg); -->
   <ion-grid style="padding-left: 0 !important; padding-right: 0 !important">
     <ion-row>
       <ion-col style="padding-left: 0 !important">
         <ion-card
           (click)="openToothDecay()"
           style="
-            background-image: url(../../assets/img/services33.jpg);
+            background-image: url(../../assets/img/1.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -176,15 +179,16 @@
               display: flex;
               align-items: center;
               margin: 0 !important;
-              color: #424242;
+              color: #fff;
             "
           >
             TOOTH DECAY
           </h6>
         </ion-card>
+        <!-- background-image: url(../../assets/img/services5.jpg); -->
         <ion-card
           style="
-            background-image: url(../../assets/img/services5.jpg);
+            background-image: url(../../assets/img/2.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -206,17 +210,18 @@
               display: flex;
               align-items: center;
               margin: 0 !important;
-              color: #424242;
+              color: #fff;
             "
           >
             GUM DISEASE
           </h6>
         </ion-card>
       </ion-col>
+      <!--   background-image: url(../../assets/img/services4.jpg); -->
       <ion-col style="padding-right: 0 !important">
         <ion-card
           style="
-            background-image: url(../../assets/img/services4.jpg);
+            background-image: url(../../assets/img/3.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -238,7 +243,7 @@
               display: flex;
               align-items: center;
               margin: 0 !important;
-              color: #424242;
+              color: #fff;
             "
           >
             BAD BREATH
@@ -246,7 +251,7 @@
         </ion-card>
         <ion-card
           style="
-            background-image: url(../../assets/img/services6.jpg);
+            background-image: url(../../assets/img/4.jpg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: cover;
@@ -268,7 +273,7 @@
               display: flex;
               align-items: center;
               margin: 0 !important;
-              color: #424242;
+              color: #fff;
             "
           >
             SENSITIVE TEETH

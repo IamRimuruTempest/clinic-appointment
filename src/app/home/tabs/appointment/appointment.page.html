@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
+  <ion-list *ngIf="appointmentLength !== 0; else noItem">
     <ion-item *ngFor="let appointment of appointments" button>
       <ion-card
         style="
@@ -69,6 +69,19 @@
       </ion-card>
     </ion-item>
   </ion-list>
+
+  <ng-template #noItem>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      "
+    >
+      <img src="../../assets/img/results.png" alt="" />
+    </div>
+  </ng-template>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button (click)="insertUserAppointment()">

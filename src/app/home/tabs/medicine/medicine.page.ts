@@ -14,6 +14,7 @@ import { Auth } from '@angular/fire/auth';
 export class MedicinePage implements OnInit {
   inventoryList: Inventory[] = [];
   inventorySub: Subscription;
+
   constructor(
     private auth: Auth,
     private dataService: DataService,

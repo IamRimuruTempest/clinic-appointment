@@ -1,16 +1,16 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button (click)="cancel()">
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title style="padding-left: 0 !important">My Requests</ion-title>
+    <!-- <ion-title style="padding-left: 0 !important">Requests</ion-title> -->
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <div *ngIf="medicine.length > 0; else noItem"> -->
+  <div *ngIf="medicineLength !== 0; else noItem">
     <ion-list>
       <ion-item *ngFor="let medicine of medicine" button>
         <ion-label>
@@ -19,9 +19,31 @@
         </ion-label>
       </ion-item>
     </ion-list>
-    <ion-button expand="full" (click)="addToOrder()">Submit Request</ion-button>
-  <!-- </div>
+  </div>
   <ng-template #noItem>
-    <p style="text-align: center">There's nothing Here</p>
-  </ng-template> -->
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+      "
+    >
+      <img src="../../assets/img/results.png" alt="" />
+    </div>
+  </ng-template>
 </ion-content>
+
+<ion-footer *ngIf="medicineLength !== 0" lines="none" class="ion-no-border">
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-button expand="full" (click)="addToOrder()"
+            >Submit Request</ion-button
+          ></ion-col
+        >
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

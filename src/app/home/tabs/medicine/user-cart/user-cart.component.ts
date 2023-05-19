@@ -25,6 +25,7 @@ export class UserCartComponent implements OnInit {
     order: [],
     status: 'Pending',
   };
+  medicineLength: number = 0;
 
   account: UserAccount = {
     fullname: '',
@@ -58,7 +59,7 @@ export class UserCartComponent implements OnInit {
     this.dataService
       .getUserCart(this.uid)
       .subscribe(
-        (data) => ((this.medicine = data), console.log(this.medicine))
+        (data) => ((this.medicine = data), (this.medicineLength = data.length))
       );
   }
 

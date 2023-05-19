@@ -3,6 +3,9 @@ import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { DentalProblemComponent } from './dental-problem/dental-problem.component';
 import { ModalController } from '@ionic/angular';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
+import { UserRole } from 'src/app/enums/user-role.enum';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -54,19 +57,31 @@ export class HomePage implements OnInit {
     ];
   };
 
+  account: UserAccount = {
+    fullname: '',
+    age: '',
+    address: '',
+    gender: '',
+    schoolID: '',
+    phoneNumber: '',
+    course: '',
+    college: '',
+    role: UserRole.STUDENT,
+  };
+
   constructor(
     private authService: AuthService,
     private router: Router,
     private modalCtrl: ModalController
   ) {
-    this.authService.userAccount$.subscribe(console.log);
+    this.authService.userAccount$
+      .pipe(filter((use) => use !== null))
+      .subscribe((user) => {
+        this.account = user!;
+      });
   }
 
-  ngOnInit() {
-    console.log('Hello Dos!');
-
-    this.doSomething();
-  }
+  ngOnInit() {}
 
   async openToothDecay() {
     const modal = await this.modalCtrl.create({
