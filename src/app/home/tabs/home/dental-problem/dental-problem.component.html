@@ -8,63 +8,68 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <ion-img
-    src="https://media.npr.org/assets/img/2013/12/13/doctorsandmoney-final_wide-2df7226206f1960b9e7438c546875718d0b10e1a.jpeg"
-  ></ion-img>
-  <p>{{ toothDecay }}</p>
-  <ion-label>
-    <h3>1. Lorem ipsum dolor sit amet</h3>
-    <p>
-      Lorem ipsum dolor sit amet. Non quos nemo est illum iusto ea numquam
-      aspernatur qui odio cupiditate. Cum maxime internos sed tempora temporibus
-      qui dolore nisi et nesciunt architecto hic tenetur accusantium. Non
-      voluptates fuga ea illo repellat et aperiam totam et veritatis atque et
-      vitae consequatur.
-    </p>
-  </ion-label>
+  <div *ngIf="content === 'Free'">
+    <ion-img
+      *ngIf="title === 'Free Consultation'"
+      src="https://glasbergen.b-cdn.net/wp-content/gallery/pharmacy/pharm5.gif"
+    ></ion-img>
+    <ion-img
+      *ngIf="title === 'Free Medication'"
+      src="https://glasbergen.b-cdn.net/wp-content/gallery/pharmacy/1_pharm13.gif"
+    ></ion-img>
+    <h3>{{ title }}</h3>
+    <ion-label>
+      <p>
+        Lorem ipsum dolor sit amet. Sed iusto consequatur eum voluptas veniam
+        eum dolorem quaerat ut ipsum temporibus. Et delectus iste eum doloribus
+        enim est alias quae aut similique earum qui voluptatem similique et
+        quaerat laborum. Quo dolorem debitis sit dolore illum ea excepturi
+        minima id sint consequuntur sed doloremque velit sed eligendi ipsum nam
+        labore laborum. Et quibusdam explicabo ea voluptatem fuga ut totam
+        consequatur quo mollitia laboriosam in accusamus excepturi ut dolorum
+        laborum quo omnis veniam. Et ipsum sequi aut reprehenderit voluptas aut
+        ratione omnis qui minima ducimus qui velit consequatur et laudantium
+        possimus? Id sunt minus ab aspernatur officiis id voluptatem minima. Est
+        nostrum distinctio sit earum quas vel Quis eius sit natus voluptatem qui
+        eligendi animi et expedita accusamus rem fuga atque.
+      </p>
+    </ion-label>
+  </div>
+  <div *ngIf="content === 'Problem'">
+    <ion-img
+      *ngIf="title === 'Tooth Decay'"
+      src="https://dentalcosmeticspa.com/wp-content/uploads/2015/09/pulling-a-teeth-637x463-636x318.jpg"
+    ></ion-img>
+    <ion-img
+      *ngIf="title === 'Gum Disease'"
+      src="https://assets.website-files.com/60d49b642059890ed95f7c72/610195f04fdab2131b444740_lascruces-gingivitis.jpeg"
+    ></ion-img>
+    <ion-img
+      *ngIf="title === 'Bad Breath'"
+      src="https://www.oursuperadventure.com/wp-content/uploads/2016/08/2015-02-28.png"
+    ></ion-img>
+    <ion-img
+      *ngIf="title === 'Sensitive Teeth'"
+      src="https://glasbergen.b-cdn.net/wp-content/gallery/dentist-cartoons/1359.gif"
+    ></ion-img>
+    <h3>{{ title }}</h3>
+    <ion-label>
+      <!-- <h3>5. Aut quod voluptas cum dolores.</h3> -->
+      <p *ngFor="let content1 of dentalProblem['content1']">
+        {{ content1 }}
+      </p>
 
-  <ion-label>
-    <h3>2. Est quia rerum sed quae internos.</h3>
-    <p>
-      Est quia rerum sed quae internos hic rerum fuga ut perspiciatis Quis ea
-      enim eligendi. Qui numquam harum et velit nobis in deleniti reprehenderit
-      id asperiores dolorum vel officiis illum. Sit voluptas nemo quo
-      voluptatibus sint aut recusandae quisquam cum autem cupiditate.
-    </p>
-  </ion-label>
-
-  <ion-label>
-    <h3>3. Id dolore maxime vel iste minima.</h3>
-    <p>
-      Id dolore maxime vel iste minima est quidem consequatur qui minima numquam
-      et maiores nihil qui eligendi fugiat. Sit dolor impedit et debitis neque
-      aut minus similique et architecto quae non quos debitis. Eos odio omnis
-      sed molestiae optio et porro velit id quia doloribus ut eius dignissimos
-      ea voluptates nisi. A beatae quas est voluptatum placeat eum impedit quis
-      sed laboriosam repellendus cum recusandae quae qui nobis fuga ex sunt
-      accusantium.
-    </p>
-  </ion-label>
-
-  <ion-label>
-    <h3>4. Et officia quos aut eaque animi.</h3>
-    <p>
-      Et officia quos aut eaque animi ut laudantium dolore. Nam saepe nemo ab
-      placeat pariatur ea nobis quasi aut aperiam ipsam! Est quaerat consequatur
-      non iste illo ea quia sequi est sint dolor quo dolore architecto eum
-      repellendus laboriosam sed culpa natus.
-    </p>
-  </ion-label>
-
-  <ion-label>
-    <h3>5. Aut quod voluptas cum dolores.</h3>
-    <p>
-      Aut quod voluptas cum dolores nemo sed dolorem unde eum dolores alias ab
-      incidunt quia. Et quia nihil vel voluptatum sequi aut veniam sapiente eos
-      tenetur nemo qui aliquid laudantium 33 rerum reprehenderit At nihil quam.
-      Aut illum voluptate et similique voluptatem ab asperiores optio est optio
-      voluptas. Quo sint aliquam in voluptatem nostrum id incidunt dolore ut
-      nihil alias.
-    </p>
-  </ion-label>
+      <ul *ngFor="let symptom of dentalProblem['symptoms']">
+        <li>
+          <p>
+            {{ symptom }}
+          </p>
+        </li>
+      </ul>
+      <p *ngFor="let content2 of dentalProblem['content2']">
+        {{ content2 }}
+      </p>
+      <br />
+    </ion-label>
+  </div>
 </ion-content>

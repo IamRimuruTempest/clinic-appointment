@@ -21,7 +21,7 @@
       <h1>{{account.fullname}}</h1>
       <p>{{account.email}}</p>
     </ion-label>
-  </ion-item> 
+  </ion-item>
   <br />
   <ion-label>
     <h2 style="color: #0057ff">Secure your account!</h2>
@@ -52,7 +52,11 @@
       lines="full"
       style="--padding-start: 0px !important"
     >
-      <ion-icon name="alarm-sharp" slot="start"></ion-icon>
+      <ion-icon
+        style="color: #0057ff"
+        name="alarm-outline"
+        slot="start"
+      ></ion-icon>
       <ion-label>History</ion-label>
       <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
     </ion-item>

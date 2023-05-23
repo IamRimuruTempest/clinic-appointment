@@ -1,10 +1,14 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true" class="ion-padding">
+  <h2
+    style="
+      color: #0057ff;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      margin-top: 3rem;
+    "
+  >
+    Create Account
+  </h2>
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
     <app-input
       type="text"
@@ -13,48 +17,34 @@
       [control]="fullname"
       [errorMessages]="errorMessages.fullname"
     ></app-input>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <app-input
-            type="text"
-            label="Age"
-            labelPlacement="stacked"
-            [control]="age"
-            [errorMessages]="errorMessages.age"
-          ></app-input
-        ></ion-col>
-        <ion-col>
-          <app-input
-            type="text"
-            label="Gender"
-            labelPlacement="stacked"
-            [control]="gender"
-            [errorMessages]="errorMessages.gender"
-          ></app-input
-        ></ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <app-input
-            type="text"
-            label="Scholl ID"
-            labelPlacement="stacked"
-            [control]="schoolID"
-            [errorMessages]="errorMessages.schoolID"
-          ></app-input
-        ></ion-col>
-        <ion-col>
-          <app-input
-            type="text"
-            label="Phone Number"
-            labelPlacement="stacked"
-            [control]="phoneNumber"
-            [errorMessages]="errorMessages.phoneNumber"
-          ></app-input
-        ></ion-col>
-      </ion-row>
-    </ion-grid>
+    <app-input
+      type="text"
+      label="School ID"
+      labelPlacement="stacked"
+      [control]="schoolID"
+      [errorMessages]="errorMessages.schoolID"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Age"
+      labelPlacement="stacked"
+      [control]="age"
+      [errorMessages]="errorMessages.age"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Gender"
+      labelPlacement="stacked"
+      [control]="gender"
+      [errorMessages]="errorMessages.gender"
+    ></app-input>
+    <app-input
+      type="text"
+      label="Phone Number"
+      labelPlacement="stacked"
+      [control]="phoneNumber"
+      [errorMessages]="errorMessages.phoneNumber"
+    ></app-input>
 
     <app-input
       type="text"
@@ -98,8 +88,13 @@
       expand="block"
       color="primary"
       type="submit"
+      style="margin-top: 3rem"
     >
       Register
     </ion-button>
+
+    <p style="text-align: center">
+      Already have an account, <a routerLink="/login">Login</a>
+    </p>
   </form>
 </ion-content>

@@ -1,47 +1,46 @@
-<ion-content>
-  <div
+<ion-content class="ion-padding">
+  <ion-img src="../../assets/img/logo1.png" alt=""></ion-img>
+
+  <h2
     style="
-      background-image: url(../../assets/img/login.jpg);
-      background-repeat: no-repeat;
-      background-position: center;
-      background-size: cover;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: end;
-      justify-content: center;
-      flex-direction: column;
-      padding: 16px !important;
+      color: #0057ff;
+      font-weight: bold;
+      margin-bottom: 0;
+      margin-top: 4rem;
     "
   >
-    <h5>Smile is the pretiest thing you can wear.</h5>
-    <p>
-      Schedule an appoinment to get your teeth and gums checked, so you can feel
-      confident about your smile.
-    </p>
-    <form
-      [formGroup]="formGroup"
-      (ngSubmit)="onSubmit(formGroup.value)"
-      style="margin-bottom: 1rem !important"
+    Smile is the pretiest thing you can wear.
+  </h2>
+  <h3 style="font-size: 0.9rem; margin-top: 0; margin-bottom: 2rem">
+    Schedule an appoinment to get your teeth and gums checked, so you can feel
+    confident about your smile.
+  </h3>
+
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)">
+    <app-input
+      type="email"
+      label="Email"
+      placeholder="Enter Email"
+      labelPlacement="floating"
+      [control]="email"
+      [errorMessages]="errorMessages.email"
+    ></app-input>
+
+    <app-input
+      type="password"
+      label="Password"
+      placeholder="Enter Password"
+      labelPlacement="floating"
+      [control]="password"
+      [errorMessages]="errorMessages.password"
+    ></app-input>
+
+    <ion-button style="margin-top: 2rem" type="submit" expand="block"
+      >Login</ion-button
     >
-      <app-input
-        type="email"
-        label="Email"
-        placeholder="Enter Email"
-        [control]="email"
-        [errorMessages]="errorMessages.email"
-      ></app-input>
-      <app-input
-        type="password"
-        label="Password"
-        placeholder="Enter Password"
-        [control]="password"
-        [errorMessages]="errorMessages.password"
-      ></app-input>
-      <ion-button expand="block" color="primary" type="submit">
-        Login
-      </ion-button>
-      <a routerLink="/register">Register here</a>
-    </form>
-  </div>
+
+    <p style="text-align: center">
+      I'm a new user, <a routerLink="/register">Register</a>
+    </p>
+  </form>
 </ion-content>

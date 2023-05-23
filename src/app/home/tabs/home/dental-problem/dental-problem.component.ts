@@ -11,7 +11,8 @@ import { ModalController } from '@ionic/angular';
 })
 export class DentalProblemComponent implements OnInit {
   title: any;
-  toothDecay: any;
+  dentalProblem: any;
+  content: any;
   constructor(private modalCtrl: ModalController) {}
 
   ngOnInit() {}
