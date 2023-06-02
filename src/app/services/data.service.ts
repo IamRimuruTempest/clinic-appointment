@@ -116,6 +116,16 @@ export class DataService {
     return deleteDoc(inventoryDocRef);
   }
 
+  getUserNotifications(uid: string) {
+    const notificationRef = collection(
+      this.firestore,
+      `users/${uid}/notifications`
+    );
+    return collectionData(notificationRef, {
+      idField: 'notification-id',
+    });
+  }
+
   addToNotification(notification: Notification, uid: string) {
     const notificationDocRef = collection(
       this.firestore,
