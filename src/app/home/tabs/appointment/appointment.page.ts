@@ -99,14 +99,21 @@ export class AppointmentPage implements OnInit {
   async getUserAppointments() {
     await this.dataService.getAppointments().subscribe((res) => {
       let tmpAppointment: any[] = [];
+      let tmpPendingAppointment: any[] = [];
       res.forEach((element) => {
         if (element['uid'] == this.uid && element['status'] != 'Canceled') {
           if (element['status'] == 'Pending') {
-            this.status = true;
+            tmpPendingAppointment.push(element);
           }
           tmpAppointment.push(element);
         }
       });
+
+      if (tmpPendingAppointment.length > 0) {
+        this.status = true;
+      } else {
+        this.status = false;
+      }
       this.appointments = tmpAppointment;
       this.appointmentLength = this.appointments.length;
     });

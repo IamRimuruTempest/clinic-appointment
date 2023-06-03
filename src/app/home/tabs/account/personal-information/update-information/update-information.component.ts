@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { DataService } from 'src/app/services/data.service';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -66,7 +67,8 @@ export class UpdateInformationComponent implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    public formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private dataService: DataService
   ) {
     this.formGroup = this.createFormGroup();
   }
@@ -92,6 +94,12 @@ export class UpdateInformationComponent implements OnInit {
     this.address.setValue(this.account['address']);
     this.course.setValue(this.account['course']);
     this.college.setValue(this.account['college']);
+
+    console.log(this.fullname, 'test');
+  }
+
+  onSubmit() {
+    console.log('tst values');
   }
 
   cancel() {

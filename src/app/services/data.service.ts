@@ -48,6 +48,8 @@ export class DataService {
     }) as Observable<UserAccount[]>;
   }
 
+  
+
   getAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
     return collectionData(appointmentsRef, {
