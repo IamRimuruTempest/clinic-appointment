@@ -31,7 +31,7 @@ export class AppointmentPage implements OnInit {
   appointmentLength: number = 0;
 
   name: string = '';
-  pending: boolean = false;
+  status: boolean = false;
 
   appointments: any[] = [];
   uid: string = '';
@@ -102,19 +102,18 @@ export class AppointmentPage implements OnInit {
       res.forEach((element) => {
         if (element['uid'] == this.uid && element['status'] != 'Canceled') {
           if (element['status'] == 'Pending') {
-            this.pending = true;
+            this.status = true;
           }
           tmpAppointment.push(element);
         }
       });
-
       this.appointments = tmpAppointment;
       this.appointmentLength = this.appointments.length;
     });
   }
 
   async insertUserAppointment() {
-    if (this.pending != false) {
+    if (this.status != false) {
       const alert = await this.alertCtrl.create({
         header: 'Alert',
         subHeader: 'Important message',

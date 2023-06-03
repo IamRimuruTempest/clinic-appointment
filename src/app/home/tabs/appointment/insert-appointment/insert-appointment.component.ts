@@ -178,7 +178,6 @@ export class InsertAppointmentComponent implements OnInit {
           text: 'OK',
           handler: () => {
             loading.present();
-
             this.dataService.updateAppointment(appointment, appointment.id);
 
             loading.dismiss();

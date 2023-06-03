@@ -79,6 +79,12 @@ export class DataService {
     >;
   }
 
+  getUserAppointments(uid: string): Observable<Appointment[]> {
+    const userAppointmentsRef = collection(this.firestore, 'appointments');
+    const qry = query(userAppointmentsRef, where('uid', '==', uid));
+    return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
+  }
+
   async addAppontment(appointment: Appointment) {
     const appointmentDocRef = collection(this.firestore, 'appointments/');
     return addDoc(appointmentDocRef, appointment);

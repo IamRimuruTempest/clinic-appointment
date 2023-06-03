@@ -42,6 +42,7 @@ export class UserMedicineComponent implements OnInit {
   }
 
   async approvedRequestedMedicine() {
+    let newDate = moment(this.today).format('YYYY-MM-DD');
     const alert = await this.alertCtrl.create({
       subHeader: 'Request Confirmation',
       message: 'Are you sure you want to approved this request?',
@@ -50,7 +51,7 @@ export class UserMedicineComponent implements OnInit {
         { text: 'CANCEL' },
         {
           text: 'OK',
-          handler: () => {
+          handler: (data) => {
             this.orders.order.map((data: any) => {
               const tmpArr = {
                 name: data.name,
@@ -60,6 +61,17 @@ export class UserMedicineComponent implements OnInit {
 
               this.dataService.updateInventory(tmpArr, data.id);
             });
+
+            this.notification = {
+              title: 'Request Confirmation',
+              description:
+                'I am delighted to inform you that your request has been approved. Kindly get your requested medicine from CSU Clinic.',
+              date: newDate,
+            };
+            this.dataService.addToNotification(
+              this.notification,
+              this.orders.account.uid
+            );
 
             this.orders.status = 'Approved';
             this.dataService.updateUserOrder(this.orders, this.orders.uid);
