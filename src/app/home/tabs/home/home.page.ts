@@ -110,6 +110,10 @@ export class HomePage implements OnInit {
     role: UserRole.STUDENT,
   };
 
+  myDate = new Date();
+  hrs = this.myDate.getHours();
+  greetings: string = '';
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -122,7 +126,12 @@ export class HomePage implements OnInit {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.hrs < 12) this.greetings = 'Good Morning';
+    else if (this.hrs >= 12 && this.hrs <= 17)
+      this.greetings = 'Good Afternoon';
+    else if (this.hrs >= 17 && this.hrs <= 24) this.greetings = 'Good evening';
+  }
 
   async opentNotification() {
     const modal = await this.modalCtrl.create({
