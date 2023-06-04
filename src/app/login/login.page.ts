@@ -8,8 +8,9 @@ import {
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, take } from 'rxjs';
 import { UserRole } from '../enums/user-role.enum';
+import { DataService } from '../services/data.service';
 
 @Component({
   selector: 'app-login',
@@ -46,11 +47,42 @@ export class LoginPage {
     private authService: AuthService,
     public router: Router,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private dataService: DataService
   ) {
     this.formGroup = this.createFormGroup();
+    this.checkAdmin();
   }
 
+  async checkAdmin() {
+    (await this.authService.getAdmin())
+      .pipe(take(1))
+      .subscribe(async (admins) => {
+        if (admins.length == 0) {
+          console.log('No Admin found, inserting...');
+          const user = await this.authService.register(
+            'admin@csuclinic.com',
+            'Pass123@'
+          );
+          const newUser = {
+            uid: user.user.uid,
+            email: 'admin@csuclinic.com',
+            fullname: 'Admin',
+            age: '23',
+            gender: 'Male',
+            schoolID: '999999',
+            phoneNumber: '09888876876',
+            address: 'Admin Address',
+            course: 'BSCS',
+            college: 'CICS',
+            role: UserRole.ADMIN,
+          };
+          await this.dataService.addUser(newUser);
+          await this.authService.logout();
+          console.log('Insert done');
+        }
+      });
+  }
   createFormGroup() {
     return this.formBuilder.group({
       email: this.email,

@@ -10,7 +10,14 @@ import {
   updatePassword,
 } from '@angular/fire/auth';
 import { User } from '@angular/fire/auth';
-import { docData, Firestore } from '@angular/fire/firestore';
+import {
+  collection,
+  collectionData,
+  docData,
+  Firestore,
+  query,
+  where,
+} from '@angular/fire/firestore';
 import { doc } from '@firebase/firestore';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -44,6 +51,13 @@ export class AuthService {
     }) as Observable<UserAccount>;
   }
 
+  async getAdmin() {
+    const userAccountsRef = collection(this.firestore, `users/`);
+    const qry = query(userAccountsRef, where('role', '==', 'ADMIN'));
+    return collectionData(qry, {
+      idField: 'uid',
+    }) as Observable<UserAccount[]>;
+  }
   async isLoggedIn() {
     return !!this.user;
   }
