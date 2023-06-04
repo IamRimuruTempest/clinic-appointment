@@ -34,16 +34,14 @@ export class AuthGuard implements CanActivate {
           console.log('Guard: not logged in');
           return this.router.parseUrl('/login');
         }
+
         let allowed = true;
-        if (expectedRole) {
-          if (account?.role !== expectedRole) {
-            allowed = false;
-          }
-        } else if (expectedRoles) {
-          if (!expectedRoles.includes(account?.role)) {
-            allowed = false;
-          }
+        if (expectedRole && account?.role !== expectedRole) {
+          allowed = false;
+        } else if (expectedRoles && !expectedRoles.includes(account?.role)) {
+          allowed = false;
         }
+
         if (!allowed) {
           console.log('Guard: user not authorized');
           switch (account?.role) {
