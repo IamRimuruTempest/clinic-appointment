@@ -19,7 +19,7 @@
       <ion-icon
         style="color: #0057ff"
         name="mail-unread-outline"
-        slot="start" 
+        slot="start"
       ></ion-icon>
       <ion-label style="font-size: 0.9rem; margin: 0 !important">
         <h6 style="margin: 0 !important; font-size: 0.8rem; font-weight: 500">
@@ -27,6 +27,11 @@
         </h6>
         <p style="margin: 0 !important; font-size: 0.7rem">
           {{ notification.description }}
+        </p>
+      </ion-label>
+      <ion-label slot="end" style="font-size: 0.9rem; margin: 0 !important">
+        <p style="margin: 0 !important; font-size: 0.7rem">
+          {{ notification.date }}
         </p>
       </ion-label>
 

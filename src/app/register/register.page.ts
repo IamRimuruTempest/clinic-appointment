@@ -32,6 +32,8 @@ export class RegisterPage {
   type: string = 'personal';
   errorMessage: string = '';
 
+  role: string = 'student';
+
   collegeOptions: SelectOption[] = [
     {
       value: 'CICS',
@@ -44,6 +46,37 @@ export class RegisterPage {
     {
       value: 'COE',
       text: 'COE',
+    },
+  ];
+
+  positionOptions: SelectOption[] = [
+    {
+      value: 'Intructor I',
+      text: 'Intructor I',
+    },
+    {
+      value: 'Intructor II',
+      text: 'Intructor II',
+    },
+    {
+      value: 'Intructor III',
+      text: 'Intructor III',
+    },
+    {
+      value: 'Assistant I',
+      text: 'Assistant I',
+    },
+    {
+      value: 'Assistant II',
+      text: 'Assistant II',
+    },
+    {
+      value: 'Assistant III',
+      text: 'Assistant III',
+    },
+    {
+      value: 'Assistant IV',
+      text: 'Assistant IV',
     },
   ];
 
@@ -119,6 +152,9 @@ export class RegisterPage {
     college: {
       required: 'College is required.',
     },
+    position: {
+      required: 'Position is required.',
+    },
     email: {
       required: 'Email is required.',
       pattern: 'Please enter a valid email.',
@@ -138,6 +174,7 @@ export class RegisterPage {
   address = new FormControl('', [Validators.required]);
   college = new FormControl('CICS', [Validators.required]);
   course = new FormControl('BSCS', [Validators.required]);
+  position = new FormControl('Instructor I', [Validators.required]);
   email = new FormControl('test@gmail.com', [
     Validators.required,
     Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$'),
@@ -168,6 +205,7 @@ export class RegisterPage {
       address: this.address,
       course: this.course,
       college: this.college,
+      position: this.position,
       email: this.email,
       password: this.password,
     });
@@ -178,8 +216,9 @@ export class RegisterPage {
     schoolID: string;
     phoneNumber: string;
     address: string;
-    course: string;
-    college: string;
+    course?: string;
+    college?: string;
+    position?: string;
     age: string;
     gender: string;
     email: string;
@@ -199,19 +238,64 @@ export class RegisterPage {
         console.log(user);
         const uid = user.user.uid;
         // create user on firestore
-        const newUser: UserAccount = {
-          uid,
-          email: values.email,
-          fullname: values.fullname,
-          age: values.age,
-          gender: values.gender,
-          schoolID: values.schoolID,
-          phoneNumber: values.phoneNumber,
-          address: values.address,
-          course: values.course,
-          college: values.college,
-          role: UserRole.STUDENT,
-        };
+
+        let newUser: UserAccount;
+        if (this.role === 'student') {
+          newUser = {
+            uid,
+            email: values.email,
+            fullname: values.fullname,
+            age: values.age,
+            gender: values.gender,
+            schoolID: values.schoolID,
+            phoneNumber: values.phoneNumber,
+            address: values.address,
+            course: values.course,
+            college: values.college,
+            role: UserRole.STUDENT,
+          };
+        } else if (this.role === 'faculty') {
+          newUser = {
+            uid,
+            email: values.email,
+            fullname: values.fullname,
+            age: values.age,
+            gender: values.gender,
+            schoolID: values.schoolID,
+            phoneNumber: values.phoneNumber,
+            address: values.address,
+            college: values.college,
+            position: values.position,
+            role: UserRole.FACULTY,
+          };
+        } else {
+          newUser = {
+            uid,
+            email: values.email,
+            fullname: values.fullname,
+            age: values.age,
+            gender: values.gender,
+            schoolID: values.schoolID,
+            phoneNumber: values.phoneNumber,
+            address: values.address,
+            position: values.position,
+            role: UserRole.STAFF,
+          };
+        }
+        // const newUser: UserAccount = {
+        //   uid,
+        //   email: values.email,
+        //   fullname: values.fullname,
+        //   age: values.age,
+        //   gender: values.gender,
+        //   schoolID: values.schoolID,
+        //   phoneNumber: values.phoneNumber,
+        //   address: values.address,
+        //   course: values.course,
+        //   college: values.college,
+        //   role: UserRole.STUDENT,
+        // };
+
         console.log('Adding new user:', newUser);
         await this.dataService.addUser(newUser);
         loading.dismiss();

@@ -15,7 +15,9 @@
       <ion-item *ngFor="let medicine of medicine" button>
         <ion-label>
           <h3>{{ medicine.name }}</h3>
-          <p>Available</p>
+        </ion-label>
+        <ion-label slot="end">
+          <h3>{{ medicine.orderQty }}</h3>
         </ion-label>
       </ion-item>
     </ion-list>

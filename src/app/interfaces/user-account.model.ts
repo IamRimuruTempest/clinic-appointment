@@ -10,7 +10,8 @@ export interface UserAccount {
   schoolID: string;
   phoneNumber: string;
   address: string;
-  course: string;
-  college: string;
-  role: UserRole;
+  course?: string;
+  college?: string;
+  position?: string;
+  role?: UserRole;
 }

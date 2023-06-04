@@ -27,7 +27,7 @@ export class PersonalInformationComponent implements OnInit {
         account: this.account,
       },
     });
-
+    this.modalCtrl.dismiss();
     return await modal.present();
   }
 

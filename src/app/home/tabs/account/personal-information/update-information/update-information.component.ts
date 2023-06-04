@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, LoadingController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { ComponentsModule } from 'src/app/components/components.module';
 import { DataService } from 'src/app/services/data.service';
@@ -12,6 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Auth } from '@angular/fire/auth';
 @Component({
   standalone: true,
   imports: [
@@ -27,6 +28,7 @@ import {
 })
 export class UpdateInformationComponent implements OnInit {
   account: any;
+  uid: string = '';
 
   errorMessages = {
     fullname: {
@@ -64,11 +66,14 @@ export class UpdateInformationComponent implements OnInit {
   address = new FormControl('', [Validators.required]);
   course = new FormControl('', [Validators.required]);
   college = new FormControl('', [Validators.required]);
+  role: string = 'student';
 
   constructor(
     private modalCtrl: ModalController,
     public formBuilder: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private auth: Auth,
+    private loadingCtrl: LoadingController
   ) {
     this.formGroup = this.createFormGroup();
   }
@@ -86,6 +91,7 @@ export class UpdateInformationComponent implements OnInit {
     });
   }
   ngOnInit() {
+    this.uid = this.auth.currentUser?.uid!;
     this.fullname.setValue(this.account['fullname']);
     this.age.setValue(this.account['age']);
     this.gender.setValue(this.account['gender']);
@@ -95,11 +101,28 @@ export class UpdateInformationComponent implements OnInit {
     this.course.setValue(this.account['course']);
     this.college.setValue(this.account['college']);
 
-    console.log(this.fullname, 'test');
+    this.role = this.account['role'];
   }
 
-  onSubmit() {
-    console.log('tst values');
+  async onSubmit(values: {
+    fullname: string;
+    age: string;
+    gender: string;
+    schoolID: string;
+    phoneNumber: string;
+    address: string;
+    course: string;
+    college: string;
+  }) {
+    const loading = await this.loadingCtrl.create();
+    await loading.present();
+    this.dataService.updateUserInformation(values, this.uid);
+    await this.modalCtrl.dismiss();
+    loading.dismiss();
+  }
+
+  doSomething() {
+    console.log('Hello World!');
   }
 
   cancel() {

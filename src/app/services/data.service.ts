@@ -34,6 +34,11 @@ export class DataService {
     return this.addUser(user);
   }
 
+  async updateUserInformation(user: UserAccount, uid: string) {
+    const userDocRef = doc(this.firestore, `users/${uid}`);
+    return updateDoc(userDocRef, { ...user });
+  }
+
   getUser(uid: string): Observable<UserAccount> {
     const accountDocRef = doc(this.firestore, `users/${uid}`);
     return docData(accountDocRef, {
@@ -47,8 +52,6 @@ export class DataService {
       idField: 'uid',
     }) as Observable<UserAccount[]>;
   }
-
-  
 
   getAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
@@ -104,7 +107,8 @@ export class DataService {
 
   getInventories(): Observable<Inventory[]> {
     const inventoryRef = collection(this.firestore, 'inventory');
-    return collectionData(inventoryRef, {
+    const qry = query(inventoryRef, where('quantity', '!=', 0));
+    return collectionData(qry, {
       idField: 'id',
     }) as Observable<Inventory[]>;
   }
@@ -165,8 +169,9 @@ export class DataService {
   }
 
   getUserOrder(uid: string): Observable<Inventory[]> {
-    const inventoryRef = collection(this.firestore, `users/${uid}/orders`);
-    return collectionData(inventoryRef, {
+    const inventoryRef = collection(this.firestore, `orders/`);
+    const qry = query(inventoryRef, where('account.' + uid, '==', 'Pending'));
+    return collectionData(qry, {
       idField: 'id',
     }) as Observable<Inventory[]>;
   }

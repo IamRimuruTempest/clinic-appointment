@@ -79,7 +79,7 @@ export class UserMedicineComponent implements OnInit {
             this.modalCtrl.dismiss(null, 'cancel');
           },
         },
-      ],
+      ], 
     });
 
     await alert.present();
