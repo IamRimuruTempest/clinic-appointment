@@ -34,32 +34,27 @@ export class AuthGuard implements CanActivate {
           console.log('Guard: not logged in');
           return this.router.parseUrl('/login');
         }
+        let allowed = true;
         if (expectedRole) {
           if (account?.role !== expectedRole) {
-            console.log('Guard: user not authorized');
-            switch (account?.role) {
-              case UserRole.ADMIN:
-                return this.router.parseUrl('/admin');
-              case UserRole.STUDENT:
-                return this.router.parseUrl('/home');
-              default:
-                return this.router.parseUrl('/home');
-            }
+            allowed = false;
           }
         } else if (expectedRoles) {
           if (!expectedRoles.includes(account?.role)) {
-            console.log('Guard: user not authorized');
-            switch (account?.role) {
-              case UserRole.ADMIN:
-                return this.router.parseUrl('/admin');
-              case UserRole.STUDENT:
-                return this.router.parseUrl('/home');
-              default:
-                return this.router.parseUrl('/home');
-            }
+            allowed = false;
           }
         }
-
+        if (!allowed) {
+          console.log('Guard: user not authorized');
+          switch (account?.role) {
+            case UserRole.ADMIN:
+              return this.router.parseUrl('/admin');
+            case UserRole.STUDENT:
+              return this.router.parseUrl('/home');
+            default:
+              return this.router.parseUrl('/home');
+          }
+        }
         // All good, the use is logged in and have access.
         return true;
       })
