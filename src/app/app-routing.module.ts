@@ -24,7 +24,7 @@ const routes: Routes = [
     ...canActivate(redirectUnauthorizedToLogin),
     canActivate: [AuthGuard],
     data: {
-      role: UserRole.STUDENT,
+      roles: [UserRole.STUDENT, UserRole.FACULTY, UserRole.STAFF],
     },
   },
   {
