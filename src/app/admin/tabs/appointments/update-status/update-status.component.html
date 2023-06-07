@@ -10,13 +10,30 @@
 <ion-content class="ion-padding">
   <img width="100%" src="../../assets/img/dental.jpg" alt="" />
   <ion-label>
-    <h2 style="margin: 0 0 12px 0">Patient: {{ appointment.fullName }}</h2>
-    <h3 style="margin: 0 0 12px 0">Schedule: {{ appointment.schedule }}</h3>
-    <h3 style="margin: 0 0 12px 0">Time: {{ appointment.time }}</h3>
-    <h3 style="margin: 0 0 12px 0">Gender: {{ appointment.gender }}</h3>
-    <h3 style="margin: 0 0 12px 0">Age: {{ appointment.age }}</h3>
-    <h3 style="margin: 0 0 12px 0">Time: {{ appointment.time }}</h3>
-    <h3 style="margin: 0 0 12px 0">Condition: {{ appointment.condition }}</h3>
+    <h2 style="margin: 0 0 12px 0">
+      Patient: <strong>{{ appointment.fullName }}</strong>
+    </h2>
+    <h3 style="margin: 0 0 12px 0">
+      Schedule: <strong>{{ appointment.schedule }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Time: <strong>{{ appointment.time }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Gender: <strong>{{ appointment.gender }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Age: <strong>{{ appointment.age }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Time: <strong>{{ appointment.time }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Condition: <strong>{{ appointment.condition }}</strong>
+    </h3>
+    <h3 style="margin: 0 0 12px 0">
+      Service: <strong>{{ appointment.service?.name ?? "N/A" }}</strong>
+    </h3>
   </ion-label>
 </ion-content>
 
