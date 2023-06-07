@@ -40,6 +40,13 @@ const routes: Routes = [
             (m) => m.MedicinePageModule
           ),
       },
+      {
+        path: 'services',
+        loadChildren: () =>
+          import('./tabs/services/services.module').then(
+            (m) => m.ServicesPageModule
+          ),
+      },
     ],
   },
 ];
