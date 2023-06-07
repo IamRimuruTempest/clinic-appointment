@@ -71,7 +71,14 @@
         [control]="address"
         [errorMessages]="errorMessages.address"
       ></app-input>
-
+      <app-select
+        placeholder="Select Region"
+        label="Region"
+        [options]="regionOptions"
+        [control]="region"
+        [errorMessages]="errorMessages.region"
+        (selected)="selectedRegion($event)"
+      ></app-select>
       <ion-list-header>
         <ion-label><strong>University Information</strong></ion-label>
       </ion-list-header>
