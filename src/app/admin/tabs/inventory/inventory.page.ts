@@ -5,6 +5,7 @@ import { DataService } from 'src/app/services/data.service';
 import { Inventory } from 'src/app/interfaces/inventory.model';
 import { Subscription } from 'rxjs';
 import { ViewInventoryComponent } from './view-inventory/view-inventory.component';
+import { AddComponent } from './add/add.component';
 
 @Component({
   selector: 'app-inventory',
@@ -35,6 +36,16 @@ export class InventoryPage implements OnInit, OnDestroy {
       componentProps: {},
     });
     modal.present();
+  }
+
+  async addInventory(item: Inventory) {
+    const addModal = await this.modalCtrl.create({
+      component: AddComponent,
+      componentProps: {
+        inventory: item,
+      },
+    });
+    addModal.present();
   }
 
   async updateInventory(item: Inventory) {
