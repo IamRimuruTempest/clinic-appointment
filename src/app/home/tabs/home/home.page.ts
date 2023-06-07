@@ -196,7 +196,7 @@ export class HomePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: DentalProblemComponent,
       componentProps: {
-        title: 'Free Consultation',
+        title: 'Consultation',
         content: 'Free',
       },
     });
@@ -208,7 +208,7 @@ export class HomePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: DentalProblemComponent,
       componentProps: {
-        title: 'Free Medication',
+        title: 'Medication',
         content: 'Free',
       },
     });
