@@ -79,6 +79,16 @@
         [errorMessages]="errorMessages.region"
         (selected)="selectedRegion($event)"
       ></app-select>
+
+      <app-select
+        placeholder="Select Provice"
+        label="Province"
+        [options]="provinceOptions"
+        [control]="province"
+        [errorMessages]="errorMessages.province"
+        (selected)="selectedProvince($event)"
+      ></app-select>
+
       <ion-list-header>
         <ion-label><strong>University Information</strong></ion-label>
       </ion-list-header>
