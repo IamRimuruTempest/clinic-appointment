@@ -133,6 +133,8 @@ export class RegisterPage {
     },
     age: {
       required: 'Age is required.',
+      min: 'Should be at least 18 years old.',
+      max: 'Should be max 150 years old.',
     },
     gender: {
       required: 'Gender is required.',
@@ -142,6 +144,8 @@ export class RegisterPage {
     },
     phoneNumber: {
       required: 'Phone Number is required.',
+      minlength: 'Should be 10 digits long.',
+      maxlength: 'Should be 10 digits long.',
     },
     address: {
       required: 'Address is required.',
@@ -167,10 +171,18 @@ export class RegisterPage {
 
   formGroup: FormGroup;
   fullname = new FormControl('', [Validators.required]);
-  age = new FormControl('', [Validators.required]);
+  age = new FormControl('', [
+    Validators.required,
+    Validators.min(18),
+    Validators.max(150),
+  ]);
   gender = new FormControl('', [Validators.required]);
   schoolID = new FormControl('', [Validators.required]);
-  phoneNumber = new FormControl('', [Validators.required]);
+  phoneNumber = new FormControl('', [
+    Validators.required,
+    Validators.minLength(10),
+    Validators.maxLength(10),
+  ]);
   address = new FormControl('', [Validators.required]);
   college = new FormControl('CICS', [Validators.required]);
   course = new FormControl('BSCS', [Validators.required]);

@@ -21,6 +21,9 @@
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit(formGroup.value)"
     >
+      <ion-list-header>
+        <ion-label><strong>Basic Information</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="text"
         label="Full Name"
@@ -36,7 +39,7 @@
         [errorMessages]="errorMessages.schoolID"
       ></app-input>
       <app-input
-        type="text"
+        type="number"
         label="Age"
         labelPlacement="stacked"
         [control]="age"
@@ -50,12 +53,16 @@
         [errorMessages]="errorMessages.gender"
       ></app-input>
       <app-input
-        type="text"
-        label="Phone Number"
+        type="number"
+        label="Phone Number (+63)"
         labelPlacement="stacked"
         [control]="phoneNumber"
         [errorMessages]="errorMessages.phoneNumber"
       ></app-input>
+
+      <ion-list-header>
+        <ion-label><strong>Address</strong></ion-label>
+      </ion-list-header>
 
       <app-input
         type="text"
@@ -64,6 +71,11 @@
         [control]="address"
         [errorMessages]="errorMessages.address"
       ></app-input>
+
+      <ion-list-header>
+        <ion-label><strong>University Information</strong></ion-label>
+      </ion-list-header>
+
       <app-select
         placeholder="Select college"
         label="College"
@@ -79,6 +91,11 @@
         [control]="course"
         [errorMessages]="errorMessages.course"
       ></app-select>
+
+      <ion-list-header>
+        <ion-label><strong>Credentials</strong></ion-label>
+      </ion-list-header>
+
       <app-input
         type="email"
         label="Email"
@@ -143,8 +160,8 @@
         [errorMessages]="errorMessages.gender"
       ></app-input>
       <app-input
-        type="text"
-        label="Phone Number"
+        type="number"
+        label="Phone Number (+63)"
         labelPlacement="stacked"
         [control]="phoneNumber"
         [errorMessages]="errorMessages.phoneNumber"
@@ -236,8 +253,8 @@
         [errorMessages]="errorMessages.gender"
       ></app-input>
       <app-input
-        type="text"
-        label="Phone Number"
+        type="number"
+        label="Phone Number (+63)"
         labelPlacement="stacked"
         [control]="phoneNumber"
         [errorMessages]="errorMessages.phoneNumber"
