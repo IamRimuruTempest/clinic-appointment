@@ -14,7 +14,7 @@
       label="Full Name"
       labelPlacement="stacked"
       placeholder="Juan Dela Cruz"
-      [control]="fullname" 
+      [control]="fullname"
       [errorMessages]="errorMessages.fullname"
       [title]="title"
       [readonly]="true"
@@ -47,6 +47,15 @@
       [errorMessages]="errorMessages.condition"
       [title]="title"
     ></app-input>
+
+    <app-select
+      placeholder="Select Service"
+      label="Service"
+      [options]="serviceOptions"
+      [control]="service"
+      [errorMessages]="errorMessages.service"
+      (selected)="selectedService($event)"
+    ></app-select>
 
     <ion-datetime
       label="Schedule"

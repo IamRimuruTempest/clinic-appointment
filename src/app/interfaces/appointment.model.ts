@@ -1,3 +1,5 @@
+import { Service } from './service.model';
+
 export interface Appointment {
   id?: string;
   uid?: string;
@@ -6,6 +8,7 @@ export interface Appointment {
   gender: string;
   time: string;
   schedule: string;
+  service: Service;
   condition: string;
   status: string;
 }

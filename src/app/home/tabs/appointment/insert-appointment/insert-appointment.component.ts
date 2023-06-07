@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, LoadingController } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,6 +20,8 @@ import { ThankYouComponent } from './thank-you/thank-you.component';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
 import { formatISO } from 'date-fns';
 import { UserRole } from 'src/app/enums/user-role.enum';
+import { SelectOption } from 'src/app/interfaces/select-option.model';
+import { Service } from 'src/app/interfaces/service.model';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -33,9 +36,14 @@ import { UserRole } from 'src/app/enums/user-role.enum';
   templateUrl: './insert-appointment.component.html',
   styleUrls: ['./insert-appointment.component.scss'],
 })
-export class InsertAppointmentComponent implements OnInit {
+export class InsertAppointmentComponent implements OnInit, OnDestroy {
   today = formatISO(new Date());
-
+  serviceOptions: SelectOption[] = [
+    {
+      text: '',
+      value: '',
+    },
+  ];
   @Input() account: UserAccount = {
     fullname: '',
     age: '',
@@ -74,14 +82,23 @@ export class InsertAppointmentComponent implements OnInit {
     condition: {
       required: 'Condition is required.',
     },
+    service: {
+      required: 'Service is required.',
+    },
   };
+
   formGroup!: FormGroup;
   fullname = new FormControl('', [Validators.required]);
   age = new FormControl('', [Validators.required, Validators.maxLength(2)]);
   gender = new FormControl('', [Validators.required]);
   schedule = new FormControl('', [Validators.required]);
   condition = new FormControl('', [Validators.required]);
+  service = new FormControl('', [Validators.required]);
   status: string = 'Pending';
+
+  serviceSub: Subscription;
+  services: Service[] = [];
+  serviceSelected: Service | null = null;
 
   constructor(
     private modalCtrl: ModalController,
@@ -93,6 +110,15 @@ export class InsertAppointmentComponent implements OnInit {
   ) {
     this.formGroup = this.createFormGroup();
     console.log(this.today);
+    this.serviceSub = this.dataService.getAllServices().subscribe((data) => {
+      this.services = data;
+      this.serviceOptions = data.map((s) => {
+        return {
+          value: s.id,
+          text: s.name,
+        } as SelectOption;
+      });
+    });
   }
 
   createFormGroup() {
@@ -102,6 +128,7 @@ export class InsertAppointmentComponent implements OnInit {
       gender: this.gender,
       schedule: this.schedule,
       condition: this.condition,
+      service: this.service,
     });
   }
 
@@ -114,6 +141,7 @@ export class InsertAppointmentComponent implements OnInit {
     this.gender.setValue(this.account.gender);
 
     if (this.title == 'Update' || this.title == 'View') {
+      console.log(this.appointment);
       const schedule =
         this.appointment['schedule'] + 'T' + this.appointment['time'];
       this.fullname.setValue(this.appointment['fullName']);
@@ -125,12 +153,17 @@ export class InsertAppointmentComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.serviceSub.unsubscribe();
+  }
+
   async onSubmit(values: {
     fullname: string;
     age: number;
     gender: string;
     time: string;
     schedule: string;
+    service: Service;
     condition: string;
     uid: string;
   }) {
@@ -149,6 +182,7 @@ export class InsertAppointmentComponent implements OnInit {
       schedule,
       condition: values.condition,
       uid: values.uid,
+      service: this.serviceSelected!,
       status: this.status,
     };
     console.log(newAppointment);
@@ -217,4 +251,12 @@ export class InsertAppointmentComponent implements OnInit {
      */
     return utcDay !== 0 && utcDay !== 6;
   };
+
+  selectedService(serviceId: any) {
+    const service = this.services.find((service) => service.id == serviceId);
+    if (service) {
+      console.log('selected: ', service);
+      this.serviceSelected = service;
+    }
+  }
 }
