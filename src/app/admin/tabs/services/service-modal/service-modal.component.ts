@@ -40,6 +40,10 @@ export class ServiceModalComponent implements OnInit {
       min: 'Negative value not allowed.',
     },
   };
+
+  public action = 'add';
+  public service: Service | null = null;
+
   constructor(
     private modalCtrl: ModalController,
     private dataService: DataService,
@@ -47,7 +51,13 @@ export class ServiceModalComponent implements OnInit {
     private loadingCtrl: LoadingController
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.action === 'update') {
+      this.name.setValue(this.service!.name);
+      this.description.setValue(this.service!.description);
+      this.price.setValue(this.service!.price);
+    }
+  }
 
   async closeModal() {
     this.modalCtrl.dismiss();
@@ -57,19 +67,24 @@ export class ServiceModalComponent implements OnInit {
     console.log(values);
     const loading = await this.loadingCtrl.create();
     await loading.present();
-    try {
-      await this.dataService.addService(values);
-      console.log('Success add service');
 
+    try {
+      if (this.action == 'update') {
+        await this.dataService.updateService(values, this.service!.id!);
+      } else {
+        await this.dataService.addService(values);
+      }
+      const verb = this.action === 'update' ? 'updated' : 'added';
       const toast = await this.toastCtrl.create({
-        message: 'Successfully added service',
+        message: `Successfully ${verb} service`,
         duration: 3000,
       });
       await toast.present();
       this.modalCtrl.dismiss();
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error.code);
       const toast = await this.toastCtrl.create({
-        message: 'Failed to add service, please try again.',
+        message: `Failed to ${this.action} service, please try again.`,
         duration: 3000,
       });
       await toast.present();

@@ -234,7 +234,7 @@ export class DataService {
   getAllServices() {
     const servicesRef = collection(this.firestore, `services`);
     return collectionData(servicesRef, {
-      idField: 'uid',
+      idField: 'id',
     }) as Observable<Service[]>;
   }
   async updateService(service: Service, id: string) {

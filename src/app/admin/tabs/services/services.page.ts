@@ -29,7 +29,15 @@ export class ServicesPage implements OnInit {
     modal.present();
   }
 
-  async viewService(service: Service) {}
-
-  async updateService(service: Service) {}
+  async updateService(service: Service) {
+    console.log(service);
+    const modal = await this.modalCtrl.create({
+      component: ServiceModalComponent,
+      componentProps: {
+        action: 'update',
+        service: service,
+      },
+    });
+    modal.present();
+  }
 }
