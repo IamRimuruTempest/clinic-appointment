@@ -31,13 +31,16 @@
       style="padding: 0 !important"
     >
       <ion-item button lines="full" style="--padding-start: 0px !important">
-        <ion-label
-          [ngStyle]="{
-            color: history.quantity < 0 ? 'red' : 'green'
-          }"
-        >
-          {{ history.quantity > 0 ? "Inventory In" : "Inventory Out" }}
-          <p class="ion-text-sm-start">{{ history.quantity }}</p>
+        <ion-label>
+          {{ formatDate(history.timestamp.toDate()) }}
+          <p
+            [ngStyle]="{
+              color: history.quantity < 0 ? 'red' : 'green'
+            }"
+            class="ion-text-sm-start"
+          >
+            {{ (history.quantity < 0 ? "" : "+") + history.quantity }}
+          </p>
         </ion-label>
         <ion-label slot="end">{{ history.ending_quantity }} left</ion-label>
       </ion-item>
