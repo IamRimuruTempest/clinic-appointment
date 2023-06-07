@@ -18,6 +18,7 @@ import { Notification } from '../interfaces/notification.model';
 import { Observable } from 'rxjs';
 import { collection } from '@firebase/firestore';
 import { Inventory } from '../interfaces/inventory.model';
+import { Service } from '../interfaces/service.model';
 
 @Injectable({
   providedIn: 'root',
@@ -224,5 +225,19 @@ export class DataService {
       'canceled-appointments/'
     );
     return addDoc(canceledAppointmentDocRef, appointment);
+  }
+  async addService(service: Service) {
+    const serviceDocRef = collection(this.firestore, 'services/');
+    return addDoc(serviceDocRef, service);
+  }
+
+  async updateService(service: Service, id: string) {
+    const serviceDocRef = doc(this.firestore, `services/${id}`);
+    return updateDoc(serviceDocRef, { ...service });
+  }
+
+  async deleteService(id: string) {
+    const serviceDocRef = doc(this.firestore, `services/${id}`);
+    return deleteDoc(serviceDocRef);
   }
 }

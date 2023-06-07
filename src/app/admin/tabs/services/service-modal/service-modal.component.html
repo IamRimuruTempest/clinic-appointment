@@ -15,4 +15,33 @@
       <ion-title size="large">Add Service</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <form [formGroup]="formGroup" (ngSubmit)="submit()">
+    <app-input
+      label="Name"
+      labelPlacement="floating"
+      [control]="name"
+      [errorMessages]="errorMessages.name"
+    >
+    </app-input>
+    <app-input
+      label="Description"
+      type="text"
+      labelPlacement="floating"
+      [control]="description"
+      [errorMessages]="errorMessages.description"
+    >
+    </app-input>
+    <app-input
+      label="Price"
+      type="number"
+      labelPlacement="floating"
+      [control]="price"
+      [errorMessages]="errorMessages.price"
+    >
+    </app-input>
+    <ion-button type="submit" [disabled]="formGroup.invalid" expand="full"
+      >Submit</ion-button
+    >
+  </form>
 </ion-content>
