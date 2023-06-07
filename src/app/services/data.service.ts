@@ -10,6 +10,8 @@ import {
   deleteDoc,
   query,
   where,
+  orderBy,
+  limit,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -19,6 +21,7 @@ import { Observable } from 'rxjs';
 import { collection } from '@firebase/firestore';
 import { Inventory } from '../interfaces/inventory.model';
 import { Service } from '../interfaces/service.model';
+import { InventoryHistory } from '../interfaces/inventory-history.model';
 
 @Injectable({
   providedIn: 'root',
@@ -108,8 +111,8 @@ export class DataService {
 
   getInventories(): Observable<Inventory[]> {
     const inventoryRef = collection(this.firestore, 'inventory');
-    const qry = query(inventoryRef, where('quantity', '!=', 0));
-    return collectionData(qry, {
+    // const qry = query(inventoryRef, where('quantity', '!=', 0));
+    return collectionData(inventoryRef, {
       idField: 'id',
     }) as Observable<Inventory[]>;
   }
@@ -117,6 +120,25 @@ export class DataService {
   async addInventory(inventory: Inventory) {
     const inventoryDocRef = collection(this.firestore, 'inventory/');
     return addDoc(inventoryDocRef, inventory);
+  }
+
+  async addInventoryHistory(inventoryId: string, history: InventoryHistory) {
+    const inventoryDocRef = collection(
+      this.firestore,
+      `inventory/${inventoryId}/inventory_history`
+    );
+    return addDoc(inventoryDocRef, history);
+  }
+
+  getInventoryHistory(inventoryId: string): Observable<InventoryHistory[]> {
+    const inventoryColRef = collection(
+      this.firestore,
+      `inventory/${inventoryId}/inventory_history`
+    );
+    const q = query(inventoryColRef, orderBy('timestamp', 'desc'), limit(15));
+    return collectionData(q, {
+      idField: 'id',
+    }) as Observable<InventoryHistory[]>;
   }
 
   async updateInventory(inventory: Inventory, id: string) {

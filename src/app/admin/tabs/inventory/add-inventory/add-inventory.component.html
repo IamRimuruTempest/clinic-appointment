@@ -30,6 +30,7 @@
       placeholder="12"
       [control]="quantity"
       [errorMessages]="errorMessages.quantity"
+      [readonly]="action === 'Update'"
     ></app-input>
 
     <ion-button type="submit" [strong]="true" expand="full" size="default"

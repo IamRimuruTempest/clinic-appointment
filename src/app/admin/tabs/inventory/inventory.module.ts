@@ -9,6 +9,7 @@ import { InventoryPageRoutingModule } from './inventory-routing.module';
 
 import { InventoryPage } from './inventory.page';
 import { ComponentsModule } from 'src/app/components/components.module';
+import { ViewInventoryComponent } from './view-inventory/view-inventory.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import { ComponentsModule } from 'src/app/components/components.module';
     ComponentsModule,
     ReactiveFormsModule,
   ],
-  declarations: [InventoryPage, AddInventoryComponent],
+  declarations: [InventoryPage, AddInventoryComponent, ViewInventoryComponent],
 })
 export class InventoryPageModule {}

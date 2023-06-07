@@ -8,6 +8,8 @@ import {
 import { ModalController } from '@ionic/angular';
 import { DataService } from 'src/app/services/data.service';
 import * as moment from 'moment';
+import { InventoryHistory } from 'src/app/interfaces/inventory-history.model';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   standalone: true,
@@ -53,6 +55,7 @@ export class UserMedicineComponent implements OnInit {
           text: 'OK',
           handler: (data) => {
             this.orders.order.map((data: any) => {
+              console.log(data);
               const tmpArr = {
                 name: data.name,
                 description: data.description,
@@ -60,6 +63,12 @@ export class UserMedicineComponent implements OnInit {
               };
 
               this.dataService.updateInventory(tmpArr, data.id);
+              const newHistory: InventoryHistory = {
+                timestamp: Timestamp.now(),
+                quantity: -data.orderQty,
+                ending_quantity: data.quantity - data.orderQty,
+              };
+              this.dataService.addInventoryHistory(data.id, newHistory);
             });
 
             this.notification = {
@@ -79,7 +88,7 @@ export class UserMedicineComponent implements OnInit {
             this.modalCtrl.dismiss(null, 'cancel');
           },
         },
-      ], 
+      ],
     });
 
     await alert.present();
