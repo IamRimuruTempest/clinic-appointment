@@ -141,7 +141,6 @@ export class InsertAppointmentComponent implements OnInit, OnDestroy {
     this.gender.setValue(this.account.gender);
 
     if (this.title == 'Update' || this.title == 'View') {
-      console.log(this.appointment);
       const schedule =
         this.appointment['schedule'] + 'T' + this.appointment['time'];
       this.fullname.setValue(this.appointment['fullName']);
@@ -149,6 +148,7 @@ export class InsertAppointmentComponent implements OnInit, OnDestroy {
       this.gender.setValue(this.appointment['gender']);
       this.schedule.setValue(schedule);
       this.condition.setValue(this.appointment['condition']);
+      this.service.setValue(this.appointment['service'].id);
       this.status = this.appointment['status'];
     }
   }
