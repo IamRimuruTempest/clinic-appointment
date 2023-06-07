@@ -231,6 +231,12 @@ export class DataService {
     return addDoc(serviceDocRef, service);
   }
 
+  getAllServices() {
+    const servicesRef = collection(this.firestore, `services`);
+    return collectionData(servicesRef, {
+      idField: 'uid',
+    }) as Observable<Service[]>;
+  }
   async updateService(service: Service, id: string) {
     const serviceDocRef = doc(this.firestore, `services/${id}`);
     return updateDoc(serviceDocRef, { ...service });
