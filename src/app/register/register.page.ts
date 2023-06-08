@@ -153,6 +153,8 @@ export class RegisterPage implements OnInit {
   cityMunSelected: CityMun | null = null;
 
   barangayOptions: SelectOption[] = [];
+  barangays: Barangay[] = [];
+  barangaySelected: Barangay | null = null;
 
   courseOptions: SelectOption[] = this.courses.CICS;
 
@@ -187,6 +189,9 @@ export class RegisterPage implements OnInit {
     },
     cityMun: {
       required: 'City/Municipality is required.',
+    },
+    barangay: {
+      required: 'Barangay is required.',
     },
     course: {
       required: 'Course is required.',
@@ -225,6 +230,7 @@ export class RegisterPage implements OnInit {
   region = new FormControl('', [Validators.required]);
   province = new FormControl('', [Validators.required]);
   cityMun = new FormControl('', [Validators.required]);
+  barangay = new FormControl('', [Validators.required]);
 
   college = new FormControl('CICS', [Validators.required]);
   course = new FormControl('BSCS', [Validators.required]);
@@ -421,8 +427,8 @@ export class RegisterPage implements OnInit {
       // ! RESET
       this.cityMunSelected = null;
       this.cityMun.setValue('');
-      //this.barangaySelected = null;
-      //this.barangay.setValue('');
+      this.barangaySelected = null;
+      this.barangay.setValue('');
 
       await cities(found.province_code).then((cities: CityMun[]) => {
         this.cityMuns = cities;
@@ -444,21 +450,25 @@ export class RegisterPage implements OnInit {
       console.log('selected: ', found);
       this.cityMunSelected = found;
 
-      // ! RESET
-      //this.barangaySelected = null;
-      //this.barangay.setValue('');
+      await barangays(found.city_code).then((Bs: Barangay[]) => {
+        this.barangays = Bs;
+        console.log(Bs);
 
-      await barangays(found.city_code).then((b: Barangay[]) => {
-        // this.barangays= cities;
-        console.log(b);
-
-        // this.cityMunOptions = cities.map((p: CityMun) => {
-        //   return {
-        //     text: p.city_name,
-        //     value: p.city_code,
-        //   };
-        // });
+        this.barangayOptions = Bs.map((b: Barangay) => {
+          return {
+            text: b.brgy_name,
+            value: b.brgy_code,
+          };
+        });
       });
+    }
+  }
+
+  async selectedBarangay(findId: any) {
+    const found = this.barangays.find((f) => f.brgy_code == findId);
+    if (found) {
+      console.log('selected: ', found);
+      this.barangaySelected = found;
     }
   }
 }

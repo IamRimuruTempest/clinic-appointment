@@ -98,6 +98,15 @@
         (selected)="selectedCityMun($event)"
       ></app-select>
 
+      <app-select
+        placeholder="Select Barangay"
+        label="Barangay"
+        [options]="barangayOptions"
+        [control]="barangay"
+        [errorMessages]="errorMessages.barangay"
+        (selected)="selectedBarangay($event)"
+      ></app-select>
+
       <ion-list-header>
         <ion-label><strong>University Information</strong></ion-label>
       </ion-list-header>
