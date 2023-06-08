@@ -89,6 +89,15 @@
         (selected)="selectedProvince($event)"
       ></app-select>
 
+      <app-select
+        placeholder="Select City/Municipality"
+        label="City/Municipality"
+        [options]="cityMunOptions"
+        [control]="cityMun"
+        [errorMessages]="errorMessages.cityMun"
+        (selected)="selectedCityMun($event)"
+      ></app-select>
+
       <ion-list-header>
         <ion-label><strong>University Information</strong></ion-label>
       </ion-list-header>
