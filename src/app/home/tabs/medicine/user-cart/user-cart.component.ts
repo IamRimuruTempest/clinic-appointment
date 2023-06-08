@@ -9,6 +9,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Subscription, filter } from 'rxjs';
 import { UserAccount } from 'src/app/interfaces/user-account.model';
 import { UserRole } from 'src/app/enums/user-role.enum';
+import { Timestamp } from '@angular/fire/firestore';
+import { Order } from 'src/app/interfaces/oders.model';
 
 @Component({
   standalone: true,
@@ -20,10 +22,11 @@ import { UserRole } from 'src/app/enums/user-role.enum';
 export class UserCartComponent implements OnInit {
   medicine: any;
   uid: string = '';
-  orders: { account: any; order: Array<Inventory>; status: string } = {
+  orders: Order = {
     account: '',
     order: [],
     status: 'Pending',
+    timestamp: Timestamp.now(),
   };
   medicineLength: number = 0;
 
@@ -68,6 +71,7 @@ export class UserCartComponent implements OnInit {
     this.medicine.map((data: any) => {
       this.orders.order.push(data);
     });
+    this.orders.timestamp = Timestamp.now();
 
     const loading = await this.loadingCtrl.create();
     await loading.present();

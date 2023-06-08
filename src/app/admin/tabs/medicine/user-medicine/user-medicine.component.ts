@@ -120,7 +120,8 @@ export class UserMedicineComponent implements OnInit {
               this.orders.account.uid
             );
 
-            this.dataService.deleteUserOrder(this.orders.uid);
+            this.orders.status = 'Cancelled';
+            this.dataService.updateUserOrder(this.orders, this.orders.uid);
             this.modalCtrl.dismiss(null, 'cancel');
           },
         },

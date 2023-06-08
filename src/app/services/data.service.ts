@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
+  Timestamp,
   Firestore,
   doc,
   docData,
@@ -23,6 +24,7 @@ import { collection } from '@firebase/firestore';
 import { Inventory } from '../interfaces/inventory.model';
 import { Service } from '../interfaces/service.model';
 import { InventoryHistory } from '../interfaces/inventory-history.model';
+import { Order } from '../interfaces/oders.model';
 
 @Injectable({
   providedIn: 'root',
@@ -94,6 +96,24 @@ export class DataService {
     );
     return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
   }
+
+  getOrdersByDateRange(monday: string, sunday: string): Observable<Order[]> {
+    const start = Timestamp.fromDate(new Date(monday));
+    const end = Timestamp.fromDate(new Date(sunday));
+
+    const approvedOrdersRef = collection(this.firestore, 'orders');
+    const newQry = query(
+      approvedOrdersRef,
+      and(
+        where('status', 'in', ['Cancelled', 'Approved']),
+        where('timestamp', '>=', start),
+        where('timestamp', '<=', end)
+      )
+    );
+    const qry = query(newQry, orderBy('timestamp', 'desc'));
+    return collectionData(qry, { idField: 'id' }) as Observable<Order[]>;
+  }
+
   getPendingAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
     const qry = query(appointmentsRef, where('status', '==', 'Pending'));
@@ -212,12 +232,12 @@ export class DataService {
     return addDoc(orderDocRef, order);
   }
 
-  getUserOrder(uid: string): Observable<Inventory[]> {
+  getUserOrder(uid: string): Observable<Order[]> {
     const inventoryRef = collection(this.firestore, `orders/`);
     const qry = query(inventoryRef, where('account.' + uid, '==', 'Pending'));
     return collectionData(qry, {
       idField: 'id',
-    }) as Observable<Inventory[]>;
+    }) as Observable<Order[]>;
   }
 
   getAllOrders() {
@@ -230,7 +250,7 @@ export class DataService {
   getPendingOrders() {
     const ordersRef = collection(this.firestore, 'orders');
     const qry = query(ordersRef, where('status', '==', 'Pending'));
-    return collectionData(qry, { idField: 'uid' }) as Observable<Appointment[]>;
+    return collectionData(qry, { idField: 'uid' }) as Observable<Order[]>;
   }
 
   updateUserOrder(order: any, uid: string) {
