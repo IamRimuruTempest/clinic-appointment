@@ -1,3 +1,4 @@
+import { Timestamp } from '@angular/fire/firestore';
 import { Service } from './service.model';
 
 export interface Appointment {
@@ -11,4 +12,5 @@ export interface Appointment {
   service: Service;
   condition: string;
   status: string;
+  timestamp: Timestamp;
 }

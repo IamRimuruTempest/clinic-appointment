@@ -12,6 +12,7 @@ import {
   where,
   orderBy,
   limit,
+  and,
 } from '@angular/fire/firestore';
 import { UserAuth } from '../interfaces/user.model';
 import { UserAccount } from '../interfaces/user-account.model';
@@ -72,7 +73,27 @@ export class DataService {
       Appointment[]
     >;
   }
-
+  getAppointmentsByDateRange(
+    monday: string,
+    sunday: string
+  ): Observable<Appointment[]> {
+    console.log(monday, sunday);
+    const approvedAppointmentsRef = collection(this.firestore, 'appointments');
+    const newQry = query(
+      approvedAppointmentsRef,
+      and(
+        where('status', 'in', ['Canceled', 'Finished']),
+        where('schedule', '>=', monday),
+        where('schedule', '<=', sunday)
+      )
+    );
+    const qry = query(
+      newQry,
+      orderBy('schedule', 'desc'),
+      orderBy('timestamp', 'desc')
+    );
+    return collectionData(qry, { idField: 'id' }) as Observable<Appointment[]>;
+  }
   getPendingAppointments(): Observable<Appointment[]> {
     const appointmentsRef = collection(this.firestore, 'appointments');
     const qry = query(appointmentsRef, where('status', '==', 'Pending'));

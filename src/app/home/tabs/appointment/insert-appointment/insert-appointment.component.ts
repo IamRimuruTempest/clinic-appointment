@@ -22,6 +22,7 @@ import { formatISO } from 'date-fns';
 import { UserRole } from 'src/app/enums/user-role.enum';
 import { SelectOption } from 'src/app/interfaces/select-option.model';
 import { Service } from 'src/app/interfaces/service.model';
+import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-insert-appointment',
@@ -179,6 +180,7 @@ export class InsertAppointmentComponent implements OnInit, OnDestroy {
       gender: values.gender,
       time,
       schedule,
+      timestamp: Timestamp.fromDate(new Date(values.schedule)),
       condition: values.condition,
       uid: values.uid,
       service: this.serviceSelected!,

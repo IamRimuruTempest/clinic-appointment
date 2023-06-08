@@ -47,6 +47,11 @@ const routes: Routes = [
             (m) => m.ServicesPageModule
           ),
       },
+      {
+        path: 'home',
+        loadChildren: () =>
+          import('./tabs/home/home.module').then((m) => m.HomePageModule),
+      },
     ],
   },
 ];
