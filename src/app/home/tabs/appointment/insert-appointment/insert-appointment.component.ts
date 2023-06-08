@@ -47,7 +47,6 @@ export class InsertAppointmentComponent implements OnInit, OnDestroy {
   @Input() account: UserAccount = {
     fullname: '',
     age: '',
-    address: '',
     gender: '',
     schoolID: '',
     phoneNumber: '',

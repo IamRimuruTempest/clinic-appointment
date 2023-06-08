@@ -72,7 +72,7 @@ export class LoginPage {
             gender: 'Male',
             schoolID: '999999',
             phoneNumber: '09888876876',
-            address: 'Admin Address',
+            // address: 'Admin Address',
             course: 'BSCS',
             college: 'CICS',
             role: UserRole.ADMIN,

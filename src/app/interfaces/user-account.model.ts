@@ -1,4 +1,8 @@
 import { UserRole } from '../enums/user-role.enum';
+import { Barangay } from './barangay.model';
+import { CityMun } from './city-mun.model';
+import { Province } from './province.model';
+import { Region } from './region.model';
 
 export interface UserAccount {
   uid?: string;
@@ -9,7 +13,12 @@ export interface UserAccount {
   gender: string;
   schoolID: string;
   phoneNumber: string;
-  address: string;
+  address?: {
+    region: Region;
+    province: Province;
+    cityMun: CityMun;
+    barangay: Barangay;
+  };
   course?: string;
   college?: string;
   position?: string;

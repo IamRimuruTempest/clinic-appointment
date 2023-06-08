@@ -101,7 +101,6 @@ export class HomePage implements OnInit {
   account: UserAccount = {
     fullname: '',
     age: '',
-    address: '',
     gender: '',
     schoolID: '',
     phoneNumber: '',

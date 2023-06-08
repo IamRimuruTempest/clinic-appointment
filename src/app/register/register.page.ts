@@ -282,9 +282,6 @@ export class RegisterPage implements OnInit {
         } as SelectOption;
       });
     });
-
-    await cities('0128').then((city: any) => console.log(city));
-    await barangays('052011').then((barangays: any) => console.log(barangays));
   }
   async onSubmit(values: {
     fullname: string;
@@ -324,7 +321,12 @@ export class RegisterPage implements OnInit {
             gender: values.gender,
             schoolID: values.schoolID,
             phoneNumber: values.phoneNumber,
-            address: values.address,
+            address: {
+              region: this.regionSelected!,
+              province: this.provinceSelected!,
+              cityMun: this.cityMunSelected!,
+              barangay: this.barangaySelected!,
+            },
             course: values.course,
             college: values.college,
             role: UserRole.STUDENT,
@@ -338,7 +340,12 @@ export class RegisterPage implements OnInit {
             gender: values.gender,
             schoolID: values.schoolID,
             phoneNumber: values.phoneNumber,
-            address: values.address,
+            address: {
+              region: this.regionSelected!,
+              province: this.provinceSelected!,
+              cityMun: this.cityMunSelected!,
+              barangay: this.barangaySelected!,
+            },
             college: values.college,
             position: values.position,
             role: UserRole.FACULTY,
@@ -352,25 +359,16 @@ export class RegisterPage implements OnInit {
             gender: values.gender,
             schoolID: values.schoolID,
             phoneNumber: values.phoneNumber,
-            address: values.address,
+            address: {
+              region: this.regionSelected!,
+              province: this.provinceSelected!,
+              cityMun: this.cityMunSelected!,
+              barangay: this.barangaySelected!,
+            },
             position: values.position,
             role: UserRole.STAFF,
           };
         }
-        // const newUser: UserAccount = {
-        //   uid,
-        //   email: values.email,
-        //   fullname: values.fullname,
-        //   age: values.age,
-        //   gender: values.gender,
-        //   schoolID: values.schoolID,
-        //   phoneNumber: values.phoneNumber,
-        //   address: values.address,
-        //   course: values.course,
-        //   college: values.college,
-        //   role: UserRole.STUDENT,
-        // };
-
         console.log('Adding new user:', newUser);
         await this.dataService.addUser(newUser);
         loading.dismiss();
@@ -392,6 +390,7 @@ export class RegisterPage implements OnInit {
     this.courseOptions = this.courses[collegeCode];
     this.course.setValue('');
   }
+
   async selectedRegion(findId: any) {
     const found = this.regions.find((f) => f.id == findId);
     if (found) {
@@ -402,8 +401,8 @@ export class RegisterPage implements OnInit {
       this.province.setValue('');
       this.cityMunSelected = null;
       this.cityMun.setValue('');
-      // this.barangaySelected = null;
-      // this.barangay.setValue('');
+      this.barangaySelected = null;
+      this.barangay.setValue('');
 
       await provinces(found.region_code).then((provinces: Province[]) => {
         this.provinces = provinces;

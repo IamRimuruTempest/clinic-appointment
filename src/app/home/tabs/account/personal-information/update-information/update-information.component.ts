@@ -110,7 +110,6 @@ export class UpdateInformationComponent implements OnInit {
     gender: string;
     schoolID: string;
     phoneNumber: string;
-    address: string;
     course: string;
     college: string;
   }) {

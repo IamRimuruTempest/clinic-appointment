@@ -35,7 +35,6 @@ export class AccountPage implements OnInit {
   account: UserAccount = {
     fullname: '',
     age: '',
-    address: '',
     gender: '',
     schoolID: '',
     phoneNumber: '',
