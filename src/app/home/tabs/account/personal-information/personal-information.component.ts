@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { UpdateInformationComponent } from './update-information/update-information.component';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
 @Component({
   standalone: true,
   imports: [CommonModule, IonicModule],
@@ -33,5 +34,15 @@ export class PersonalInformationComponent implements OnInit {
 
   cancel() {
     return this.modalCtrl.dismiss(null, 'cancel');
+  }
+
+  printAddress(address: UserAccount['address']) {
+    return (
+      address?.barangay.brgy_name +
+      ', ' +
+      address?.cityMun.city_name +
+      ', ' +
+      address?.province.province_name
+    );
   }
 }

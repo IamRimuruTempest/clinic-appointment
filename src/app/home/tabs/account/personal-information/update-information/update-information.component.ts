@@ -13,6 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Auth } from '@angular/fire/auth';
+import { UserAccount } from 'src/app/interfaces/user-account.model';
 @Component({
   standalone: true,
   imports: [
@@ -97,13 +98,21 @@ export class UpdateInformationComponent implements OnInit {
     this.gender.setValue(this.account['gender']);
     this.schoolID.setValue(this.account['schoolID']);
     this.phoneNumber.setValue(this.account['phoneNumber']);
-    this.address.setValue(this.account['address']);
+    this.address.setValue(this.printAddress(this.account['address']));
     this.course.setValue(this.account['course']);
     this.college.setValue(this.account['college']);
 
     this.role = this.account['role'];
   }
-
+  printAddress(address: UserAccount['address']) {
+    return (
+      address?.barangay.brgy_name +
+      ', ' +
+      address?.cityMun.city_name +
+      ', ' +
+      address?.province.province_name
+    );
+  }
   async onSubmit(values: {
     fullname: string;
     age: string;
