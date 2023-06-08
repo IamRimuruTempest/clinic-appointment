@@ -7,14 +7,17 @@ import { IonicModule } from '@ionic/angular';
 import { AppointmentsPageRoutingModule } from './appointments-routing.module';
 
 import { AppointmentsPage } from './appointments.page';
+import { UpdateStatusComponent } from './update-status/update-status.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AppointmentsPageRoutingModule
+    AppointmentsPageRoutingModule,
+    UpdateStatusComponent,
   ],
-  declarations: [AppointmentsPage]
+  declarations: [AppointmentsPage],
+  exports: [UpdateStatusComponent],
 })
 export class AppointmentsPageModule {}

@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Requestor</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -54,7 +57,11 @@
   </ion-label>
 </ion-content>
 
-<ion-footer lines="none" class="ion-no-border">
+<ion-footer
+  lines="none"
+  class="ion-no-border"
+  *ngIf="orders.status === 'Pending'"
+>
   <ion-toolbar>
     <ion-grid>
       <ion-row>

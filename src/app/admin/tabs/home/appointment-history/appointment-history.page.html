@@ -1,0 +1,88 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Appointment History</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ng-container>
+    <ion-list>
+      <ion-item
+        *ngFor="let appointment of appointmentHistory"
+        button
+        (click)="openUpdateStatus(appointment)"
+        lines="none"
+      >
+        <ion-card
+          style="
+            margin: 0 0 16px 0 !important;
+            width: 100%;
+            border-radius: 10px !important;
+            background: rgb(2, 0, 36);
+            background: linear-gradient(
+              90deg,
+              rgba(2, 0, 36, 1) 0%,
+              rgba(46, 114, 243, 1) 0%,
+              rgba(11, 62, 174, 1) 100%
+            );
+          "
+        >
+          <ion-card-header style="color: #fff !important">
+            <ion-label>
+              <div style="display: flex; justify-content: space-between">
+                <p style="font-size: 0.8rem">
+                  Patient: {{appointment.fullName}}
+                </p>
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+              </div>
+              <h2><b> Tooth Extraction</b></h2>
+            </ion-label>
+          </ion-card-header>
+          <ion-card-content
+            style="
+              background-color: #fff !important;
+              padding: 8px 12px 8px 12px !important;
+              margin: 0 16px 16px 16px !important;
+              border-radius: 10px;
+              display: flex;
+              justify-content: space-between;
+            "
+          >
+            <div style="display: flex; align-items: center">
+              <ion-icon
+                style="font-size: 1.2rem"
+                name="calendar-clear-outline"
+              ></ion-icon>
+              <p
+                style="
+                  margin-left: 10px !important;
+                  margin-bottom: 0px !important;
+                "
+              >
+                {{appointment.schedule}}
+              </p>
+            </div>
+
+            <div style="display: flex; align-items: center">
+              <ion-icon
+                style="font-size: 1.3rem"
+                name="alarm-outline"
+              ></ion-icon>
+              <p
+                style="
+                  margin-left: 10px !important;
+                  margin-bottom: 0px !important;
+                "
+              >
+                {{appointment.time}}
+              </p>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </ion-item>
+    </ion-list>
+  </ng-container>
+</ion-content>
