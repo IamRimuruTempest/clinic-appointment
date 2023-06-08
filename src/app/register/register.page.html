@@ -32,13 +32,6 @@
         [errorMessages]="errorMessages.fullname"
       ></app-input>
       <app-input
-        type="text"
-        label="School ID"
-        labelPlacement="stacked"
-        [control]="schoolID"
-        [errorMessages]="errorMessages.schoolID"
-      ></app-input>
-      <app-input
         type="number"
         label="Age"
         labelPlacement="stacked"
@@ -64,13 +57,6 @@
         <ion-label><strong>Address</strong></ion-label>
       </ion-list-header>
 
-      <app-input
-        type="text"
-        label="Address"
-        labelPlacement="stacked"
-        [control]="address"
-        [errorMessages]="errorMessages.address"
-      ></app-input>
       <app-select
         placeholder="Select Region"
         label="Region"
@@ -110,6 +96,14 @@
       <ion-list-header>
         <ion-label><strong>University Information</strong></ion-label>
       </ion-list-header>
+
+      <app-input
+        type="text"
+        label="School ID"
+        labelPlacement="stacked"
+        [control]="schoolID"
+        [errorMessages]="errorMessages.schoolID"
+      ></app-input>
 
       <app-select
         placeholder="Select college"
@@ -166,6 +160,9 @@
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit(formGroup.value)"
     >
+      <ion-list-header>
+        <ion-label><strong>Basic Information</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="text"
         label="Full Name"
@@ -173,15 +170,9 @@
         [control]="fullname"
         [errorMessages]="errorMessages.fullname"
       ></app-input>
+
       <app-input
-        type="text"
-        label="Employee ID"
-        labelPlacement="stacked"
-        [control]="schoolID"
-        [errorMessages]="errorMessages.schoolID"
-      ></app-input>
-      <app-input
-        type="text"
+        type="number"
         label="Age"
         labelPlacement="stacked"
         [control]="age"
@@ -202,13 +193,57 @@
         [errorMessages]="errorMessages.phoneNumber"
       ></app-input>
 
+      <ion-list-header>
+        <ion-label><strong>Address</strong></ion-label>
+      </ion-list-header>
+
+      <app-select
+        placeholder="Select Region"
+        label="Region"
+        [options]="regionOptions"
+        [control]="region"
+        [errorMessages]="errorMessages.region"
+        (selected)="selectedRegion($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select Provice"
+        label="Province"
+        [options]="provinceOptions"
+        [control]="province"
+        [errorMessages]="errorMessages.province"
+        (selected)="selectedProvince($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select City/Municipality"
+        label="City/Municipality"
+        [options]="cityMunOptions"
+        [control]="cityMun"
+        [errorMessages]="errorMessages.cityMun"
+        (selected)="selectedCityMun($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select Barangay"
+        label="Barangay"
+        [options]="barangayOptions"
+        [control]="barangay"
+        [errorMessages]="errorMessages.barangay"
+        (selected)="selectedBarangay($event)"
+      ></app-select>
+
+      <ion-list-header>
+        <ion-label><strong>University Information</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="text"
-        label="Address"
+        label="Employee ID"
         labelPlacement="stacked"
-        [control]="address"
-        [errorMessages]="errorMessages.address"
+        [control]="schoolID"
+        [errorMessages]="errorMessages.schoolID"
       ></app-input>
+
       <app-select
         placeholder="Select college"
         label="College"
@@ -224,6 +259,11 @@
         [control]="position"
         [errorMessages]="errorMessages.course"
       ></app-select>
+
+      <ion-list-header>
+        <ion-label><strong>Credentials</strong></ion-label>
+      </ion-list-header>
+
       <app-input
         type="email"
         label="Email"
@@ -259,6 +299,9 @@
       [formGroup]="formGroup"
       (ngSubmit)="onSubmit(formGroup.value)"
     >
+      <ion-list-header>
+        <ion-label><strong>Basic Information</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="text"
         label="Full Name"
@@ -266,15 +309,9 @@
         [control]="fullname"
         [errorMessages]="errorMessages.fullname"
       ></app-input>
+
       <app-input
-        type="text"
-        label="Employee ID"
-        labelPlacement="stacked"
-        [control]="schoolID"
-        [errorMessages]="errorMessages.schoolID"
-      ></app-input>
-      <app-input
-        type="text"
+        type="number"
         label="Age"
         labelPlacement="stacked"
         [control]="age"
@@ -295,14 +332,59 @@
         [errorMessages]="errorMessages.phoneNumber"
       ></app-input>
 
+      <ion-list-header>
+        <ion-label><strong>Address</strong></ion-label>
+      </ion-list-header>
+
+      <app-select
+        placeholder="Select Region"
+        label="Region"
+        [options]="regionOptions"
+        [control]="region"
+        [errorMessages]="errorMessages.region"
+        (selected)="selectedRegion($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select Provice"
+        label="Province"
+        [options]="provinceOptions"
+        [control]="province"
+        [errorMessages]="errorMessages.province"
+        (selected)="selectedProvince($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select City/Municipality"
+        label="City/Municipality"
+        [options]="cityMunOptions"
+        [control]="cityMun"
+        [errorMessages]="errorMessages.cityMun"
+        (selected)="selectedCityMun($event)"
+      ></app-select>
+
+      <app-select
+        placeholder="Select Barangay"
+        label="Barangay"
+        [options]="barangayOptions"
+        [control]="barangay"
+        [errorMessages]="errorMessages.barangay"
+        (selected)="selectedBarangay($event)"
+      ></app-select>
+
+      <ion-list-header>
+        <ion-label><strong>Credentials</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="text"
-        label="Address"
+        label="Employee ID"
         labelPlacement="stacked"
-        [control]="address"
-        [errorMessages]="errorMessages.address"
+        [control]="schoolID"
+        [errorMessages]="errorMessages.schoolID"
       ></app-input>
-
+      <ion-list-header>
+        <ion-label><strong>Credentials</strong></ion-label>
+      </ion-list-header>
       <app-input
         type="email"
         label="Email"
