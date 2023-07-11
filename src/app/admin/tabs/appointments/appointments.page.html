@@ -3,7 +3,7 @@
     <ion-title>appointments</ion-title>
   </ion-toolbar>
 </ion-header>
- 
+
 <ion-content [fullscreen]="true">
   <ion-segment [(ngModel)]="status">
     <ion-segment-button value="ongoing">
@@ -47,7 +47,7 @@
                 </p>
                 <ion-icon name="arrow-forward-outline"></ion-icon>
               </div>
-              <h2><b> Tooth Extraction</b></h2>
+              <h2><b>{{appointment.service.name}}</b></h2>
             </ion-label>
           </ion-card-header>
           <ion-card-content
@@ -122,7 +122,7 @@
                 </p>
                 <ion-icon name="arrow-forward-outline"></ion-icon>
               </div>
-              <h2><b> Tooth Extraction</b></h2>
+              <h2><b>{{appointment.service.name}}</b></h2>
             </ion-label>
           </ion-card-header>
           <ion-card-content
@@ -197,7 +197,7 @@
                 </p>
                 <ion-icon name="arrow-forward-outline"></ion-icon>
               </div>
-              <h2><b> Tooth Extraction</b></h2>
+              <h2><b>{{appointment.service.name}}</b></h2>
             </ion-label>
           </ion-card-header>
           <ion-card-content
